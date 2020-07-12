@@ -1,0 +1,29 @@
+Aggregate files
+===============
+
+[[Parent]]: techniques.txt
+
+An _aggregate file_ is a header file which includes other header files hierarchically. Aggregate files gather together logical groups of functionality, such as _reporting_, or _testing_. Aggregate files reduce the complexity of using a library, since they relieve the user from being required to remember a large amount of file names.
+
+Aggregation hierarchy
+---------------------
+
+The aggregate files form a tree hierarchy. On the highest level, a whole sub-library, such as PastelSys, can be included by a single header file. On lower levels, one could include all stuff related to discrete random variables. The aggregate files mostly coincide with the documentation hierarchy, which is natural since both the documentation hierarchy and the aggregation hierarchy follow a logical grouping. The example below visualizes the hierarchy of a few selected aggregate files.
+
+	pastelsys.h
+		random.h
+			random_goodness.h
+			random_discrete.h
+			random_continuous.h
+			...
+		testing.h
+			...
+		reporting.h
+			...
+		...
+	...
+	
+Aggregation detail
+------------------
+	
+Aggregate files can bring unused header files into scope. When this becomes a problem, the user can adaptively decompose the inclusion into lower levels.

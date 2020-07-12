@@ -1,0 +1,36 @@
+Forward-declaration types
+=========================
+
+[[Parent]]: techniques.txt
+
+A _forward-declaration type_ of a class template A is a class template B which stores the type-definitions used by A. A _forward-declaration file_ is a file which contains a forward-declaration type. In the following we will assume the use of [settings types][Settings] and [customizations][Customization]. 
+
+The customization of a class A needs access to all the types in A, such as iterators and sets. Since A, as a class template, is dependent on the customization, the types can not be stored in A itself. Instead, the types are stored in a forward-declaration type, which is dependent on the settings, but not on the customization.
+
+A forward-declaration type (file) is written so that it only references other forward-declaration types (files). In addition to the forward-declaration type, a forward-declaration file also provides a forward-declaration of the actual class template, which can be referred to, but can not be used to recover its internal types. The forward-declaration types and files cover all the type information needed to use a type.
+
+[Settings]: [[Ref]]: settings_types.txt
+[Customization]: [[Ref]]: customization.txt
+
+Example
+-------
+
+[[CppCode]]:
+	#include "pastel/sys/list/list_fwd.h"	
+
+	template <typename Settings>
+	class Example_Fwd
+	{
+	public:
+		using List_Fwd = List_Fwd<List_Set_Settings<integer>>;
+
+		using ElementSet = List_Set<integer>;
+		using Element_Iterator = typename List_Fwd::Iterator;
+		using Element_ConstIterator = typename List_Fwd::ConstIterator;
+	};
+
+[[Comment]]:
+	We wish to build a data-structure which consists of a [doubly-linked list][List], and a [red-black tree][RedBlack], such that the elements of the list and the tree are in one-to-one correspondence by iterators. That is, an element of the list contains an iterator to an element of the tree, and an element of the tree contains an iterators to an element of the list.
+
+	[List]: [[Ref]]: list.txt
+	[RedBlack]: [[Ref]]: redblacktree.txt

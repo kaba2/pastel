@@ -1,0 +1,263 @@
+Release history
+===============
+
+[[Parent]]: pastel.txt
+
+This section summarizes the release history of Pastel.
+
+Conventions
+-----------
+
+### Versioning
+
+The versioning of Pastel is given in the form x.y.z, where x, y, and z are integers. The x increments only for major changes, the y increments for feature changes, and the z increments for bug fixes or documentation updates. Whenever y is incremented, z is zeroed, and whenever x is incremented, both y and z are zeroed. The x, y, and z need not consist of a single digit, and, for example, 1.12.0 is a much later version than 1.1.3.
+
+Pastel 1.5.0
+------------
+
+Release date 14.06.2017
+
+[Original webpage][Pastel-1.5.0]
+
+[Pastel-1.5.0]: http://kaba.hilvi.org/pastel-1.5.0
+
+### General
+
+* Refactored the build-system to reusable parts.
+* Started using ranges-v3 library.
+* Made range-algorithms use ranges from ranges-v3.
+
+### PastelSys
+
+* Refactored point and point-set abstractions.
+
+### PastelGeometry
+
+* Refactored nearest-neighbor searching algorithms.
+
+Pastel 1.4.0
+------------
+
+Release date 05.09.2015
+
+[Original webpage][Pastel-1.4.0]
+
+[Pastel-1.4.0]: http://kaba.hilvi.org/pastel-1.4.0
+
+### General
+
+* Started using more features of C++14.
+* Changed to use the CMake build system (over Premake).
+* Changed to use Threading Building Blocks (over OpenMP).
+* Specified settings types.
+* Specified adaptable iterators.
+* Specified enhanced iterators.
+* Specified algorithmic continuity.
+* Specified class wrapping.
+* Specified general principles.
+* Specified the iterator debugging problem.
+
+### PastelSys
+
+#### Data structures 
+
+* Added the deterministic skip list.
+* Added the red-black forest.
+* Added the bounded array.
+* Added the skip-fast trie.
+* Modernized the doubly-linked list.
+* Refactored and fixed bugs in the red-black tree.
+* Added logarithmic splitting and merging into the red-black tree.
+* Added logarithmic quantile searching for the red-black tree.
+
+#### Numbers
+
+* Added fixed-size integers.
+* Added finite field arithmetic.
+
+#### Random numbers
+
+* Added geometrically-distributed random numbers.
+* Made integer random-number generation truly uniform.
+
+#### Concepts
+
+* Added algebraic concepts.
+* Renamed the Reporter concept to the Output concept.
+* Added the Input concept.
+* Added the DownFilter concept.
+* Added the Locator concept.
+* Removed the PointPolicy concept (replaced with Locator).
+
+#### Algorithms
+
+* Added algorithms for interval sequences.
+* Added grid traversal.
+
+#### Refactoring
+
+* Removed the use of CRTP from all classes.
+* Replaced uses of the CommaFiller with initializer lists.
+* Converted typedefs to using-aliases for better readability.
+* Removed CommaFiller.
+* Removed KeyValue.
+* Removed Guid.
+* Removed PrototypeFactory.
+
+### PastelGeometry
+
+#### Data structures
+
+* Added the range tree.
+* Added the temporal kd-tree.
+* Modernized the half-edge structure.
+* Modernized the point kd-tree structure.
+
+#### Algorithms
+
+* Added range searching / counting in a range tree.
+
+#### Refactoring
+
+* Removed BihTree.
+* Removed all-nearest neighbors searching / counting.
+
+### PastelGeometryMatlab
+
+* Encapsulated the Matlab PointKdTree interface into a class.
+* Added range counting in a point kd-tree.
+
+Pastel 1.3.0
+------------
+
+Release date 17.9.2012
+
+[Original webpage][Pastel-1.3.0]
+
+[Pastel-1.3.0]: http://kaba.hilvi.org/pastel-1.3.0
+
+### General
+
+ * Changed to use C++11.
+ * Changed to use the MIT license.
+ * Removed PastelDevice, PastelRay, PastelGl, and PastelGfxUi as
+ an attempt to focus the purpose of the library, and to reduce
+ dependencies.
+ * Merged PastelDsp into PastelGfx.
+
+### PastelSys
+
+ * Added maximum bipartite matching algorithm.
+ * Added incidence graph data-structure.
+ * Added generic tree data-structure.
+ * Added refinable partition data-structure.
+ * Added automaton data-structure.
+ * Added automaton minimization algorithm.
+ * Added automaton determinization algorithm.
+ * Added generic depth-first and breadth-first traversal algorithms.
+ * Added named tuple data-structure.
+ * Added hashed tree data-structure.
+ * Added cloning pointer.
+ * Removed small containers.
+ * Removed ranges, and replaced with iterator ranges.
+ * Changed hashing to use hash-combination.
+
+Pastel 1.2.0
+------------
+
+Release date 17.3.2011
+
+[Original webpage][Pastel-1.2.0]
+
+[Pastel-1.2.0]: http://kaba.hilvi.org/pastel-1.2.0
+
+### PastelMatlab
+
+ * A new library to aid in interfacing Pastel with Matlab.
+ 
+### PastelGeometryMatlab
+
+ * A new library to offer a Matlab interface to a subset
+ of PastelGeometry.
+ 
+### PastelGeometry
+
+ * Added an ''O(n log(n))'' box maximum clique algorithm.
+ * Added a set-difference algorithm for boxes.
+ * Added a way to define the openness of shapes.
+ * Turned nearest neighbor searching on kd-trees into a generic 
+ implementation on which variants can be implemented as customizations.
+ * Removed the support for bucket nodes from PointKdTree because of no gain.
+ * Nearest neighbor searching on PointKdTree: removed hint-distances and
+ bottom-up searching because of negligible gain.
+ * Implemented range searching and range counting algorithms on PointKdTree.
+ * Improved the brute-force nearest neighbors searching implementation.
+ * Changed to use open search regions in nearest-neighbors and range
+ searching.
+ * Lifted PointPolicy_PointKdTree concept to a global PointPolicy concept.
+
+### PastelDsp
+
+ * Added the computation of the discrete cosine transform, the discrete 
+ fourier transform, the discrete Haar transform, and the discrete Hadamard 
+ transform.
+ * Added the algorithm object concept.
+
+### PastelSys
+
+ * Added an augmented red-black tree.
+ * Generalized vector expressions to mix between dynamic and compile-time
+ dimensions.
+ * Added a way to specify different actions on invariant failures. 
+ * Added finalization for loggers, to give them an opportunity to flush
+ buffered output before aborting a program.
+ * Added a progress reporter class.
+ * Added goodness-of-fit tests for random variables.
+ * Added a way to specify storage ordering in Array. 
+
+### Build system
+
+ * Changed to use the Premake build system, which generates
+ the environment-specific build files.
+ * The code now compiles on Windows, Linux, and Mac, on
+ both Visual Studio and gcc, and in 32-bit and 64-bit modes.
+ 
+### Others
+
+ * A lot of refactoring, bug fixes, and updates to documentation.
+ * Documentation built on Remark 1.3.
+
+Pastel 1.1.0
+------------
+
+Release date 13.3.2010.
+
+[Original webpage][Pastel-1.1.0]
+
+[Pastel-1.1.0]: http://kaba.hilvi.org/pastel-1.1.0
+
+### PastelGeometry
+
+ * Added best-first algorithm to nearest neighbors searching
+ and made it the default.
+ * Added hint-distances to nearest neighbors searching to
+ make it possible to make use of temporal coherence.
+ * Added median-of-longest-side splitting rule for PointKdTree.
+
+### PastelSys
+
+ * Fixed a bug with nextSmaller and nextGreater function.
+ * Added isNan.
+
+### PastelGfxUi
+
+ * A new library to offer a simple graphical gui.
+
+Pastel 1.0.1
+------------
+
+Release date 13.1.2010.
+
+[Original webpage][Pastel-1.0.1]
+
+[Pastel-1.0.1]: http://kaba.hilvi.org/pastel-1.0.1

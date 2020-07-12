@@ -1,0 +1,40 @@
+General principles
+==================
+
+[[Parent]]: techniques.txt
+
+This section contains some general principles which Pastel follows.
+
+Algorithms
+----------
+
+Every algorithm in Pastel
+
+* is [const-correct][Layered],
+* is [exception-safe][Layered],
+* follows the [principle of minimal requirements and maximal information][Layered],
+* is documented for exception-safety,
+* is documented for time-complexity, 
+* is documented for space-complexity, and
+* is [almost continuous][Continuity].
+
+[Layered]: [[Ref]]: layered_structures.txt
+[Continuity]: [[Ref]]: algorithmic_continuity.txt
+
+Data structures
+---------------
+
+Every data structure in Pastel
+
+* follows the [open-closed principle][Layered],
+* follows the [zero overhead principle][ClassWrapping],
+* uses [settings types][Settings],
+* uses [enhanced iterators][Enhanced],
+* uses [adaptable iterators][Adaptable], and
+* is [customizable][Customization],
+
+[Enhanced]: [[Ref]]: enhanced_iterator.txt
+[Adaptable]: [[Ref]]: adaptable_iterator.txt
+[Customization]: [[Ref]]: customization.txt
+[ClassWrapping]: [[Ref]]: class.txt
+[Settings]: [[Ref]]: settings_types.txt

@@ -1,0 +1,57 @@
+SFINAE friendliness
+===================
+
+[[Parent]]: techniques.txt
+
+A type-function is _SFINAE-friendly_, if an error in its instantiation can only happen in a declaration of that type-function, and all the types it references in the declaration are SFINAE-friendly. An SFINAE-friendly type-function can be used safely in a declaration of a template function.
+
+Consider the following:
+
+[[CppCode]]:
+	template <
+		typename Type,
+		typename Member = typename RetrieveMember<Type>::type
+	>
+	void f()
+	{
+	}
+
+Here we define the default for the `Member` template-parameter by mapping `Type` through the `RetrieveMember` type-function. This type-function is supposed to retrieve the member-type `Type::Member` from `Type`. If `Type` indeed has such a member, then calling `f` will work correctly. However, if not, then ideally we would like the `f` to disappear from the overload-set, rather than to 
+
+### Computation in definition
+
+A first attempt could be:
+
+[[CppCode]]:
+	template <typename Type>
+	struct RetrieveMember_NotFriendly
+	{
+		using type = typename Type::type;
+	};
+
+Unfortunately, this is not SFINAE-friendly; if `Type` does not contain a member-type `type`, then this triggers a non-SFINAE error. 
+
+### Computation in a default template-parameter
+
+A second attempt could be:
+
+[[CppCode]]:
+	template <
+		typename Type,
+		typename Member = typename Type::type>
+	struct RetrieveMember_Friendly_But_Extraneous
+	{
+		using type = Member;
+	};
+
+This is SFINAE-friendly. However, this adds a template-parameter which is not meaningful to the user. 
+
+### Computation in an alias template
+
+The ultimate solution is to use an alias template:
+
+[[CppCode]]:
+	template <typename Type>
+	using RetrieveMember = typename Type::type;
+
+This is SFINAE-friendly, because an alias-definition declares a type.

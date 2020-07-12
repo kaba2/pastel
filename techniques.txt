@@ -1,6 +1,0 @@
-Programming techniques
-======================
-
-[[Parent]]: pastel.txt
-
-Certain programming techniques are recurringly used in the implementation of Pastel. Those techniques are introduced here with the aim of being able to make more sense of the source code. 

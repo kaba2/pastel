@@ -1,0 +1,202 @@
+Named parameters
+================
+
+[[Parent]]: techniques.txt
+
+A _named parameter_ specifies a way to assign a function argument to a function parameter by its name. Since C++14 does not support named parameters, we provide a way to simulate them.
+
+Ideal solution
+--------------
+
+Ideally, named parameters would have language support, and look something like this:
+
+[[CppCode]]:
+	template <typename Point>
+	float distance(
+		const Point& a, 
+		const Point& b,
+		float "scaling" = 1.0,
+		implicit auto&& "metric" = 
+			Euclidean_Metric() : 
+			models<Metric_Concept>(metric)
+		)
+	{
+		return scaling * metric(a, b);
+	}
+
+### Usage
+
+The example function would be called as follows:
+
+[[CppCode]]:
+	distance(1, 4, scaling : 2, Euclidean_Metric());
+
+### Parameter names
+
+The quotation marks in the variable name are used to denote a named parameter. The name of the variable name is also the name of the parameter. 
+
+### Default arguments
+
+A named parameter can optionally be given a default-argument by appending an equal sign `=`, followed by an expression which constructs an object convertible to the parameter type. 
+
+The default-argument expression will be used only if no argument is passed for the parameter. If a default-argument is not given, then the (default) default-argument expression default-constructs an object of the parameter's type. 
+
+The type of a named parameter can refer `auto`, in which case the type is deduced from the passed argument --- when given --- or from the default-argument otherwise. 
+
+### Constraints
+
+A named parameter can optionally be given a constraint by appending a colon `:`, followed by an expression which evaluates to a boolean in compile-time --- perhaps by calling a `constexpr` function. 
+
+The constraint-expression may refer to an object of the same name as the named parameter, which then refers to the passed-in argument --- or to the default-argument, if none is given. The default-argument is required to satisfy the constraint.
+
+### Implicit association
+
+A named parameter can be made implicitly associated by prefixing its type with the keyword `implicit`. 
+
+The name of an implicit parameter need not be specified, provided the argument unambiguously matches it. In the case of an ambiguity, an argument can be disambiguated by specifying the name of the parameter. 
+
+Implicit association should only be used with objects of complex type, which are improbable to be incorrectly associated. For example, if a function has both `float` and `int` as implicit parameters --- and these are constrained to accept only their exact types --- then an argument meant as `1.0f` can be accidently written as `1`, causing the incorrect parameter to be assigned. 
+
+It is up to the designer of the function to make robust use of implicit association. By default, implicit association is disabled.
+
+Enumerations are good candidates for implicit association, because the same enumeration type is rarely used twice in a function declaration.
+
+### Checks
+
+When calling a function with a named parameter, the compiler checks that each argument matches exactly one parameter, and that the argument satisfies the constraints of the parameter. Violations of these checks are reported as errors.
+
+Practical solution
+------------------
+
+Since C++14 does not support named parameters, we simulate them. The named parameter simulation in Pastel looks like this:
+
+[[CppCode]]:
+	template <
+		typename Point,
+		typename... ArgumentSet
+	>
+	float distance(
+		const Point& a, 
+		const Point& b, 
+		ArgumentSet&&... argumentSet)
+	{
+		float scaling = 
+			PASTEL_ARG_S(scaling, 1.0f);
+		
+		auto&& metric = 
+			PASTEL_ARG(
+				metric, 
+				[](){return Euclidean_Metric();}, 
+				[](auto metric) 
+				{
+					return implicitArgument(
+						Models<decltype(metric), Metric_Concept>()
+					);
+				}
+			);
+
+		return scaling * metric(a, b);
+	}
+
+The `PASTEL_ARG*` macros encapsulate the conversion of the name to a compile-time tag, and the perfect-forwarding of the `argumentSet`. The `PASTEL_ARG_S` is a simplified specification, useful for simple types. The `PASTEL_ARG*` macro forwards the matching argument perfectly, where the matching is resolved at compile-time.
+
+### Usage
+
+The example function is called like this:
+
+	distance(1, 4, PASTEL_TAG(scaling), 2, Euclidean_Metric());
+
+After the required parameters, the named parameters are provided in name-value pairs, where the name is a compile-time tag. If a name is not followed by a value (a non-tag), then it is assumed to be `true`. If a value is not preceded by a name, then it is interpreted as an implicit argument.
+
+### Parameter names
+
+In C++14, it is not possible to associate --- with certainty --- a type to a string at compile-time. With some uncertainty this can be worked around.
+
+#### Hashing
+
+We use a `constexpr` function to compute an integer hash of a given string at compile-time, using the Fowler-Noll-Vo 1a hash-function (FNV-1a) for 32-bit integers:
+
+[[CppCode]]:
+	using tag_integer = uint32;
+
+	//! Returns the hash for a tag-name.
+	inline constexpr tag_integer operator "" _tag(const char* tagName, std::size_t n)
+	{
+		// This is the Fowler-Noll-Vo 1a hash-function (FNV-1a) for 32-bit integers.
+		return n > 0
+			? (operator""_tag(tagName, n - 1) ^ (tag_integer)tagName[n - 1]) * 16777619UL
+			: 2166136261UL;
+	}
+
+For convenience, we provide the hash function as a user-defined literal. Then `"translation"_tag` equals `3419592236UL`.
+
+#### Collisions
+
+Among the 58110 english words given in the [corncob list of words][CornCob], and among the 109582 words given in the [english wordlist][EnglishWordList], there is exactly one hash-collision: `liquid` collides with `costarring`. Incidentally, I also found that in the corncob list `chaplain` is listed twice (other words are unique). So hashing seems to be a working workaround here.
+
+[CornCob]: http://www.mieliestronk.com/wordlist.html
+[EnglishWordList]: http://www-01.sil.org/linguistics/wordlists/english/
+
+#### Tags
+
+The string-hash is used as a template-argument of a tag-type:
+
+	template <tag_integer Hash>
+	struct Tag {};
+
+The `PASTEL_ARG*` macros encapsulate the conversion of an identifier `name` to `Tag<"name"_tag>()`.
+
+### Default arguments
+
+The default argument is given as a nullary function, which returns the default argument. This way we can evaluate the default-argument expression only when the parameter is not provided. This is important for achieving zero overhead, and for avoiding placing accidental constraints for the underlying type.
+
+A lambda-function is ideal for providing the default argument, because it can refer to its surroundings by a capture, and it provides automatic return-type deduction. 
+
+### Constraints
+
+The constraint is given as a one-parameter function, which returns whether the constraint is satisfied. The answer is bound to the _return-type_ of the constraint, so that it can be inspected at compile-time. 
+
+### Implicit association
+
+The `implicitArgument` function takes in a compile-time boolean constant, and outputs another compile-time boolean constant with the same value. When used in the constraint, the return-type is treated specially by the simulation system, to mark an implicit argument.
+
+### Checks
+
+#### Multiple matches
+
+When an argument matches multiple parameters --- by implicit associations, or because the same parameter has been defined more than once --- we raise, using `static_assert`, the compilation error
+
+	Multiple optional arguments match the parameter.
+
+The compiler's error trace then leads in few steps to the corresponding `PASTEL_ARG` macro in the function definition, which reveals the problematic parameter.
+
+#### Unsatisfied constraint
+
+When an argument does not satisfy the constraint of a parameter, we raise the compilation error
+
+	Optional argument is not valid for the given parameter.
+
+When a default-argument does not satisfy the constraint, we raise the compilation error
+
+	Default optional argument is not valid for the given parameter.
+
+#### Unused arguments
+
+When an argument does not match any parameter, we _silently ignore it_. 
+
+This is a current weakness of the simulation system. It sometimes leads to bugs, since a typo in a name of a parameter will not be catched.
+
+Shortcomings
+------------
+
+The shortcomings of the the current simulation system for named parameters are that
+
+* it does not check for unused arguments, and
+* it is harder to debug, because for the debugger the parameter names are integer-hashes, rather than strings.
+
+The former can probably be fixed, but I haven't yet been able to come up with something neat which would also work with Visual Studio 2015 RC.
+
+The latter could be somewhat mitigated, if C++ --- in some restricted form --- was extended to accept strings as template-arguments.
+
+Despite these shortcomings, I find the simulation system really nice to use both as a library writer and a library user.
+

@@ -1,6 +1,0 @@
-Deprecated techniques
-=====================
-
-[[Parent]]: techniques.txt
-
-This section contains deprecated programming techniques.
