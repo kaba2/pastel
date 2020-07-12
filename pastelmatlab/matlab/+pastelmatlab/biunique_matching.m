@@ -10,7 +10,7 @@
 % be paired with the element j in [1, n]. Missing candidates are denoted
 % by 0 or negative values; these will not be paired to.
 %
-% MATCHSET is a (2 x m) positive integer matrix such that each column 
+% PAIRSET is a (2 x m) positive integer matrix such that each column 
 % is of the form [f(j); g(j)], where f : [1, m] --> [1, n] is increasing,
 % g : [1, m] --> B is injective, and g(j) is one of the candidates in the
 % f(j):th column of COLUMNSET.
@@ -18,16 +18,41 @@
 % Description: Approximate weighted maximum bipartite matching
 % DocumentationOf: icp.m
 
-function matchSet = biunique_matching(candidateSet)
+function pairSet = biunique_matching(candidateSet)
 
 % This is a greedy algorithm to approximate minimum weight
 % maximum bipartite matching. It is the one given in the
 % Biunique ICP paper.
 
-eval(import_pastel);
+k = size(candidateSet, 1);
+n = size(candidateSet, 2);
 
-if size(edgeSet, 1) ~= 2
-    error('The height of EDGESET must be 2.');
+m = 0;
+reservedSet = containers.Map('KeyType', 'double', 'ValueType', 'logical');
+pairSet = zeros(2, n);
+for j = 1 : n
+    % Pick the first unreserved candidate if 
+    % such exists.
+    for i = 1 : k
+        candidate = candidateSet(i, j);
+        if candidate <= 0
+            % The candidate is missing.
+            continue;
+        end
+        
+        if ~isKey(reservedSet, candidate)
+            % Found a free candidate.
+            
+            % Add the pair into the pair-set.
+            m = m + 1;
+            pairSet(1, m) = j;
+            pairSet(2, m) = candidate;
+            
+            % Mark the candidate as reserved.
+            reservedSet(candidate) = true;
+            break;
+        end
+    end
 end
 
-matchSet = pastelmatlab('maximum_bipartite_matching', edgeSet, 'maximal');
+pairSet = pairSet(:, 1 : m);
