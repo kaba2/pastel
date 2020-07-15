@@ -97,8 +97,8 @@ namespace Pastel
 
 			SceneTree sceneTree(locator);
 			sceneTree.insertSet(
-				sparseSet(
-					intervalSet(
+				sparseRange(
+					intervalRange(
 						sceneData, 
 						sceneData + scenePoints * n
 					),
@@ -107,8 +107,8 @@ namespace Pastel
 
 			ModelTree modelTree(locator);
 			modelTree.insertSet(
-				sparseSet(
-					intervalSet(
+				sparseRange(
+					intervalRange(
 						modelData,
 						modelData + modelPoints * n
 					),

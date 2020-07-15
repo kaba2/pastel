@@ -283,7 +283,7 @@ namespace Pastel
             {
                 for (integer i = 0;i < d;++i)
                 {
-                    transformedPoint(i) = transformedSet(i, j);
+                    transformedPoint(i) = transformRange(i, j);
                 }
 
                 // TODO!
@@ -326,7 +326,7 @@ namespace Pastel
             matchSet = neighborGraph(:, 1 : neighbors);
  
             // Compute the positions of the corresponding points.
-            aSet = transformedSet(:, matchSet(1, :));
+            aSet = transformRange(:, matchSet(1, :));
             bSet = sceneSet(:, matchSet(2, :));
             distanceSet = sum((aSet - bSet).^2);
  

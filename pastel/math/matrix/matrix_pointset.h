@@ -41,8 +41,8 @@ namespace Pastel
 		ENSURE_OP(dEnd, <=, set.rows());
 
 		return locationSet(
-			sparseSet(
-				intervalSet(set.data(), set.data() + set.size()), 
+			sparseRange(
+				intervalRange(set.data(), set.data() + set.size()), 
 				set.rows()), 
 			PointerRange_Locator<dreal>(dBegin, dEnd));
 	}

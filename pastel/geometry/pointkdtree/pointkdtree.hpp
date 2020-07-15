@@ -292,7 +292,7 @@ namespace Pastel
 		};
 		
 		insertSet(
-			constantSet(1, point), 
+			constantRange(1, point), 
 			PASTEL_TAG(report), report, 
 			PASTEL_TAG(hidden), hidden);
 

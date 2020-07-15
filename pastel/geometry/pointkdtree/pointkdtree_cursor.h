@@ -76,7 +76,7 @@ namespace Pastel
 			// TdTree and PointKdTree to have similar interfaces.
 			// The PointKdTree does not support temporal queries.
 
-			return intervalSet(begin(), end());
+			return intervalRange(begin(), end());
 		}
 
 		Point_ConstIterator begin() const

@@ -37,33 +37,6 @@ namespace Pastel
 		return ranges::empty(set);
 	}
 
-	//! Calls the given function for each element in the set.
-	/*!
-	The visitor function returns whether to continue iterating
-	over elements. 
-
-	returns:
-	Whether the for-each was uninterrupted by the user.
-	*/
-	template <
-		Range_Concept Range,
-		typename Visit
-	>
-	bool forEach(
-		Range&& range,
-		const Visit& visit)
-	{
-		for (auto&& element : range)
-		{
-			if (!visit(element))
-			{
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	template <Range_Concept Range>
 	integer setSize(Range&& set)
 	{

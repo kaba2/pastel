@@ -6,7 +6,6 @@
 #include "pastel/geometry/tdtree/tdtree.h"
 #include "pastel/geometry/tdtree/tdtree_fwd.h"
 
-#include "pastel/sys/set/range_set.h"
 #include "pastel/sys/set/transformed_set.h"
 
 #include <boost/operators.hpp>
@@ -82,8 +81,8 @@ namespace Pastel
 			Entry_ConstRange fullRange = 
 				node_->entryRange();
 
-			return transformedSet(
-				rangeSet(
+			return transformRange(
+				range(
 					std::begin(fullRange) + min,
 					std::begin(fullRange) + max
 				),

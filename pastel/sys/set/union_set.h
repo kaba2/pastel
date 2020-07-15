@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <Range_Concept... Set>
-	decltype(auto) unionSet(
+	decltype(auto) concatRange(
 		Set&&... setSet)
 	{
 		return ranges::views::concat(std::forward<Set>(setSet)...);

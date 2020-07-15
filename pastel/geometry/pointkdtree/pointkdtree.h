@@ -204,7 +204,7 @@ namespace Pastel
 		*/
 		decltype(auto) pointSetRange() const
 		{
-			return intervalSet(begin(), end());
+			return intervalRange(begin(), end());
 		}
 
 		decltype(auto) pointSetLocator() const

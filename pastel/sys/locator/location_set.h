@@ -73,7 +73,7 @@ namespace Pastel
 		const Set& set,
 		const Locator& locator)
 	{
-		auto transformedSet_ = transformedSet(
+		auto transformedSet_ = transformRange(
 			set,
 			[=](auto&& element){return location(element, locator);});
 

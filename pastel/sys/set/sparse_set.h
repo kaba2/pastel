@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <Range_Concept Set>
-	decltype(auto) sparseSet(
+	decltype(auto) sparseRange(
 		Set&& set,
 		integer factor)
 	{

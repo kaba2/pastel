@@ -181,7 +181,7 @@ public:
 		//printTree(copyTree.root());
 
 		std::vector<integer> permutationSet;
-		for (auto&& point : intervalSet(tree))
+		for (auto&& point : intervalRange(tree))
 		{
 			permutationSet.push_back(iteratorSet[point]);
 		}

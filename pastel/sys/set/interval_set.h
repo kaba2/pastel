@@ -21,7 +21,7 @@ namespace Pastel
 	template <
 		typename Begin,
 		typename End>
-	decltype(auto) intervalSet(
+	decltype(auto) intervalRange(
 		Begin&& begin, 
 		End&& end)
 	{
@@ -31,9 +31,9 @@ namespace Pastel
 	}
 
 	template <Range_Concept Set>
-	decltype(auto) intervalSet(Set&& set)
+	decltype(auto) intervalRange(Set&& set)
 	{
-		return Pastel::intervalSet(
+		return Pastel::intervalRange(
 			ranges::begin(set), ranges::end(set));
 	}
 

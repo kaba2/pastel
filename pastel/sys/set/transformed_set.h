@@ -11,17 +11,16 @@ namespace Pastel
 {
 
 	template <
-		typename Set,
+		Range_Concept Range,
 		typename Transform>
-	decltype(auto) transformedSet(
-		Set&& set,
+	decltype(auto) transformRange(
+		Range&& set,
 		Transform&& transform)
 	{
-		auto result = ranges::views::transform(
-				std::forward<Set>(set),
-				std::forward<Transform>(transform)
-			);
-		return result;
+		return ranges::views::transform(
+			std::forward<Range>(set),
+			std::forward<Transform>(transform)
+		);
 	}
 
 }

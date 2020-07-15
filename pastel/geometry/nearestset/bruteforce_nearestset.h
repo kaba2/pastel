@@ -21,7 +21,7 @@ namespace Pastel
 
 		auto pointSet() const
 		{
-			return intervalSet(pointSet_);
+			return intervalRange(pointSet_);
 		}
 
 		auto begin() const

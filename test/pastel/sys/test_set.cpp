@@ -33,7 +33,7 @@ TEST_CASE("Interval (Set)")
 		CorrectElement<Interval_Range<integer>, integer>::value);
 	{
 		integer n = 8;
-		auto set = intervalSet((integer)3, (integer)3 + n);
+		auto set = intervalRange((integer)3, (integer)3 + n);
 		auto index = set.begin();
 		++index;
 		REQUIRE(ranges::distance(set) == n);
@@ -59,7 +59,7 @@ TEST_CASE("Interval (Set)")
 TEST_CASE("Basic interval (Set)")
 {
 	integer n = 8;
-	auto set = intervalSet((integer)3, (integer)3 + n);
+	auto set = intervalRange((integer)3, (integer)3 + n);
 	integer i = 3;
 	for (auto&& element : set)
 	{
@@ -98,7 +98,7 @@ TEST_CASE("Constant (Set)")
 	{
 		integer n = 4;
 		integer element = 7;
-		auto set = constantSet(n, element);
+		auto set = constantRange(n, element);
 
 		PASTEL_STATIC_ASSERT(
 			CorrectElement<decltype(set), integer>::value);
@@ -121,7 +121,7 @@ TEST_CASE("Constant (Set)")
 	{
 		integer n = 0;
 		integer element = 7;
-		auto set = constantSet(n, element);
+		auto set = constantRange(n, element);
 	}
 }
 
@@ -130,17 +130,17 @@ TEST_CASE("Union (Set)")
 	{
 		integer nA = 5;
 		integer aElement = 7;
-		auto aSet = constantSet(nA, aElement);
+		auto aSet = constantRange(nA, aElement);
 		PASTEL_CONCEPT_CHECK(decltype(aSet), Range_Concept);
 		REQUIRE(ranges::size(aSet) == 5);
 
 		integer nB = 3;
 		integer bElement = 3;
-		auto bSet = constantSet(nB, bElement);
+		auto bSet = constantRange(nB, bElement);
 		PASTEL_CONCEPT_CHECK(decltype(bSet), Range_Concept);
 		REQUIRE(ranges::size(bSet) == 3);
 
-		auto abSet = unionSet(aSet, bSet);
+		auto abSet = concatRange(aSet, bSet);
 		PASTEL_CONCEPT_CHECK(decltype(abSet), Range_Concept);
 
 		REQUIRE(ranges::size(abSet) == 5 + 3);
@@ -165,9 +165,9 @@ TEST_CASE("Sparse (Set)")
 {
 	integer n = 10;
 
- 	auto inputSet = intervalSet((integer)0, n);
+ 	auto inputSet = intervalRange((integer)0, n);
 
-	auto subSet = sparseSet(
+	auto subSet = sparseRange(
 		inputSet, 2);
 
 	std::unordered_set<integer> actualSet;
@@ -188,10 +188,10 @@ TEST_CASE("Transformed (Set)")
 	std::vector<integer> dataSet = {0, 1, 2, 3, 4};
 	integer n = dataSet.size();
 
-	auto inputSet = intervalSet(
+	auto inputSet = intervalRange(
 		dataSet.begin(), dataSet.end());
 
-	auto dereferencedSet = transformedSet(
+	auto dereferencedSet = transformRange(
 		inputSet, Dereference_Function());
 
 	std::unordered_set<integer> actualSet;

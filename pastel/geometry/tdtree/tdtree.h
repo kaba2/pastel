@@ -13,7 +13,6 @@
 #include "pastel/geometry/splitrule/longestmedian_splitrule.h"
 
 #include "pastel/sys/sequence/fair_stable_partition.h"
-#include "pastel/sys/set/range_set.h"
 #include "pastel/sys/set/interval_set.h"
 #include "pastel/sys/set/transformed_set.h"
 #include "pastel/sys/set/zip_set.h"
@@ -140,7 +139,7 @@ namespace Pastel
 		, simple_(true)
 		, bound_(Pastel::pointSetDimension(pointSet))
 		{
-			auto&& timeSet = PASTEL_ARG_S(timeSet, intervalSet((integer)0, (integer)Infinity()));
+			auto&& timeSet = PASTEL_ARG_S(timeSet, intervalRange((integer)0, (integer)Infinity()));
 			auto&& splitRule = PASTEL_ARG_S(splitRule, LongestMedian_SplitRule());
 				
 			enum : bool
@@ -340,7 +339,7 @@ namespace Pastel
 		{
 			PENSURE(tMin <= tMax);
 
-			return intervalSet(
+			return intervalRange(
 				begin() + timeToIndex(tMin), 
 				begin() + timeToIndex(tMax));
 		}
@@ -594,7 +593,7 @@ namespace Pastel
 			std::tie(splitPosition, splitAxis) = 
 				splitRule(
 					locationSet(
-						transformedSet(pointSet, pointFromIterator),
+						transformRange(pointSet, pointFromIterator),
 						locator()
 					), 
 					bound

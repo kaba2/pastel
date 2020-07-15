@@ -31,7 +31,6 @@
 #include "pastel/geometry/distance/distance_alignedbox_point.h"
 
 #include "pastel/sys/rankedset/rankedset.h"
-#include "pastel/sys/set/range_set.h"
 
 namespace Pastel
 {
@@ -63,7 +62,7 @@ namespace Pastel
 
 		auto pointSet() const
 		{
-			return intervalSet(kdTree.begin(), kdTree.end());
+			return intervalRange(kdTree.begin(), kdTree.end());
 		}
 
 		auto begin() const

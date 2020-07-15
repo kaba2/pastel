@@ -101,7 +101,7 @@ namespace Pastel {
 
         decltype(auto) rowRange(integer row) const {
             if constexpr (ColumnMajor) {
-                return Pastel::sparseSet(
+                return Pastel::sparseRange(
                     Pastel::range(
                         data() + toIndex(row, 0), 
                         data() + size()),
@@ -116,7 +116,7 @@ namespace Pastel {
 
         decltype(auto) columnRange(integer col) const {
             if constexpr (!ColumnMajor) {
-                return Pastel::sparseSet(
+                return Pastel::sparseRange(
                     Pastel::range(
                         data() + toIndex(0, col), 
                         data() + size()),
