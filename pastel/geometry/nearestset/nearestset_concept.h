@@ -5,7 +5,7 @@
 
 #include "pastel/math/norm/norm_concept.h"
 #include "pastel/math/distance/distance_concept.h"
-#include "pastel/sys/set/range_concept.h"
+#include "pastel/sys/range/range_concept.h"
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/pointset/pointset_concept.h"
 #include "pastel/sys/output/output_concept.h"

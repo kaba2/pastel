@@ -5,7 +5,7 @@
 #define PASTELMATH_SCALAR_PEAK_SIGNAL_TO_NOISE_H
 
 #include "pastel/sys/real/real_concept.h"
-#include "pastel/sys/set/range_concept.h"
+#include "pastel/sys/range/range_concept.h"
 
 // Implementation
 

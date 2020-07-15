@@ -13,8 +13,8 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tristate.h"
 #include "pastel/sys/output/output_concept.h"
-#include "pastel/sys/set/range_concept.h"
-#include "pastel/sys/set/interval_range.h"
+#include "pastel/sys/range/range_concept.h"
+#include "pastel/sys/range/interval_range.h"
 #include "pastel/sys/locator/transform_locator.h"
 
 #include "pastel/geometry/shape/alignedbox.h"

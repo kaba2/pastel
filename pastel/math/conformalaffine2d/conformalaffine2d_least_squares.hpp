@@ -2,7 +2,7 @@
 #define PASTELMATH_CONFORMALAFFINE2D_LEAST_SQUARES_HPP
 
 #include "pastel/math/conformalaffine2d/conformalaffine2d_least_squares.h"
-#include "pastel/sys/set/zip_range.h"
+#include "pastel/sys/range/zip_range.h"
 
 namespace Pastel
 {

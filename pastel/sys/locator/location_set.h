@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_LOCATION_SET_H
 #define PASTELSYS_LOCATION_SET_H
 
-#include "pastel/sys/set/range_concept.h"
-#include "pastel/sys/set/transformed_range.h"
+#include "pastel/sys/range/range_concept.h"
+#include "pastel/sys/range/transformed_range.h"
 #include "pastel/sys/locator/locator_concept.h"
 #include "pastel/sys/locator/location.h"
 

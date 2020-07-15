@@ -4,7 +4,7 @@
 #define PASTELSYS_NORMAL_MUTUAL_INFORMATION_H
 
 #include "pastel/sys/random/random_gaussian.h"
-#include "pastel/sys/set/range_concept.h"
+#include "pastel/sys/range/range_concept.h"
 
 #include <type_traits>
 #include "pastel/math/matrix.h"

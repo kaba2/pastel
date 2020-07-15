@@ -6,7 +6,7 @@
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/list.h"
-#include "pastel/sys/set/constant_range.h"
+#include "pastel/sys/range/constant_range.h"
 #include "pastel/sys/output/null_output.h"
 
 #include <boost/operators.hpp>

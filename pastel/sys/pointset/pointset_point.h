@@ -6,7 +6,7 @@
 
 #include "pastel/sys/pointset/pointset_concept.h"
 #include "pastel/sys/pointset/pointset_point_id.h"
-#include "pastel/sys/set/range_concept.h"
+#include "pastel/sys/range/range_concept.h"
 #include "pastel/sys/function/identity_function.h"
 #include "pastel/sys/type_traits/remove_cvref.h"
 

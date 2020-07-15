@@ -6,7 +6,7 @@
 #include "pastel/geometry/tdtree/tdtree.h"
 #include "pastel/geometry/tdtree/tdtree_fwd.h"
 
-#include "pastel/sys/set/transformed_range.h"
+#include "pastel/sys/range/transformed_range.h"
 
 #include <boost/operators.hpp>
 

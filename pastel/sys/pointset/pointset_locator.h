@@ -7,7 +7,7 @@
 #include "pastel/sys/pointset/pointset_concept.h"
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/locator/location_set.h"
-#include "pastel/sys/set/range_concept.h"
+#include "pastel/sys/range/range_concept.h"
 #include "pastel/sys/locator/default_locator.h"
 
 namespace Pastel

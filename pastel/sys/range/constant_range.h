@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_CONSTANT_SET_H
 #define PASTELSYS_CONSTANT_SET_H
 
-#include "pastel/sys/set/range_concept.h"
+#include "pastel/sys/range/range_concept.h"
 #include "pastel/sys/ensure.h"
 #include <range/v3/view/repeat_n.hpp>
 

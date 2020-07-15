@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_UNION_SET_H
 #define PASTELSYS_UNION_SET_H
 
-#include "pastel/sys/set/range_concept.h"
+#include "pastel/sys/range/range_concept.h"
 #include <range/v3/view/concat.hpp>
 
 namespace Pastel

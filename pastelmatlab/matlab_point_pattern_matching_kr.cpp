@@ -8,8 +8,8 @@
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/nearestset/kdtree_nearestset.h"
 
-#include "pastel/sys/set/sparse_range.h"
-#include "pastel/sys/set/interval_range.h"
+#include "pastel/sys/range/sparse_range.h"
+#include "pastel/sys/range/interval_range.h"
 #include "pastel/sys/locator/pointer_locator.h"
 
 void force_linking_match_points_kr() {}

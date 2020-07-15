@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_POINTSET_CONCEPT_H
 #define PASTELSYS_POINTSET_CONCEPT_H
 
-#include "pastel/sys/set/range_concept.h"
+#include "pastel/sys/range/range_concept.h"
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/locator/locator_concept.h"
 #include "pastel/sys/type_traits/or.h"

@@ -5,7 +5,7 @@
 #include "pastel/geometry/splitrule/longestmedian_splitrule.h"
 
 #include "pastel/sys/range.h"
-#include "pastel/sys/set/transformed_range.h"
+#include "pastel/sys/range/transformed_range.h"
 
 #include <type_traits>
 

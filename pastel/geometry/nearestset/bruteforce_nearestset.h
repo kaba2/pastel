@@ -4,7 +4,7 @@
 #define PASTELGEOMETRY_BRUTEFORCE_NEARESTSET_H
 
 #include "pastel/geometry/nearestset/nearestset_concept.h"
-#include "pastel/sys/set/interval_range.h"
+#include "pastel/sys/range/interval_range.h"
 #include "pastel/sys/locator/indirect_locator.h"
 
 namespace Pastel

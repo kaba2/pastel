@@ -6,7 +6,7 @@
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_fwd.h"
 
-#include "pastel/sys/set/interval_range.h"
+#include "pastel/sys/range/interval_range.h"
 
 namespace Pastel
 {

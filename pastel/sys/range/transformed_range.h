@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_TRANSFORMED_SET_H
 #define PASTELSYS_TRANSFORMED_SET_H
 
-#include "pastel/sys/set/range_concept.h"
+#include "pastel/sys/range/range_concept.h"
 #include "pastel/sys/function/function_concept.h"
 #include <range/v3/view/transform.hpp>
 
