@@ -22,9 +22,9 @@ namespace Pastel
 
 		static constexpr int N = PointSet_Dimension<From_PointSet>::value;
 
-		ENSURE_OP(setSize(fromSet), ==, setSize(toSet));
+		ENSURE_OP(rangeSize(fromSet), ==, rangeSize(toSet));
 
-		integer n = setSize(fromSet);
+		integer n = rangeSize(fromSet);
 		auto fromIndex = fromSet.begin();
 		auto toIndex = toSet.begin();
 

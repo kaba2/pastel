@@ -43,7 +43,7 @@ namespace Pastel
 			// Get the positions of the points along the splitting axis.
 
 			std::vector<Real> positionSet;
-			positionSet.reserve(setSize(pointSet));
+			positionSet.reserve(rangeSize(pointSet));
 
 			for (auto&& point : pointSet)
 			{

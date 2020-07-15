@@ -151,7 +151,7 @@ namespace Pastel
 
 			std::vector<Iterator> iteratorSet;
 
-			integer n = setSize(pointSet);
+			integer n = rangeSize(pointSet);
 			if (n < (integer)Infinity())
 			{
 				iteratorSet.reserve(n);

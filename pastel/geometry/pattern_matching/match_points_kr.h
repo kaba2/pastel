@@ -175,7 +175,7 @@ namespace Pastel
 
 		std::vector<Model_ConstIterator> indexToModel;
 		// FIX: Enable these two reserves.
-		//indexToModel.reserve(setSize(model));
+		//indexToModel.reserve(rangeSize(model));
 		for (auto&& point : model)
 		{
 			indexToModel.emplace_back(point);
@@ -183,7 +183,7 @@ namespace Pastel
 		std::random_shuffle(indexToModel.begin(), indexToModel.end());
 
 		std::vector<Scene_ConstIterator> indexToScene;
-		//indexToScene.reserve(setSize(scene));
+		//indexToScene.reserve(rangeSize(scene));
 		for (auto&& point : scene)
 		{
 			indexToScene.emplace_back(point);

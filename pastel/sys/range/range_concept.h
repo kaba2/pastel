@@ -38,7 +38,7 @@ namespace Pastel
 	}
 
 	template <Range_Concept Range>
-	integer setSize(Range&& set)
+	integer rangeSize(Range&& set)
 	{
 		return ranges::distance(std::forward<Range>(set));
 	}

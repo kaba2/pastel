@@ -63,7 +63,7 @@ namespace
 		const std::vector<integer>& permutationSet = result.second;
 		
 		auto nearestSet = create.createNearestSet(dataSet);
-		REQUIRE(setSize(nearestSet) == distanceSet.size());
+		REQUIRE(rangeSize(nearestSet) == distanceSet.size());
 
 		std::vector<dreal> reorderedDistanceSet;
 		for (integer i = 0;i < permutationSet.size();++i)
@@ -109,7 +109,7 @@ namespace
 		const std::vector<integer>& permutationSet = result.second;
 		
 		auto nearestSet = create.createNearestSet(dataSet);
-		REQUIRE(setSize(nearestSet) == countSet.size());
+		REQUIRE(rangeSize(nearestSet) == countSet.size());
 
 		std::vector<integer> reorderedCountSet;
 		for (integer i = 0;i < permutationSet.size();++i)
@@ -388,7 +388,7 @@ void testGaussian(
 	const A_Create& aCreate,
 	const B_Create& bCreate)
 {
-	const integer n = setSize(pointSet);
+	const integer n = rangeSize(pointSet);
 
 	auto aDataSet = aCreate.createDataSet(pointSet).first;
 	auto aNearestSet = aCreate.createNearestSet(aDataSet);
