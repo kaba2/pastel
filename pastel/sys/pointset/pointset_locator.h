@@ -39,14 +39,14 @@ namespace Pastel
 	}
 
 	//! Returns the default locator of point-set elements.
-	template <Set_Concept Set>
+	template <Range_Concept Set>
 	requires
-		(Point_Concept<Set_Element<Set>> &&
+		(Point_Concept<Range_Value<Set>> &&
 		// Give priority to the member-locator.
 		!HasMemberPointSetLocator<Set>::value)
 	decltype(auto) pointSetLocator(const Set& set)
 	{
-		using Point = Set_Element<Set>;
+		using Point = Range_Value<Set>;
 		using Real = Point_Real<Point>;
 		static constexpr int N = Point_N<Point>::value;
 

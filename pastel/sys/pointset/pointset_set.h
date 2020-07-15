@@ -29,7 +29,7 @@ namespace Pastel
 	}
 
 
-	template <Set_Concept Set>
+	template <Range_Concept Set>
 	requires 
 		// Give priority to the member-locator.
 		(!HasMemberPointSet<Set>::value)

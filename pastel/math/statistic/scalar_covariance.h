@@ -43,8 +43,8 @@ namespace Pastel
 	*/
 	template <
 		Real_Concept Real,
-		Set_Concept A_Real_Set,
-		Set_Concept B_Real_Set,
+		Range_Concept A_Real_Set,
+		Range_Concept B_Real_Set,
 		typename... ArgumentSet
 	>
 	Real scalarCovariance(

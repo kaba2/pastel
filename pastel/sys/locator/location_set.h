@@ -16,14 +16,14 @@ namespace Pastel
 
 	//! A set with a locator; a point-set.
 	template <
-		Set_Concept Set,
+		Range_Concept Set,
 		Locator_Concept Locator,
 		typename Base>
 	class LocationSet
 	: public Base
 	{
 	public:
-		using Index = Set_Index<std::add_const_t<Set>>;
+		using Index = Range_Iterator<std::add_const_t<Set>>;
 
 		LocationSet(
 			const Set& set,
@@ -66,7 +66,7 @@ namespace Pastel
 
 	//! Constructs a location-set from a point-set and a locator.
 	template <
-		Set_Concept Set, 
+		Range_Concept Set, 
 		Locator_Concept Locator
 	>
 	decltype(auto) locationSet(

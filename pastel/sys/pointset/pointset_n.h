@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <Set_Concept Set>
+	template <Range_Concept Set>
 	integer pointSetN(const Set& pointSet)
 	{
 		return setSize(pointSetSet(pointSet));

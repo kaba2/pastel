@@ -61,7 +61,7 @@ TEST_CASE("Grid (TdTree)")
 		pointSet(point[0], point[1]) = point;
 	});
 
-	PASTEL_CONCEPT_CHECK(decltype(pointSet), Set_Concept);
+	PASTEL_CONCEPT_CHECK(decltype(pointSet), Range_Concept);
 	pointSetLocator(pointSet);
 
 	using PointSet = decltype(pointSet);

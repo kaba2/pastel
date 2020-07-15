@@ -16,7 +16,7 @@ namespace Pastel
 
 	template <typename T>
 	concept PointSet_Concept_ =
-		Set_Concept<T> && 
+		Range_Concept<T> && 
 		requires(T t) {
 		// A point-set is a set together with a locator. 
 		pointSetLocator(addConst(t));

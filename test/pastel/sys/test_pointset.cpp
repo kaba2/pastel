@@ -20,9 +20,9 @@ TEST_CASE("Homogeneous (pointset_concept)")
 	REQUIRE(dimension(pointSet[0]) == 2);
 	REQUIRE(dimension(pointSet[1]) == 2);
 
-	PASTEL_CONCEPT_CHECK(PointSet, Set_Concept);
+	PASTEL_CONCEPT_CHECK(PointSet, Range_Concept);
 	PASTEL_STATIC_ASSERT(!HasMemberPointSetLocator<PointSet>::value);
-	PASTEL_STATIC_ASSERT(BoolConstant<Point_N<Set_Element<PointSet>>::value == 2>::value);
+	PASTEL_STATIC_ASSERT(BoolConstant<Point_N<Range_Value<PointSet>>::value == 2>::value);
 
 	pointSetSet(pointSet);
 	auto locator = pointSetLocator(pointSet);
@@ -54,9 +54,9 @@ TEST_CASE("Heterogeneous (pointset_concept)")
 	REQUIRE(dimension(pointSet[0]) == 2);
 	REQUIRE(dimension(pointSet[1]) == 3);
 
-	PASTEL_CONCEPT_CHECK(PointSet, Set_Concept);
+	PASTEL_CONCEPT_CHECK(PointSet, Range_Concept);
 	PASTEL_STATIC_ASSERT(!HasMemberPointSetLocator<PointSet>::value);
-	PASTEL_STATIC_ASSERT(BoolConstant<Point_N<Set_Element<PointSet>>::value == Dynamic>::value);
+	PASTEL_STATIC_ASSERT(BoolConstant<Point_N<Range_Value<PointSet>>::value == Dynamic>::value);
 
 	pointSetSet(pointSet);
 	auto locator = pointSetLocator(pointSet);
@@ -91,10 +91,10 @@ TEST_CASE("Real (pointset_concept)")
 	using PointIdSet = RemoveCvRef<decltype(pointIdSet)>;
 	using PointSet = RemoveCvRef<decltype(pointSet)>;
 
-	PASTEL_CONCEPT_CHECK(PointSet, Set_Concept);
+	PASTEL_CONCEPT_CHECK(PointSet, Range_Concept);
 	PASTEL_STATIC_ASSERT(HasMemberPointSet<PointSet>::value);
 
-	PASTEL_CONCEPT_CHECK(decltype(pointSetSet(pointSet)), Set_Concept);
+	PASTEL_CONCEPT_CHECK(decltype(pointSetSet(pointSet)), Range_Concept);
 
 	PASTEL_STATIC_ASSERT(HasMemberPointSetLocator<PointSet>::value);
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);

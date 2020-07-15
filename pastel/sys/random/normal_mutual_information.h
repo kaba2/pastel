@@ -19,9 +19,9 @@ namespace Pastel
 	*/
 	template <
 		typename Real,
-		Set_Concept Set
+		Range_Concept Set
 	>
-	requires std::is_convertible_v<Set_Element<Set>, integer>
+	requires std::is_convertible_v<Range_Value<Set>, integer>
 	Real mutualInformation(
 		const Normal_Distribution<Real>& distribution,
 		const Set& partitionSet)

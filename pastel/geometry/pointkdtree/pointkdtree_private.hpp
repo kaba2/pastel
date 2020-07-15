@@ -465,7 +465,7 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	template <Set_Concept PointId_Set>
+	template <Range_Concept PointId_Set>
 	auto PointKdTree<Settings, Customization>::copyToEnd(
 		const PointId_Set& pointSet, 
 		bool hidden)

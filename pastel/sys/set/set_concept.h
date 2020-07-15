@@ -18,25 +18,58 @@ namespace Pastel
 	'set' a bit loosely, for brevity.
 	*/
 	template <typename T>
-	concept Set_Concept_ = requires(T t) {
-		t;
-		//Concept::holds<ranges::concepts::models<ranges::concepts::Range, Type>>()
-	};
-
-	template <typename T>
-	concept Set_Concept = 
-		Set_Concept_<RemoveCvRef<T>>;
+	concept Range_Concept_ = ranges::forward_range<T>;
 
 	template <typename T>
 	concept Range_Concept = 
-		Set_Concept<T>;
-	
-}
+		Range_Concept_<RemoveCvRef<T>>;
 
-#include "pastel/sys/set/set_element.h"
-#include "pastel/sys/set/set_empty.h"
-#include "pastel/sys/set/set_index.h"
-#include "pastel/sys/set/set_for_each.h"
-#include "pastel/sys/set/set_size.h"
+	template <Range_Concept Range>
+	using Range_Iterator = 
+		typename ranges::iterator_t<Range>;
+
+	template <Range_Concept Range>
+	using Range_Value = ranges::range_value_t<Range>;
+
+	template <Range_Concept Range>
+	bool emptySet(Range&& set)
+	{
+		return ranges::empty(set);
+	}
+
+	//! Calls the given function for each element in the set.
+	/*!
+	The visitor function returns whether to continue iterating
+	over elements. 
+
+	returns:
+	Whether the for-each was uninterrupted by the user.
+	*/
+	template <
+		Range_Concept Range,
+		typename Visit
+	>
+	bool forEach(
+		Range&& range,
+		const Visit& visit)
+	{
+		for (auto&& element : range)
+		{
+			if (!visit(element))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	template <Range_Concept Range>
+	integer setSize(Range&& set)
+	{
+		return ranges::distance(std::forward<Range>(set));
+	}
+
+}
 
 #endif

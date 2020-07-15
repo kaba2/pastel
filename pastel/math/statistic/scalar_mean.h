@@ -22,7 +22,7 @@ namespace Pastel
 	*/
 	template <
 		Real_Concept Real,
-		Set_Concept Real_Set
+		Range_Concept Real_Set
 	>
 	Real scalarMean(
 		const Real_Set& inputSet)

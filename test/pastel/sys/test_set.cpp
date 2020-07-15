@@ -15,7 +15,7 @@ namespace
 	template <typename Set, typename Element>
 	using CorrectElement = 
 		std::is_same<
-			Set_Element<Set>,
+			Range_Value<Set>,
 			Element
 		>;
 
@@ -24,11 +24,11 @@ namespace
 TEST_CASE("Interval (Set)")
 {
 	PASTEL_CONCEPT_CHECK(
-		Interval_Set<integer>, Set_Concept);
+		Interval_Set<integer>, Range_Concept);
 	//PASTEL_CONCEPT_CHECK(
-	//	Interval_Set<integer>, Set_Concept(integer));
+	//	Interval_Set<integer>, Range_Concept(integer));
 	//PASTEL_CONCEPT_CHECK(
-	//	Interval_Set<integer>, Set_Concept(dreal));
+	//	Interval_Set<integer>, Range_Concept(dreal));
 	PASTEL_STATIC_ASSERT(
 		CorrectElement<Interval_Set<integer>, integer>::value);
 	{
@@ -131,22 +131,22 @@ TEST_CASE("Union (Set)")
 		integer nA = 5;
 		integer aElement = 7;
 		auto aSet = constantSet(nA, aElement);
-		PASTEL_CONCEPT_CHECK(decltype(aSet), Set_Concept);
+		PASTEL_CONCEPT_CHECK(decltype(aSet), Range_Concept);
 		REQUIRE(ranges::size(aSet) == 5);
 
 		integer nB = 3;
 		integer bElement = 3;
 		auto bSet = constantSet(nB, bElement);
-		PASTEL_CONCEPT_CHECK(decltype(bSet), Set_Concept);
+		PASTEL_CONCEPT_CHECK(decltype(bSet), Range_Concept);
 		REQUIRE(ranges::size(bSet) == 3);
 
 		auto abSet = unionSet(aSet, bSet);
-		PASTEL_CONCEPT_CHECK(decltype(abSet), Set_Concept);
+		PASTEL_CONCEPT_CHECK(decltype(abSet), Range_Concept);
 
 		REQUIRE(ranges::size(abSet) == 5 + 3);
 		PASTEL_STATIC_ASSERT(
 			std::is_same<
-				Set_Element<decltype(abSet)>,
+				Range_Value<decltype(abSet)>,
 				integer
 			>::value);
 
