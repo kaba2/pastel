@@ -7,6 +7,11 @@ cmake_policy(SET CMP0015 NEW)
 # Turn on solution folders.
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+if (CMAKE_CONFIGURATION_TYPES)
+	# Restrict multi-configuration generators to the current build-type.
+	set (CMAKE_CONFIGURATION_TYPES ${CMAKE_BUILD_TYPE})
+endif()
+
 option (BuildMatlabMex
 	"Make libraries usable for Matlab mex (force release-mode C and C++ standard libraries)." 
 	ON)
@@ -20,15 +25,17 @@ math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 # Find out the compiler-id in lower-case.
 # For example: msvc, gnu, clang
 string (TOLOWER ${CMAKE_CXX_COMPILER_ID} CompilerId)
+string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
 
 # We use a tool-set id to separate the outputs of 
 # different compilers to different directories.
-# The tool-set id consists of a compiler-id and
-# the bitness of the generator. For example:
-# msvc64: Visual Studio, 64 bits
-# gnu32: GCC, 32 bits,
-# clang64: Clang, 64 bits
-set (ToolSet ${CompilerId}${GENERATOR_BITS})
+# The tool-set id consists of a compiler-id,
+# the bitness of the generator, and the build-type. 
+# For example:
+# msvc64-release: Visual Studio, 64 bits, release
+# gnu32-debug: GCC, 32 bits, debug
+# clang64-debug: Clang, 64 bits, debug
+set (ToolSet "${CompilerId}${GENERATOR_BITS}-${LOWER_CMAKE_BUILD_TYPE}")
 
 # Force to use an out-of-source build
 # -----------------------------------
@@ -83,16 +90,14 @@ include_directories (${ProjectIncludeDirectory})
 # Set output directories
 # ----------------------
 
-string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
+# The directory to place the static libraries (e.g. lib/msvc64-release).
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${ProjectLibraryDirectory})
 
-# The directory to place the static libraries (e.g. lib/msvc64/release).
-set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${ProjectLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
+# The directory to place the shared libraries (e.g. lib/msvc64-release).
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${ProjectLibraryDirectory})
 
-# The directory to place the shared libraries (e.g. lib/msvc64/release).
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${ProjectLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
-
-# The directory to place the built executables (e.g. bin/msvc64/release).
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${ProjectExecutableDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
+# The directory to place the built executables (e.g. bin/msvc64-release).
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ProjectExecutableDirectory})
 
 # This is for the multi-configuration build-scripts
 # (such as Visual Studio and XCode).
@@ -100,15 +105,15 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
     string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
 
-	# The library output directory is of the form "lib/msvc64/release".
+	# The library output directory is of the form "lib/msvc64-release".
     set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	"${ProjectLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
+    	"${ProjectLibraryDirectory}")
     set (CMAKE_LIBRARY_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	"${ProjectLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
+    	"${ProjectLibraryDirectory}")
 
-	# The executable output directory is of the form "bin/msvc64/release".
+	# The executable output directory is of the form "bin/msvc64-release".
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	"${ProjectExecutableDirectory}/${LOWER_OUTPUTCONFIG}")
+    	"${ProjectExecutableDirectory}")
 endforeach()
 
 # Set some options
@@ -154,13 +159,10 @@ macro (EcCopyAsideExecutables FilePath)
 		# This is a multi-configuration generator,
 		# such as Visual Studio or XCode.
 		foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
-		    string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
-		    string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
-
 	    	# Copy the file to where the executables are,
 	    	# for each configuration.
 			file (COPY "${FilePath}" 
-				DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}}")
+				DESTINATION "${ProjectExecutableDirectory}")
 		endforeach()
 	else()
 		# This is a single-configuration generator,
@@ -168,12 +170,12 @@ macro (EcCopyAsideExecutables FilePath)
 
 		# Copy the file to where the executables are.
 		file (COPY "${FilePath}" 
-			DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+			DESTINATION "${ProjectExecutableDirectory}")
 	endif()
 
 	# Copy the file to where the Matlab interface is.
 	file (COPY "${FilePath}" 
-		DESTINATION "${ProjectMatlabDirectory}")
+		DESTINATION "${ProjectExecutableDirectory}/matlab")
 endmacro()
 
 # Creates source-groups for files based on the physical directory tree.

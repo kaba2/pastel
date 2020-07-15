@@ -7,13 +7,6 @@
 % Optional arguments
 % ------------------
 %
-% MODE ('mode') is a string which specifies the configuration to use for 
-% building the Pastel sub-library. It must be one of 
-%     debug
-%     release
-%     relwithdebinfo
-% Default: release
-%
 % VERBOSE ('verbose') is a string which specifies whether to print 
 % additional information about the build process. Must be either 'on' 
 % or 'off'.
@@ -25,7 +18,7 @@
 function build_pastel(varargin)
 
 % Optional input arguments
-mode = 'release';
+mode = '${LOWER_CMAKE_BUILD_TYPE}';
 verbose = 'off';
 eval(pastelmatlab.process_options(...
     {'mode', 'verbose'}, ...
@@ -60,7 +53,7 @@ includeDirectorySet = ...
 
 libraryDirectorySet = ...
 {...
-    ['${PastelLibraryDirectory}/', mode], ...
+    '${PastelLibraryDirectory}', ...
     '${TbbLibraryDirectory}', ...
 };
 

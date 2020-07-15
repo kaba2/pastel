@@ -287,7 +287,7 @@ for iteration = 0 : maxIterations - 1
     matchSet = neighborGraph(:, 1 : neighbors);
     
     % Compute the positions of the corresponding points.
-    aSet = transformRange(:, matchSet(1, :));
+    aSet = transformedSet(:, matchSet(1, :));
     bSet = sceneSet(:, matchSet(2, :));
     distanceSet = sum((aSet - bSet).^2);
         

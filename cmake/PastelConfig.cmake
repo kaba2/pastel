@@ -27,12 +27,12 @@ string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
 
 set (PastelDirectory "${CMAKE_CURRENT_LIST_DIR}/..")
 set (PastelIncludeDirectory "${PastelDirectory}")
-set (PastelLibraryDirectoryBase "${PastelDirectory}/lib/${ToolSet}")
-set (PastelLibraryDirectory "${PastelLibraryDirectoryBase}/${LOWER_CMAKE_BUILD_TYPE}")
+set (PastelLibraryDirectory "${PastelDirectory}/lib/${ToolSet}")
+set (PastelExecutableDirectory "${PastelDirectory}/bin/${ToolSet}")
 
 EcCheckPathExists("Pastel (include)" "${PastelIncludeDirectory}")
-EcCheckPathExists("Pastel (library base)" "${PastelLibraryDirectoryBase}")
 EcCheckPathExists("Pastel (library)" "${PastelLibraryDirectory}")
+EcCheckPathExists("Pastel (executable)" "${PastelExecutableDirectory}")
 
 set (librarySet
 	"PastelSys"
@@ -49,7 +49,7 @@ foreach (library ${librarySet})
 	    string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
 	    string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
 
-	    set (hint "${PastelDirectory}/lib/${ToolSet}/${LOWER_OUTPUTCONFIG}")
+	    set (hint "${PastelLibraryDirectory}/${ToolSet}")
 
 	    unset(libraryPath CACHE)
 	    find_library(libraryPath "${lowerLibrary}" HINTS ${hint})
