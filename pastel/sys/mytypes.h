@@ -91,15 +91,8 @@ namespace Pastel
 		using IntegerOfSize = typename IntegerOfSize_F<N>::type;
 
 		//! A native unsigned integer with the given number of bits.
-		template <int N> 
-		struct UIntegerOfSize_F
-		{
-			using type = typename std::make_unsigned<IntegerOfSize<N>>::type;
-		};
-
-		//! A native unsigned integer with the given number of bits.
 		template <int N>
-		using UIntegerOfSize = typename UIntegerOfSize_F<N>::type;
+		using UIntegerOfSize = std::make_unsigned_t<IntegerOfSize<N>>;
 
 		//! A native floating-point number with the given number of bits.
 		template <int N> struct RealOfSize_F {};

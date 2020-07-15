@@ -32,7 +32,7 @@ namespace Pastel
 
 		// There must exist an unsigned native integer with 
 		// double the number of bits in the word.
-		typename UIntegerOfSize_F<2 * SizeInBits<typename T::Word>::value>::type;
+		requires std::is_integral_v<UIntegerOfSize<2 * SizeInBits<typename T::Word>::value>>;
 
 		//! Whether to interpret as a signed integer.
 		/*!

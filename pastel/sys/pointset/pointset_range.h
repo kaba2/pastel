@@ -46,11 +46,6 @@ namespace Pastel
 	template <PointSet_Concept PointSet>
 	using PointSet_Range = RemoveCvRef<decltype(pointSetRange(std::declval<PointSet>()))>;
 
-	template <PointSet_Concept PointSet>
-	struct PointSet_Set_F 
-		: Identity_F<PointSet_Range<PointSet>>
-	{};
-
 }
 
 #endif
