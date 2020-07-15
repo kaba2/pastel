@@ -79,6 +79,28 @@ get_target_property(TbbIncludeDirectory TBB::tbb INTERFACE_INCLUDE_DIRECTORIES)
 get_target_property(TbbLibraryDirectory TBB::tbb IMPORTED_LOCATION_RELEASE)
 get_filename_component(TbbLibraryDirectory ${TbbLibraryDirectory} DIRECTORY)
 
+if (BuildMatlab)
+	set (MatlabDirectoryWindows "C:/Program Files/Polyspace/R2020a")
+	set (MatlabDirectoryMac "/Applications/MATLAB_R2020a.app")
+	set (MatlabDirectoryLinux "/mnt/c/Program Files/Polyspace/R2020a")
+
+	if (WIN32)
+		set (MatlabDirectory ${MatlabDirectoryWindows})
+	elseif(UNIX)
+		if (APPLE)
+			set (MatlabDirectory ${MatlabDirectoryMac})
+		else()
+			set (MatlabDirectory ${MatlabDirectoryLinux})
+		endif()
+	endif()
+
+	set (MatlabIncludeDirectory "${MatlabDirectory}/extern/include")
+
+	EcCheckPathExists("Matlab (include)" "${MatlabIncludeDirectory}")
+
+	include_directories (${MatlabIncludeDirectory})
+endif()
+
 message(STATUS "Range-v3: ${RangesIncludeDirectory}")
 message(STATUS "Boost: ${Boost_INCLUDE_DIRS} ${Boost_LIBRARIES}")
 message(STATUS "Eigen: ${EIGEN3_INCLUDE_DIRS}")
