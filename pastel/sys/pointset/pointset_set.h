@@ -11,7 +11,7 @@ namespace Pastel
 
 	template <typename T>
 	concept HasMemberPointSet__ = requires(T t) {
-		addConst(t).pointSetSet();
+		addConst(t).pointSetRange();
 	};
 
 	template <typename T>
@@ -23,9 +23,9 @@ namespace Pastel
 		std::bool_constant<HasMemberPointSet_<Type>>;
 
 	template <HasMemberPointSet_ Type>
-	decltype(auto) pointSetSet(Type&& that)
+	decltype(auto) pointSetRange(Type&& that)
 	{
-		return std::forward<Type>(that).pointSetSet();
+		return std::forward<Type>(that).pointSetRange();
 	}
 
 
@@ -33,7 +33,7 @@ namespace Pastel
 	requires 
 		// Give priority to the member-locator.
 		(!HasMemberPointSet<Set>::value)
-	decltype(auto) pointSetSet(Set&& set)
+	decltype(auto) pointSetRange(Set&& set)
 	{
 		return std::forward<Set>(set);
 	}
@@ -44,11 +44,11 @@ namespace Pastel
 {
 
 	template <PointSet_Concept PointSet>
-	using PointSet_Set = RemoveCvRef<decltype(pointSetSet(std::declval<PointSet>()))>;
+	using PointSet_Range = RemoveCvRef<decltype(pointSetRange(std::declval<PointSet>()))>;
 
 	template <PointSet_Concept PointSet>
 	struct PointSet_Set_F 
-		: Identity_F<PointSet_Set<PointSet>>
+		: Identity_F<PointSet_Range<PointSet>>
 	{};
 
 }

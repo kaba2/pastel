@@ -102,7 +102,7 @@ TEST_CASE("Grid (TdTree)")
 		PASTEL_TAG(report), report,
 		PASTEL_TAG(kNearest), 5);
 
-	auto pointSet_ = tree.pointSetSet();
+	auto pointSet_ = tree.pointSetRange();
 
 	REQUIRE(neighborSet.size() == 5);
 	//REQUIRE(neighborSet.count(pointSet(1, 3)) > 0);

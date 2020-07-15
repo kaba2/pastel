@@ -43,13 +43,13 @@ namespace Pastel
 	*/
 	template <
 		Real_Concept Real,
-		Range_Concept A_Real_Set,
-		Range_Concept B_Real_Set,
+		Range_Concept A_Real_Range,
+		Range_Concept B_Real_Range,
 		typename... ArgumentSet
 	>
 	Real scalarCovariance(
-		const A_Real_Set& aSet,
-		const B_Real_Set& bSet,
+		const A_Real_Range& aSet,
+		const B_Real_Range& bSet,
 		ArgumentSet&&... argumentSet)
 	{
 		bool biased = PASTEL_ARG_S(biased, true);

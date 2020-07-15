@@ -32,7 +32,7 @@ namespace Pastel
 	using Range_Value = ranges::range_value_t<Range>;
 
 	template <Range_Concept Range>
-	bool emptySet(Range&& set)
+	bool isEmptyRange(Range&& set)
 	{
 		return ranges::empty(set);
 	}

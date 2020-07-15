@@ -13,7 +13,7 @@ namespace Pastel
 	template <Range_Concept Set>
 	integer pointSetN(const Set& pointSet)
 	{
-		return setSize(pointSetSet(pointSet));
+		return setSize(pointSetRange(pointSet));
 	}
 
 }

@@ -301,17 +301,17 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	template <
-		Range_Concept Point_Set,
+		Range_Concept Point_Range,
 		typename... ArgumentSet
 	>
 	void PointKdTree<Settings, Customization>::insertSet(
-		const Point_Set& pointSet, 
+		const Point_Range& pointSet, 
 		ArgumentSet&&... argumentSet)
 	{
 		bool hidden = PASTEL_ARG_S(hidden, false);
 		auto&& report = PASTEL_ARG_C1(report, nullOutput(), Output_Concept, Point_ConstIterator);
 
-		if (emptySet(pointSet))
+		if (isEmptyRange(pointSet))
 		{
 			// Nothing to do.
 			return;

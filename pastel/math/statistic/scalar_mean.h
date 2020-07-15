@@ -22,10 +22,10 @@ namespace Pastel
 	*/
 	template <
 		Real_Concept Real,
-		Range_Concept Real_Set
+		Range_Concept Real_Range
 	>
 	Real scalarMean(
-		const Real_Set& inputSet)
+		const Real_Range& inputSet)
 	{
 		integer n = 0;
 		Real mean = 0;

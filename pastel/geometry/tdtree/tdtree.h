@@ -316,9 +316,9 @@ namespace Pastel
 		This is a convenience function which returns
 		pointSet(-(Real)Infinity(), (Real)Infinity()).
 		*/
-		decltype(auto) pointSetSet() const
+		decltype(auto) pointSetRange() const
 		{
-			return pointSetSet(
+			return pointSetRange(
 				-(Real)Infinity(),
 				(Real)Infinity());
 		}
@@ -334,7 +334,7 @@ namespace Pastel
 		in this set are not user-defined Points; a ConstIterator 
 		contains more information than a Point (e.g. time).
 		*/
-		decltype(auto) pointSetSet(
+		decltype(auto) pointSetRange(
 			const Real& tMin, 
 			const Real& tMax) const
 		{

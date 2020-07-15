@@ -46,7 +46,7 @@ namespace Pastel
 		integer n = pointSetDimension(pointSet);
 
 		Sphere<Real, N> result(n);
-		if (emptySet(pointSet))
+		if (isEmptyRange(pointSet))
 		{
 			result.setRadius(0);
 			return result;

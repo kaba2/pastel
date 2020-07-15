@@ -26,12 +26,12 @@ namespace Pastel
 	*/
 	template <
 		Real_Concept Real, 
-		Range_Concept A_Real_Set, 
-		Range_Concept B_Real_Set
+		Range_Concept A_Real_Range, 
+		Range_Concept B_Real_Range
 	>
 	Real scalarMeanSquareError(
-		A_Real_Set aSet,
-		B_Real_Set bSet)
+		A_Real_Range aSet,
+		B_Real_Range bSet)
 	{
 		integer n = 0;
 		Real result = 0;

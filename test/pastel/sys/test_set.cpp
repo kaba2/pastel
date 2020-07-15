@@ -24,13 +24,13 @@ namespace
 TEST_CASE("Interval (Set)")
 {
 	PASTEL_CONCEPT_CHECK(
-		Interval_Set<integer>, Range_Concept);
+		Interval_Range<integer>, Range_Concept);
 	//PASTEL_CONCEPT_CHECK(
-	//	Interval_Set<integer>, Range_Concept(integer));
+	//	Interval_Range<integer>, Range_Concept(integer));
 	//PASTEL_CONCEPT_CHECK(
-	//	Interval_Set<integer>, Range_Concept(dreal));
+	//	Interval_Range<integer>, Range_Concept(dreal));
 	PASTEL_STATIC_ASSERT(
-		CorrectElement<Interval_Set<integer>, integer>::value);
+		CorrectElement<Interval_Range<integer>, integer>::value);
 	{
 		integer n = 8;
 		auto set = intervalSet((integer)3, (integer)3 + n);

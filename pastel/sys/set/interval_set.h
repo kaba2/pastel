@@ -11,7 +11,7 @@ namespace Pastel
 {
 
 	template <typename Element>
-	using Interval_Set = ranges::iota_view<Element>;
+	using Interval_Range = ranges::iota_view<Element>;
 
 }
 

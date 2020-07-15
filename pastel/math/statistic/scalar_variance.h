@@ -40,11 +40,11 @@ namespace Pastel
 	*/
 	template <
 		Real_Concept Real,
-		Range_Concept Real_Set,
+		Range_Concept Real_Range,
 		typename... ArgumentSet
 	>
 	Real scalarVariance(
-		const Real_Set& inputSet,
+		const Real_Range& inputSet,
 		ArgumentSet&&... argumentSet)
 	{
 		bool biased = PASTEL_ARG_S(biased, true);

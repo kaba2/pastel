@@ -24,7 +24,7 @@ TEST_CASE("Homogeneous (pointset_concept)")
 	PASTEL_STATIC_ASSERT(!HasMemberPointSetLocator<PointSet>::value);
 	PASTEL_STATIC_ASSERT(BoolConstant<Point_N<Range_Value<PointSet>>::value == 2>::value);
 
-	pointSetSet(pointSet);
+	pointSetRange(pointSet);
 	auto locator = pointSetLocator(pointSet);
 
 	using Locator = decltype(locator);
@@ -58,7 +58,7 @@ TEST_CASE("Heterogeneous (pointset_concept)")
 	PASTEL_STATIC_ASSERT(!HasMemberPointSetLocator<PointSet>::value);
 	PASTEL_STATIC_ASSERT(BoolConstant<Point_N<Range_Value<PointSet>>::value == Dynamic>::value);
 
-	pointSetSet(pointSet);
+	pointSetRange(pointSet);
 	auto locator = pointSetLocator(pointSet);
 
 	using Locator = decltype(locator);
@@ -94,13 +94,13 @@ TEST_CASE("Real (pointset_concept)")
 	PASTEL_CONCEPT_CHECK(PointSet, Range_Concept);
 	PASTEL_STATIC_ASSERT(HasMemberPointSet<PointSet>::value);
 
-	PASTEL_CONCEPT_CHECK(decltype(pointSetSet(pointSet)), Range_Concept);
+	PASTEL_CONCEPT_CHECK(decltype(pointSetRange(pointSet)), Range_Concept);
 
 	PASTEL_STATIC_ASSERT(HasMemberPointSetLocator<PointSet>::value);
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
 	{
-		using Set_ = PointSet_Set<PointSet>;
+		using Set_ = PointSet_Range<PointSet>;
 		PASTEL_STATIC_ASSERT((std::is_same<Set_, PointIdSet>::value));
 
 		using Point = PointSet_Point<PointSet>;
@@ -140,7 +140,7 @@ TEST_CASE("Array (pointset_concept)")
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
 	{
-		using Set_ = PointSet_Set<PointSet>;
+		using Set_ = PointSet_Range<PointSet>;
 		PASTEL_STATIC_ASSERT((std::is_same<Set_, PointSet>::value));
 
 		using PointId_ = PointSet_PointId<PointSet>;

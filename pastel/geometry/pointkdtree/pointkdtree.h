@@ -202,7 +202,7 @@ namespace Pastel
 		/*!
 		The point of the point-set is a Point_ConstIterator.
 		*/
-		decltype(auto) pointSetSet() const
+		decltype(auto) pointSetRange() const
 		{
 			return intervalSet(begin(), end());
 		}
@@ -288,11 +288,11 @@ namespace Pastel
 		hidden points or not.
 		*/
 		template <
-			Range_Concept PointId_Set,
+			Range_Concept PointId_Range,
 			typename... ArgumentSet
 		>
 		void insertSet(
-			const PointId_Set& pointSet, 
+			const PointId_Range& pointSet, 
 			ArgumentSet&&... argumentSet);
 
 		//! Removes a point from the tree.
@@ -456,9 +456,9 @@ namespace Pastel
 		The first Point_Iterator of the inserted points in
 		'pointSet_'.
 		*/
-		template <Range_Concept PointId_Set>
+		template <Range_Concept PointId_Range>
 		auto copyToEnd(
-			const PointId_Set& pointSet, 
+			const PointId_Range& pointSet, 
 			bool hidden)
 			-> Point_Iterator;
 

@@ -34,7 +34,7 @@ namespace Pastel
 
 			// Modified sliding midpoint
 
-			if (emptySet(pointSet))
+			if (isEmptyRange(pointSet))
 			{
 				return std::make_pair(splitPosition, splitAxis);
 			}

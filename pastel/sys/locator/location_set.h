@@ -35,7 +35,7 @@ namespace Pastel
 		{
 		}
 
-		const Set& pointSetSet() const
+		const Set& pointSetRange() const
 		{
 			return set_;
 		}
