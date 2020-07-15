@@ -1,11 +1,15 @@
 # Description: ECMake
 
-# Interpret relative paths w.r.t. the source directory in
-# in link_directories().
-cmake_policy(SET CMP0015 NEW)
-
 # Turn on solution folders.
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+# Set a default build type if none was specified
+# ----------------------------------------------
+
+if (NOT CMAKE_BUILD_TYPE)
+	message(STATUS "Setting build type to 'Release' as none was specified.")
+	set(CMAKE_BUILD_TYPE Release)
+endif()
 
 if (CMAKE_CONFIGURATION_TYPES)
 	# Restrict multi-configuration generators to the current build-type.
@@ -51,23 +55,6 @@ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 	)
 
    return()
-endif()
-
-# Set a default build type if none was specified
-# ----------------------------------------------
-
-# This only applies to single-configuration tool-sets,
-# such as Unix Makefiles.
-if (NOT CMAKE_BUILD_TYPE AND 
-	NOT CMAKE_CONFIGURATION_TYPES)
-	message(STATUS 
-		"Setting build type to 'Release' as none was specified.")
-	set(CMAKE_BUILD_TYPE Release CACHE STRING 
-		"Choose the type of build." FORCE)
-	# Set the possible values of build types for cmake-gui.
-	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS 
- 		"Debug" 
-  		"Release")
 endif()
 
 # Define output directories
