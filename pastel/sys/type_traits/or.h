@@ -19,10 +19,7 @@ namespace Pastel
 			typename Right_Condition>
 		using Or_F_ =
 			Identity_F<
-				std::integral_constant< 
-					bool,
-					Left_Condition::value || Right_Condition::value
-				>
+				std::bool_constant<Left_Condition::value || Right_Condition::value>
 			>;
 
 	}

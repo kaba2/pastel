@@ -10,15 +10,7 @@ namespace Pastel
 {
 
 	template <typename Condition>
-	struct Not_F
-	: Identity_F<
-		std::integral_constant<bool, !Condition::value>
-	>
-	{};
-
-	template <typename Condition>
-	using Not = 
-		typename Not_F<Condition>::type;
+	using Not = std::bool_constant<!Condition::value>;
 
 }
 

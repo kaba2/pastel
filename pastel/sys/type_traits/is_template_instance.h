@@ -29,15 +29,12 @@ namespace Pastel
 
 	}
 
-	// Visual Studio 2015 RC has a bug in that
-	// RemoveCvRef cannot be used here. Instead,
-	// we have to use RemoveCvRef_F.
 	template <
 		typename Type,
 		template <typename...> class Template>
 	using IsTemplateInstance =
 		IsTemplateInstance_::IsTemplateInstance__<
-			typename RemoveCvRef_F<Type>::type, Template>;
+			RemoveCvRef<Type>, Template>;
 
 }
 

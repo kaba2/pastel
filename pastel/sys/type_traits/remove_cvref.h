@@ -11,15 +11,7 @@ namespace Pastel
 
 	//! Removes const-volatile-reference from a type.
 	template <typename Type>
-	struct RemoveCvRef_F
-	: std::remove_cv<
-		std::remove_reference_t<Type>
-	>
-	{};
-
-	template <typename Type>
-	using RemoveCvRef =
-		typename RemoveCvRef_F<Type>::type;
+	using RemoveCvRef = std::remove_cvref_t<Type>;
 
 }
 
