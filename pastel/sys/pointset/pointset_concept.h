@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_POINTSET_CONCEPT_H
 #define PASTELSYS_POINTSET_CONCEPT_H
 
-#include "pastel/sys/set/set_concept.h"
+#include "pastel/sys/set/range_concept.h"
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/locator/locator_concept.h"
 #include "pastel/sys/type_traits/or.h"
@@ -31,7 +31,7 @@ namespace Pastel
 
 #include "pastel/sys/pointset/pointset_dimension.h"
 #include "pastel/sys/pointset/pointset_empty.h"
-#include "pastel/sys/pointset/pointset_set.h"
+#include "pastel/sys/pointset/pointset_range.h"
 #include "pastel/sys/pointset/pointset_n.h"
 #include "pastel/sys/pointset/pointset_point_id.h"
 #include "pastel/sys/pointset/pointset_point.h"

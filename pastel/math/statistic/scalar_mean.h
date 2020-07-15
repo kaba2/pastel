@@ -5,7 +5,7 @@
 #define PASTELMATH_SCALAR_MEAN_H
 
 #include "pastel/sys/real/real_concept.h"
-#include "pastel/sys/set/set_concept.h"
+#include "pastel/sys/set/range_concept.h"
 
 namespace Pastel
 {

@@ -5,8 +5,8 @@
 #define PASTELMATH_MATRIX_POINTSET_H
 
 #include <pastel/sys/pointset/pointset_concept.h>
-#include <pastel/sys/set/sparse_set.h>
-#include <pastel/sys/set/interval_set.h>
+#include <pastel/sys/set/sparse_range.h>
+#include <pastel/sys/set/interval_range.h>
 #include <pastel/sys/locator/pointerrange_locator.h>
 
 #include "pastel/math/matrix.h"

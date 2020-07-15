@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "pastel/sys/algebra/ring_concept.h"
-#include "pastel/sys/set/sparse_set.h"
+#include "pastel/sys/set/sparse_range.h"
 
 namespace Pastel {
 

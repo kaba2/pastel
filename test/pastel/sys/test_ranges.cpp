@@ -3,7 +3,7 @@
 
 #include "test/test_init.h"
 #include "range/v3/all.hpp"
-#include "pastel/sys/set/set_concept.h"
+#include "pastel/sys/set/range_concept.h"
 
 #include <iostream>
 #include <list>

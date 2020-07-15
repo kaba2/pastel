@@ -13,9 +13,9 @@
 #include "pastel/geometry/splitrule/longestmedian_splitrule.h"
 
 #include "pastel/sys/sequence/fair_stable_partition.h"
-#include "pastel/sys/set/interval_set.h"
-#include "pastel/sys/set/transformed_set.h"
-#include "pastel/sys/set/zip_set.h"
+#include "pastel/sys/set/interval_range.h"
+#include "pastel/sys/set/transformed_range.h"
+#include "pastel/sys/set/zip_range.h"
 #include "pastel/sys/locator/transform_locator.h"
 #include "pastel/sys/math/sign.h"
 
