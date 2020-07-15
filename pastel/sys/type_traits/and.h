@@ -36,10 +36,6 @@ namespace Pastel
 	using And =
 		Fold<And_::And_F_, std::true_type, ConditionSet...>;
 
-	template <typename... ConditionSet>
-	using And_F = 
-		Identity_F<And<ConditionSet...>>;
-
 }
 
 #endif

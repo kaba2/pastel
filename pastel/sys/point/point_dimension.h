@@ -100,11 +100,7 @@ namespace Pastel
 	}
 
 	template <typename Point>
-	using Point_N_F = 
-		Compute<IntegerConstant<Dynamic>, Point_::Point_N_, Point>;
-
-	template <typename Point>
-	using Point_N = typename Point_N_F<Point>::type;
+	using Point_N = typename Compute<IntegerConstant<Dynamic>, Point_::Point_N_, Point>::type;
 
 }
 

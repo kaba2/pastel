@@ -26,16 +26,12 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	using IsTag_F = 
-		IsTag_::IsTag_F_<
+	using IsTag = 
+		typename IsTag_::IsTag_F_<
 			std::remove_cv_t<
 				std::remove_reference_t<Type>
 			>
-		>;
-
-	template <typename Type>
-	using IsTag = 
-		typename IsTag_F<Type>::type;
+		>::type;
 
 }
 

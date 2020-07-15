@@ -21,10 +21,6 @@ namespace Pastel
 		using Is_Subtractable = 
 			std::bool_constant<Is_Subtractable_<Type>>;
 
-		template <typename Type>
-		using Is_Subtractable_F =
-			Identity_F<Is_Subtractable<Type>>;
-
 }
 
 #endif

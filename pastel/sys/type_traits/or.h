@@ -31,10 +31,6 @@ namespace Pastel
 	using Or =
 		Fold<Or_::Or_F_, std::false_type, ConditionSet...>;
 
-	template <typename... ConditionSet>
-	using Or_F = 
-		Identity_F<Or<ConditionSet...>>;
-
 }
 
 #endif

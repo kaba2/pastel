@@ -21,10 +21,6 @@ namespace Pastel
 		using Is_Addable =
 			std::bool_constant<Is_Addable_<Type>>;
 
-		template <typename Type>
-		using Is_Addable_F =
-			Identity_F<Is_Addable<Type>>;
-
 }
 
 #endif

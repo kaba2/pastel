@@ -15,9 +15,6 @@ namespace Pastel
 	using PointSet_Real = 
 		Locator_Real<PointSet_Locator<PointSet>>;
 
-	template <PointSet_Concept PointSet>
-	using PointSet_Real_F =
-		Identity_F<PointSet_Real<PointSet>>;
 }
 
 #endif

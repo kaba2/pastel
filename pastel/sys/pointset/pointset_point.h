@@ -18,10 +18,6 @@ namespace Pastel
 	template <PointSet_Concept PointSet>
 	using PointSet_Point = RemoveCvRef<ranges::range_value_t<PointSet>>;
 
-	template <PointSet_Concept PointSet>
-	using PointSet_Point_F = 
-		Identity_F<PointSet_Point<PointSet>>;
-
 }
 
 #endif

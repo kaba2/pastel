@@ -62,15 +62,8 @@ namespace Pastel
 		template <typename, typename, typename...> class Binary_TypeFunction,
 		typename Identity,
 		typename... TypeSet>
-	using Fold_F =
-		Fold_::Fold_F_<Binary_TypeFunction, Identity, TypeSet...>;
-
-	template <
-		template <typename, typename, typename...> class Binary_TypeFunction,
-		typename Identity,
-		typename... TypeSet>
 	using Fold = 
-		typename Fold_F<Binary_TypeFunction, Identity, TypeSet...>::type;
+		typename Fold_::Fold_F_<Binary_TypeFunction, Identity, TypeSet...>::type;
 
 }
 
