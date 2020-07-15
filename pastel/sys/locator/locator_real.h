@@ -11,22 +11,11 @@
 namespace Pastel
 {
 
-	template <typename Locator>
-	using Locator_Real_ = typename Locator::Real;
-		//decltype(
-		//	std::declval<Locator>()(
-		//		std::declval<Locator_Point<Locator>>(), 0)
-		//);
-
-	template <typename... LocatorSet>
-	using Locator_Real_F =
-		std::common_type<
-			Locator_Real_<LocatorSet>...
-		>;
-
 	template <typename... LocatorSet>
 	using Locator_Real = 
-		typename Locator_Real_F<LocatorSet...>::type;
+		std::common_type_t<
+			typename LocatorSet::Real...
+		>;
 
 }
 	

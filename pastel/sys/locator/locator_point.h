@@ -14,10 +14,6 @@ namespace Pastel
 	using Locator_Point = 
 		typename RemoveCvRef<Locator>::Point;
 
-	template <typename Locator>
-	using Locator_Point_F = 
-		Identity_F<Locator_Point<Locator>>;
-
 }
 
 #endif

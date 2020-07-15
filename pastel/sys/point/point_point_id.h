@@ -26,10 +26,6 @@ namespace Pastel
 	using Point_PointId = 
 		RemoveCvRef<decltype(pointPointId(std::declval<Point>()))>;
 
-	template <typename Point>
-	using Point_PointId_F = 
-		Identity_F<Point_PointId<Point>>;
-
 }
 
 #endif

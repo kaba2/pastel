@@ -30,10 +30,6 @@ namespace Pastel
 	using Point_Locator = 
 		decltype(pointLocator(std::declval<Point>()));
 
-	template <Point_Concept Point>
-	using Point_Locator_F = 
-		Identity_F<Point_Locator<Point>>;
-
 }
 
 #endif
