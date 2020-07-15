@@ -39,7 +39,7 @@ namespace Pastel
 		}
 
 		integer n = 0;
-		RANGES_FOR(auto&& point, pointSet)
+		for (auto&& point : pointSet)
 		{
 			for (integer i = 0;i < d;++i)
 			{

@@ -95,7 +95,7 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 
 					// Check that the point-pairs are within given
 					// matching distance from each other.
-					RANGES_FOR(auto&& pairing, pairSet)
+					for (auto&& pairing : pairSet)
 					{
 						auto actualDistance = distance2(
 							pairing.first->point(), 
@@ -130,7 +130,7 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 
 				// Check that the point-pairs are within given
 				// matching distance from each other.
-				RANGES_FOR(auto&& pairing, pairSet)
+				for (auto&& pairing : pairSet)
 				{
 					auto actualDistance = distance2(
 						pairing.first->point(),

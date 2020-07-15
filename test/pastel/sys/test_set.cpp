@@ -43,7 +43,7 @@ TEST_CASE("Interval (Set)")
 
 		std::unordered_set<integer> actualSet;
 
-		RANGES_FOR(auto&& a, set)
+		for (auto&& a : set)
 		{
 			actualSet.insert(a);
 		}
@@ -61,7 +61,7 @@ TEST_CASE("Basic interval (Set)")
 	integer n = 8;
 	auto set = intervalSet((integer)3, (integer)3 + n);
 	integer i = 3;
-	RANGES_FOR(auto&& element, set)
+	for (auto&& element : set)
 	{
 		REQUIRE(element == i);
 		++i;
@@ -80,7 +80,7 @@ TEST_CASE("Range (Set)")
 
 		std::unordered_set<integer> actualSet;
 
-		RANGES_FOR(integer a, set)
+		for (integer a : set)
 		{
 			actualSet.insert(a);
 		}
@@ -105,7 +105,7 @@ TEST_CASE("Constant (Set)")
 
 		integer m = 0;
 		bool correct = true;
-		RANGES_FOR(integer a, set)
+		for (integer a : set)
 		{
 			if (a != element)
 			{
@@ -151,7 +151,7 @@ TEST_CASE("Union (Set)")
 			>::value);
 
 		std::unordered_multiset<integer> actualSet;
-		RANGES_FOR(integer a, abSet)
+		for (integer a : abSet)
 		{
 			actualSet.insert(a);
 		}
@@ -171,7 +171,7 @@ TEST_CASE("Sparse (Set)")
 		inputSet, 2);
 
 	std::unordered_set<integer> actualSet;
-	RANGES_FOR(auto&& element, subSet)
+	for (auto&& element : subSet)
 	{
 		actualSet.insert(element);
 	}
@@ -195,7 +195,7 @@ TEST_CASE("Transformed (Set)")
 		inputSet, Dereference_Function());
 
 	std::unordered_set<integer> actualSet;
-	RANGES_FOR(integer x, dereferencedSet)
+	for (integer x : dereferencedSet)
 	{
 		actualSet.insert(x);
 	}

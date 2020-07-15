@@ -186,7 +186,7 @@ namespace Pastel
 		auto reportSet = resultSet.release(sortDistances);
 
 		// Report the nearest neighbors.
-		RANGES_FOR(auto&& entry, reportSet)
+		for (auto&& entry : reportSet)
 		{
 			report(entry.first, entry.second);
 		}

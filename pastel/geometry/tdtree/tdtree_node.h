@@ -128,7 +128,7 @@ namespace Pastel
 		, prevMax_(0)
 		{
 			entrySet_.reserve(iteratorSet.size() + 1);
-			RANGES_FOR(auto&& i, iteratorSet)
+			for (auto&& i : iteratorSet)
 			{
 				entrySet_.emplace_back(i);
 			}

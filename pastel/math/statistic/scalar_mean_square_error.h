@@ -36,7 +36,7 @@ namespace Pastel
 		integer n = 0;
 		Real result = 0;
 
-		RANGES_FOR(auto&& elements, zipSet(aSet, bSet))
+		for (auto&& elements : zipSet(aSet, bSet))
 		{
 			result += square(elements.first - elements.second);
 			++n;

@@ -30,7 +30,7 @@ namespace
 				1, 5, 3, 4, 4, 4, 8, 7, 6, 9, 2
 			};
 
-			RANGES_FOR(integer i, insertSet)
+			for (integer i : insertSet)
 			{
 				list.insert(i);
 				REQUIRE(testInvariants(list));
@@ -605,7 +605,7 @@ namespace
 		integer listSizeSet[] = 
 			{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100};
 
-		RANGES_FOR(integer listSize, listSizeSet)
+		for (integer listSize : listSizeSet)
 		{
 			list.clear();
 			REQUIRE(testInvariants(list));

@@ -123,7 +123,7 @@ namespace Pastel
 			const auto& pointIdSet,
 			Distance cullDistance2)
 		{
-			RANGES_FOR(auto&& pointId, pointIdSet)
+			for (auto&& pointId : pointIdSet)
 			{
 				// Compute the distance from the node-point
 				// to the search-point.

@@ -75,7 +75,7 @@ namespace
 		Euclidean_Norm<dreal> norm;
 
 		integer j = 0;
-		RANGES_FOR(auto&& i, nearestSet)
+		for (auto&& i : nearestSet)
 		{
 			auto result =
 				searchNearest(
@@ -121,7 +121,7 @@ namespace
 		Euclidean_Norm<dreal> norm;
 
 		integer j = 0;
-		RANGES_FOR(auto&& i, nearestSet)
+		for (auto&& i : nearestSet)
 		{
 			integer count = countNearest(
 				nearestSet,
@@ -181,7 +181,7 @@ public:
 		//printTree(copyTree.root());
 
 		std::vector<integer> permutationSet;
-		RANGES_FOR(auto&& point, intervalSet(tree))
+		for (auto&& point : intervalSet(tree))
 		{
 			permutationSet.push_back(iteratorSet[point]);
 		}
@@ -228,7 +228,7 @@ public:
 
 		integer n = 0;
 		std::vector<integer> permutationSet;
-		RANGES_FOR(auto&& point, pointSet)
+		for (auto&& point : pointSet)
 		{
 			permutationSet.push_back(n);
 			++n;
@@ -259,7 +259,7 @@ public:
 	{
 		std::vector<integer> permutationSet;
 		integer i = 0;
-		RANGES_FOR(auto&& point, pointSet)
+		for (auto&& point : pointSet)
 		{
 			permutationSet.push_back(i);
 			++i;

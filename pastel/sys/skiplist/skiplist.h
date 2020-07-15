@@ -102,7 +102,7 @@ namespace Pastel
 		SkipList(std::initializer_list<That_Key> dataSet)
 		: SkipList()
 		{
-			RANGES_FOR(auto&& key, dataSet)
+			for (auto&& key : dataSet)
 			{
 				insert(key);
 			}
@@ -116,7 +116,7 @@ namespace Pastel
 		SkipList(std::initializer_list<std::pair<Key, Value>> dataSet)
 		: SkipList()
 		{
-			RANGES_FOR(auto&& keyValue, dataSet)
+			for (auto&& keyValue : dataSet)
 			{
 				insert(keyValue.first, keyValue.second);
 			}

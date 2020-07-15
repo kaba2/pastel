@@ -19,7 +19,7 @@ void f(const Range& aSet)
 		}
 	);
 
-	RANGES_FOR(auto&& x, aSet)
+	for (auto&& x : aSet)
 	{
 	}
 }
@@ -35,7 +35,7 @@ TEST_CASE("Ranges (Ranges)")
 	PASTEL_CONCEPT_CHECK(std::initializer_list<int>, Range_Concept);
 	PASTEL_CONCEPT_CHECK(ranges::iota_view<int>, Range_Concept);
 
-	RANGES_FOR(auto&& point, aSet)
+	for (auto&& point : aSet)
 	{
 	}
 

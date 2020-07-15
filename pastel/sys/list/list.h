@@ -69,7 +69,7 @@ namespace Pastel
 		template <typename Type>
 		List(std::initializer_list<Type> thatSet)
 		{
-			RANGES_FOR(auto&& that, thatSet)
+			for (auto&& that : thatSet)
 			{
 				insertBack(that);
 			}

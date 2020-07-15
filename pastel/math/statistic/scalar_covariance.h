@@ -58,7 +58,7 @@ namespace Pastel
 
 		integer n = 0;
 		Real covariance = 0;
-		RANGES_FOR(auto&& elements, zipSet(aSet, bSet))
+		for (auto&& elements : zipSet(aSet, bSet))
 		{
 			covariance += 
 				(elements.first - aMean) * 

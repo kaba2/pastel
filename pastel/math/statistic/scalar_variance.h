@@ -53,7 +53,7 @@ namespace Pastel
 		integer n = 0;
 		Real variance = 0;
 
-		RANGES_FOR(Real x, inputSet)
+		for (Real x : inputSet)
 		{
 			variance += square(x - mean);
 			++n;

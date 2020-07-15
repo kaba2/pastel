@@ -40,7 +40,7 @@ namespace Pastel
 			integer negatives = 0;
 			integer positives = 0;
 
-			RANGES_FOR(auto&& element, elementSet)
+			for (auto&& element : elementSet)
 			{
 				const integer i = trindicator(element);
 
@@ -81,7 +81,7 @@ namespace Pastel
 			// The number of zero-indicators seen
 			// thus far.
 			integer zerosThusfar = 0;
-			RANGES_FOR(auto&& element, elementSet)
+			for (auto&& element : elementSet)
 			{
 				// Find out the indicator of the
 				// current element.

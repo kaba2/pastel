@@ -62,11 +62,11 @@ namespace
 			return maxNorm(delta);
 		};
 
-		RANGES_FOR(auto scaling, scalingSet)
+		for (auto scaling : scalingSet)
 		{
-			RANGES_FOR(auto translation, translationSet)
+			for (auto translation : translationSet)
 			{
-				RANGES_FOR(auto matrix, matrixSet)
+				for (auto matrix : matrixSet)
 				{
 					integer orientation = 1;
 

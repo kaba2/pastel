@@ -25,7 +25,7 @@ namespace Pastel
 		const Set& set,
 		const Visit& visit)
 	{
-		RANGES_FOR(auto&& element, set)
+		for (auto&& element : set)
 		{
 			if (!visit(element))
 			{

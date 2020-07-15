@@ -1411,7 +1411,7 @@ TEST_CASE("MultiSplit (RedBlackTree)")
 		}
 		*/
 
-		RANGES_FOR(integer i, indexSet)
+		for (integer i : indexSet)
 		{
 			Tree aTree = tree;
 			REQUIRE(testInvariants(aTree));

@@ -45,7 +45,7 @@ namespace Pastel
 			std::vector<Real> positionSet;
 			positionSet.reserve(setSize(pointSet));
 
-			RANGES_FOR(auto&& point, pointSet)
+			for (auto&& point : pointSet)
 			{
 				positionSet.emplace_back(
 					pointAxis(point, splitAxis));
