@@ -23,7 +23,6 @@
 #include <pastel/sys/output.h>
 #include <pastel/sys/indicator.h>
 #include <pastel/sys/locator.h>
-#include <pastel/sys/iterator/counting_iterator.h>
 
 #include <vector>
 #include <list>

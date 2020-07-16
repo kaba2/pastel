@@ -4,7 +4,6 @@
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/predicate/directed_predicate.h"
 #include "pastel/sys/range.h"
-#include "pastel/sys/iterator/counting_iterator.h"
 
 namespace Pastel
 {
@@ -27,9 +26,7 @@ namespace Pastel
 			// data is not always correct. For example, the
 			// propagation data may store node-iterators to the
 			// tree.
-			updateToRootMany(Pastel::range(
-				countingIterator(begin()), 
-				countingIterator(end())));
+			updateToRootMany(intervalRange(*this));
 
 			this->onConstruction();
 		}

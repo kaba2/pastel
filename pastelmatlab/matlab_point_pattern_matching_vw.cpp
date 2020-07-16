@@ -56,12 +56,8 @@ namespace Pastel
 			ConformalAffine2D<dreal> similarity;
 
 			bool success = pointPatternMatchVw(
-				range(
-				constSparseIterator(countingIterator(sceneData), 2), 
-				scenePoints),
-				range(
-				constSparseIterator(countingIterator(modelData), 2), 
-				modelPoints),
+				sparseRange(intervalRange(sceneData, sceneData + scenePoints * 2), 2), 
+				sparseRange(intervalRange(modelData, modelData + modelPoints * 2), 2), 
 				minMatchRatio,
 				relativeMatchingDistance,
 				confidence,

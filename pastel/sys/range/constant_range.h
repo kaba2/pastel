@@ -1,7 +1,7 @@
 // Description: Constant multi-set
 
-#ifndef PASTELSYS_CONSTANT_SET_H
-#define PASTELSYS_CONSTANT_SET_H
+#ifndef PASTELSYS_CONSTANT_RANGE_H
+#define PASTELSYS_CONSTANT_RANGE_H
 
 #include "pastel/sys/range/range_concept.h"
 #include "pastel/sys/ensure.h"
@@ -11,7 +11,7 @@ namespace Pastel
 {
 
 	template <typename Element>
-	decltype(auto) constantRange(integer n, Element&& element)
+	decltype(auto) constantRange(Element&& element, integer n)
 	{
 		return ranges::views::repeat_n(std::forward<Element>(element), n);
 	}

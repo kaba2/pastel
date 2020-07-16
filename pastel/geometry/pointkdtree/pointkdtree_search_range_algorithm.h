@@ -4,8 +4,6 @@
 #ifndef PASTELGEOMETRY_POINTKDTREE_SEARCH_RANGE_ALGORITHM_H
 #define PASTELGEOMETRY_POINTKDTREE_SEARCH_RANGE_ALGORITHM_H
 
-#include "pastel/sys/iterator/counting_iterator.h"
-
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/shape/alignedbox.h"
 #include "pastel/geometry/overlap/overlaps_alignedbox_point.h"

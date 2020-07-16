@@ -20,7 +20,6 @@
 
 // Implementation
 
-#include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/hashing/iteratoraddress_hash.h"
 #include "pastel/sys/graph/matching/maximum_bipartite_matching.h"
 #include "pastel/sys/range.h"

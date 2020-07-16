@@ -3,8 +3,6 @@
 
 #include "test/test_init.h"
 
-#include "pastel/sys/iterator/constant_iterator.h"
-#include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/iterator/sparse_iterator.h"
 #include "pastel/sys/iterator/rectangle_iterator.h"
 
@@ -99,26 +97,6 @@ TEST_CASE("Second (Second)")
 
 	REQUIRE(std::equal(b.begin(), b.end(), 
 		Pair_ConstIterator(a.begin())));
-}
-
-TEST_CASE("Constant (Constant)")
-{
-	ConstantIterator<integer> iter;
-	++iter;
-	--iter;
-	iter += 2;
-	iter -= 2;
-	iter = iter + 1;
-	iter = iter - 1;
-	iter == iter;
-	iter != iter;
-	iter < iter;
-	iter > iter;
-	iter <= iter;
-	iter >= iter;
-	iter - iter;
-
-	//*iter = 2;
 }
 
 namespace
@@ -275,8 +253,8 @@ TEST_CASE("Counting (Iterators)")
 		a.push_back(6);
 
 		REQUIRE(
-			std::equal(a.begin(), a.end(), 
-			CountingIterator<integer>(1)));
+			ranges::equal(a, 
+			intervalRange((integer)1, (integer)7)));
 	}
 	{
 		std::vector<integer> a;
@@ -286,9 +264,8 @@ TEST_CASE("Counting (Iterators)")
 		a.push_back(7);
 
 		REQUIRE(
-			std::equal(a.begin(), a.end(), 
-			SparseIterator<CountingIterator<integer> >(
-			CountingIterator<integer>(1), 2)));
+			ranges::equal(a, 
+			sparseRange(intervalRange((integer)1, (integer)8), 2)));
 	}
 }
 

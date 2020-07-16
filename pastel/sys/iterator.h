@@ -2,8 +2,6 @@
 #ifndef PASTELSYS_ITERATOR_H_MODULE
 #define PASTELSYS_ITERATOR_H_MODULE
 
-#include "pastel/sys/iterator/constant_iterator.h"
-#include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/iterator/null_iterator.h"
 #include "pastel/sys/iterator/rectangle_iterator.h"
 #include "pastel/sys/iterator/second_iterator.h"

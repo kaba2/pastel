@@ -98,7 +98,7 @@ TEST_CASE("Constant (Set)")
 	{
 		integer n = 4;
 		integer element = 7;
-		auto set = constantRange(n, element);
+		auto set = constantRange(element, n);
 
 		PASTEL_STATIC_ASSERT(
 			CorrectElement<decltype(set), integer>::value);
@@ -121,7 +121,7 @@ TEST_CASE("Constant (Set)")
 	{
 		integer n = 0;
 		integer element = 7;
-		auto set = constantRange(n, element);
+		auto set = constantRange(element, n);
 	}
 }
 
@@ -130,13 +130,13 @@ TEST_CASE("Union (Set)")
 	{
 		integer nA = 5;
 		integer aElement = 7;
-		auto aSet = constantRange(nA, aElement);
+		auto aSet = constantRange(aElement, nA);
 		PASTEL_CONCEPT_CHECK(decltype(aSet), Range_Concept);
 		REQUIRE(ranges::size(aSet) == 5);
 
 		integer nB = 3;
 		integer bElement = 3;
-		auto bSet = constantRange(nB, bElement);
+		auto bSet = constantRange(bElement, nB);
 		PASTEL_CONCEPT_CHECK(decltype(bSet), Range_Concept);
 		REQUIRE(ranges::size(bSet) == 3);
 

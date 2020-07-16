@@ -1,7 +1,7 @@
 // Description: Interval multi-set
 
-#ifndef PASTELSYS_INTERVAL_SET_H
-#define PASTELSYS_INTERVAL_SET_H
+#ifndef PASTELSYS_INTERVAL_RANGE_H
+#define PASTELSYS_INTERVAL_RANGE_H
 
 #include "pastel/sys/range/range_concept.h"
 

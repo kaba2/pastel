@@ -5,8 +5,6 @@
 
 #include "pastel/sys/array.h"
 
-#include "pastel/sys/iterator/counting_iterator.h"
-
 namespace
 {
 
@@ -166,8 +164,8 @@ TEST_CASE("Iterator (Array)")
 	}
 
 	Array<integer, 2> b(Vector2i(6, 6));
-	std::copy(
-		countingIterator((integer)0), countingIterator(b.size()),
+	ranges::copy(
+		intervalRange((integer)0, b.size()),
 		b.begin());
 
 	REQUIRE(std::equal(a.begin(), a.end(), b.begin()));
@@ -195,9 +193,7 @@ TEST_CASE("SubArray (Array)")
 		24, 25, 26, 27, 28, 29,
 		30, 31, 32, 33, 34, 35 };
 
-	REQUIRE(
-		std::equal(a.begin(), a.end(),
-		countingIterator(0)));
+	REQUIRE(ranges::equal(a, ranges::view::ints(0, 36)));
 
 	a(Vector2i(0, 0), Vector2i(3, 3)) = 
 		a(Vector2i(3, 3), Vector2i(6, 6));
@@ -210,9 +206,7 @@ TEST_CASE("SubArray (Array)")
 		24, 25, 26, 27, 28, 29,
 		30, 31, 32, 33, 34, 35 };
 
-	REQUIRE(
-		std::equal(a.begin(), a.end(),
-		b.begin()));
+	REQUIRE(ranges::equal(a, b));
 
 	a(Vector2i(0, 0), Vector2i(6, 6), Vector2i(2, 2)) = 0;
 
@@ -223,9 +217,7 @@ TEST_CASE("SubArray (Array)")
 		0, 25, 0, 27, 0, 29,
 		30, 31, 32, 33, 34, 35 };
 
-	REQUIRE(
-		std::equal(a.begin(), a.end(),
-		b.begin()));
+	REQUIRE(ranges::equal(a, b));
 
 	a(Vector2i(1, 1), Vector2i(6, 6), Vector2i(2, 2)) = 1;
 
@@ -236,9 +228,7 @@ TEST_CASE("SubArray (Array)")
 		0, 25, 0, 27, 0, 29,
 		30, 1, 32, 1, 34, 1 };
 
-	REQUIRE(
-		std::equal(a.begin(), a.end(),
-		b.begin()));
+	REQUIRE(ranges::equal(a, b));
 
 	a(Vector2i(2, 2), Vector2i(-1, -1), Vector2i(-1, -1)) = 
 		a(Vector2i(3, 0), Vector2i(6, 3));			
@@ -250,9 +240,7 @@ TEST_CASE("SubArray (Array)")
 		0, 25, 0, 27, 0, 29,
 		30, 1, 32, 1, 34, 1 };
 
-	REQUIRE(
-		std::equal(a.begin(), a.end(),
-		b.begin()));
+	REQUIRE(ranges::equal(a, b));
 
 	SubArray<integer> c(a(Vector2i(0, 0), Vector2i(2, 2)));
 	c = 2;
@@ -264,9 +252,7 @@ TEST_CASE("SubArray (Array)")
 		0, 25, 0, 27, 0, 29,
 		30, 1, 32, 1, 34, 1 };
 
-	REQUIRE(
-		std::equal(a.begin(), a.end(),
-		b.begin()));
+	REQUIRE(ranges::equal(a, b));
 
 	f(c, 3);
 
@@ -277,9 +263,7 @@ TEST_CASE("SubArray (Array)")
 		0, 25, 0, 27, 0, 29,
 		30, 1, 32, 1, 34, 1 };
 
-	REQUIRE(
-		std::equal(a.begin(), a.end(),
-		b.begin()));
+	REQUIRE(ranges::equal(a, b));
 }
 
 TEST_CASE("Slice (Array)")
@@ -296,18 +280,14 @@ TEST_CASE("Slice (Array)")
 		Array<integer, 1> b(Vector1i(6));
 		b = { 12, 13, 14, 15, 16, 17 };
 		SubArray<integer, 1> slice = a().slice(1, 2);
-		REQUIRE(
-			std::equal(slice.begin(), slice.end(),
-			b.begin()));
+		REQUIRE(ranges::equal(slice, b));
 	}
 
 	{
 		Array<integer, 1> b(Vector1i(6));
 		b = { 3, 9, 15, 21, 27, 33 };
 		SubArray<integer, 1> slice = a().slice(0, 3);
-		REQUIRE(
-			std::equal(slice.begin(), slice.end(),
-			b.begin()));
+		REQUIRE(ranges::equal(slice, b));
 
 		/*
 		std::copy(

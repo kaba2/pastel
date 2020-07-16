@@ -8,6 +8,7 @@
 
 #include <range/v3/algorithm.hpp>
 #include <range/v3/view.hpp>
+#include <range/v3/range/concepts.hpp>
 #include <boost/iterator_adaptors.hpp>
 
 namespace Pastel

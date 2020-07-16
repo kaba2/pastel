@@ -187,9 +187,8 @@ namespace Pastel
 
 				std::vector<ModelIterator> modelIndexList;
 				modelIndexList.reserve(modelPoints_);
-				std::copy(
-					countingIterator(modelTree_.begin()),
-					countingIterator(modelTree_.end()),
+				ranges::copy(
+					intervalRange(modelTree_),
 					std::back_inserter(modelIndexList));
 				
 				// We only need those points randomized
@@ -207,9 +206,8 @@ namespace Pastel
 				// Randomize all of the scene pointset.
 				std::vector<SceneIterator> sceneIndexList;
 				sceneIndexList.reserve(scenePoints_);
-				std::copy(
-					countingIterator(sceneTree_.begin()),
-					countingIterator(sceneTree_.end()),
+				ranges::copy(
+					intervalRange(sceneTree_),
 					std::back_inserter(sceneIndexList));
 				for (integer i = 0;i < scenePoints_ - 1;++i)
 				{

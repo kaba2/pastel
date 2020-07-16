@@ -1,7 +1,7 @@
 // Description: Set module
 
-#ifndef PASTELSYS_SET_H_MODULE
-#define PASTELSYS_SET_H_MODULE
+#ifndef PASTELSYS_RANGE_H_MODULE
+#define PASTELSYS_RANGE_H_MODULE
 
 #include "pastel/sys/range/constant_range.h"
 #include "pastel/sys/range/range_concept.h"

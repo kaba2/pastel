@@ -6,7 +6,6 @@
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/redblacktree.h"
-#include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/output/null_output.h"
 #include "pastel/sys/output/push_back_output.h"
 #include "pastel/sys/random/random_uniform.h"

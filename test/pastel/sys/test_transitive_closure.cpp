@@ -5,7 +5,6 @@
 
 #include "pastel/sys/graph/transitive_closure.h"
 #include "pastel/sys/incidence_graph.h"
-#include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/hashing/iteratoraddress_hash.h"
 
@@ -57,23 +56,18 @@ TEST_CASE("TransitiveClosureAddition (transitive_closure)")
 	auto forEachDomain = [&relation](
 		const std::function<void(const Vertex_Iterator&)>& visit) 
 	{
-		std::for_each(
-			countingIterator(relation.vertexBegin()),
-			countingIterator(relation.vertexEnd()),
-			visit);
+		for (Vertex_Iterator i : intervalRange(range(relation.vertexBegin(), relation.vertexEnd()))) {
+			visit(i);
+		}
 	};
 
 	auto forEachRelated = [](
 		const Vertex_Iterator& vertex, 
 		const std::function<void(const Vertex_Iterator&)>& visit)
 	{
-		std::for_each(
-			countingIterator(vertex->outgoingBegin()),
-			countingIterator(vertex->outgoingEnd()),
-			[&](const Incidence_Iterator& incidence)
-		{
+		for (Incidence_Iterator incidence : intervalRange(range(vertex->outgoingBegin(), vertex->outgoingEnd()))) {
 			visit(incidence->vertex());
-		});
+		}
 	};
 
 	std::unordered_map<Vertex_Iterator, integer,
@@ -199,23 +193,18 @@ TEST_CASE("TransitiveClosureUnion (transitive_closure)")
 	auto forEachDomain = [&relation](
 		const std::function<void(const Vertex_Iterator&)>& visit) 
 	{
-		std::for_each(
-			countingIterator(relation.vertexBegin()),
-			countingIterator(relation.vertexEnd()),
-			visit);
+		for (Vertex_Iterator i : intervalRange(range(relation.vertexBegin(), relation.vertexEnd()))) {
+			visit(i);
+		}
 	};
 
 	auto forEachRelated = [](
 		const Vertex_Iterator& vertex, 
 		const std::function<void(const Vertex_Iterator&)>& visit)
 	{
-		std::for_each(
-			countingIterator(vertex->outgoingBegin()),
-			countingIterator(vertex->outgoingEnd()),
-			[&](const Incidence_Iterator& incidence)
-		{
+		for (Incidence_Iterator incidence : intervalRange(range(vertex->outgoingBegin(), vertex->outgoingEnd()))) {
 			visit(incidence->vertex());
-		});
+		}
 	};
 
 	auto report = [](

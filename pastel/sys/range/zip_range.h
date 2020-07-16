@@ -1,7 +1,7 @@
 // Description: Union multi-set
 
-#ifndef PASTELSYS_ZIP_SET_H
-#define PASTELSYS_ZIP_SET_H
+#ifndef PASTELSYS_ZIP_RANGE_H
+#define PASTELSYS_ZIP_RANGE_H
 
 #include "pastel/sys/range/range_concept.h"
 #include <range/v3/view/zip.hpp>
