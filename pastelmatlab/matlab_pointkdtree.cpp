@@ -10,6 +10,7 @@
 #include "pastel/sys/allocator/pool_allocator.h"
 #include "pastel/sys/indicator/predicate_indicator.h"
 
+#include "pastel/sys/range.h"
 #include <boost/range/algorithm/fill.hpp>
 
 #include <tbb/blocked_range.h>
@@ -208,7 +209,7 @@ namespace Pastel
 
 					ranges::copy(
 						Pastel::range(pointIter->point().data, pointIter->point().data + d),
-						ranges::begin(pointSet.columnRange(i))
+						std::begin(pointSet.columnRange(i))
 					);
 				}					
 				else

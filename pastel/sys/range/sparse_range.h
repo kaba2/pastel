@@ -9,14 +9,10 @@
 namespace Pastel
 {
 
-	template <Range_Concept Set>
-	decltype(auto) sparseRange(
-		Set&& set,
-		integer factor)
+	template <Range_Concept Range>
+	decltype(auto) sparseRange(Range&& range, integer factor)
 	{
-		return ranges::views::stride(
-			std::forward<Set>(set),
-			factor);
+		return ranges::views::stride(std::forward<Range>(range), factor);
 	}
 
 }
