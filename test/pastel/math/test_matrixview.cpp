@@ -172,8 +172,10 @@ TEST_CASE("repeatColumn (MatrixView)")
 
     auto a = view(data).repeatColumn(1, 4);
     auto b = view(correct);
+    auto c = view(data).repeatColumn<4>(1);
 
     REQUIRE(a.equals(b));
+    REQUIRE(c.equals(b));
 }
 
 TEST_CASE("repeatRow (MatrixView)")
@@ -193,6 +195,8 @@ TEST_CASE("repeatRow (MatrixView)")
 
     auto a = view(data).repeatRow(1, 4);
     auto b = view(correct);
+    auto c = view(data).repeatRow<4>(1);
 
     REQUIRE(a.equals(b));
+    REQUIRE(c.equals(b));
 }

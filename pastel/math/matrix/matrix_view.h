@@ -235,10 +235,10 @@ namespace Pastel {
             return {data_ + toIndex(0, jBegin), rows(), jEnd - jBegin, iStride(), jStride()};
         }
 
-        template <int Step>
-        requires (N >= 0 && Step > 0)
-        MatrixView<Real, M, ModifyN<N, (N + Step - 1) / Step>, ColumnMajor> sparsex() {
-            return {data_, rows(), divideAndRoundUp(cols(), (integer)Step), iStride(), jStride() * Step};
+        template <integer step>
+        requires (N >= 0 && step > 0)
+        MatrixView<Real, M, ModifyN<N, (N + step - 1) / step>, ColumnMajor> sparsex() {
+            return {data_, rows(), divideAndRoundUp(cols(), step), iStride(), jStride() * step};
         }
 
         MatrixView<Real, M, Dynamic, ColumnMajor> sparsex(integer step) {
@@ -246,10 +246,10 @@ namespace Pastel {
             return {data_, rows(), divideAndRoundUp(cols(), step), iStride(), jStride() * step};
         }
 
-        template <int Step>
-        requires (M >= 0 && Step > 0)
-        MatrixView<Real, ModifyN<M, (M + Step - 1) / Step>, N, ColumnMajor> sparsey() {
-            return {data_, divideAndRoundUp(rows(), (integer)Step), cols(), iStride() * Step, jStride()};
+        template <integer step>
+        requires (M >= 0 && step > 0)
+        MatrixView<Real, ModifyN<M, (M + step - 1) / step>, N, ColumnMajor> sparsey() {
+            return {data_, divideAndRoundUp(rows(), step), cols(), iStride() * step, jStride()};
         }
 
         MatrixView<Real, Dynamic, N, ColumnMajor> sparsey(integer step) {
@@ -257,8 +257,18 @@ namespace Pastel {
             return {data_, divideAndRoundUp(rows(), step), cols(), iStride() * step, jStride()};
         }
 
+        template <integer times>
+        MatrixView<Real, M, times, ColumnMajor> repeatColumn(integer col) {
+            return {data_ + toIndex(0, col), rows(), times, iStride(), 0};
+        }
+
         MatrixView<Real, M, Dynamic, ColumnMajor> repeatColumn(integer col, integer times) {
             return {data_ + toIndex(0, col), rows(), times, iStride(), 0};
+        }
+
+        template <integer times>
+        MatrixView<Real, times, N, ColumnMajor> repeatRow(integer row) {
+            return {data_ + toIndex(row, 0), times, cols(), 0, jStride()};
         }
 
         MatrixView<Real, Dynamic, N, ColumnMajor> repeatRow(integer row, integer times) {
