@@ -10,6 +10,35 @@
 
 using namespace Pastel;
 
+TEST_CASE("ranges (MatrixView)")
+{
+    int data[3][4] = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12}
+    };
+
+    auto a = view(data);
+
+    REQUIRE(ranges::equal(a.rowRange(0), data[0]));
+    REQUIRE(ranges::equal(a.rowRange(1), data[1]));
+    REQUIRE(ranges::equal(a.rowRange(2), data[2]));
+
+    int columns[4][3] = {
+        {1, 5, 9},
+        {2, 6, 10}, 
+        {3, 7, 11},
+        {4, 8, 12}
+    };
+
+    REQUIRE(ranges::equal(a.columnRange(0), columns[0]));
+    REQUIRE(ranges::equal(a.columnRange(1), columns[1]));
+    REQUIRE(ranges::equal(a.columnRange(2), columns[2]));
+    REQUIRE(ranges::equal(a.columnRange(3), columns[3]));
+
+    REQUIRE(ranges::equal(a.range(), &columns[0][0]));
+}
+
 TEST_CASE("transpose (MatrixView)")
 {
     int data[3][3] = {
