@@ -27,6 +27,13 @@ TEST_CASE("transpose (MatrixView)")
     auto a = view(data).transpose();
     auto b = view(correct);
 
+    REQUIRE(a.isContinuous());
+    REQUIRE(a.transpose().isContinuous());
+    REQUIRE(a.canCopyBySpan(a));
+    REQUIRE(a.canCopyBySpan(b.transpose()));
+    REQUIRE(!a.canCopyBySpan(b));
+    REQUIRE(!a.transpose().canCopyBySpan(b.transpose()));
+
     REQUIRE(a.equals(b));
 }
 
@@ -46,6 +53,13 @@ TEST_CASE("flipx (MatrixView)")
 
     auto a = view(data).flipx();
     auto b = view(correct);
+
+    REQUIRE(a.isContinuous());
+    REQUIRE(a.flipx().isContinuous());
+    REQUIRE(a.canCopyBySpan(a));
+    REQUIRE(a.canCopyBySpan(b.flipx()));
+    REQUIRE(!a.canCopyBySpan(b));
+    REQUIRE(!a.flipx().canCopyBySpan(b.flipx()));
 
     REQUIRE(a.equals(b));
 }
@@ -88,6 +102,10 @@ TEST_CASE("slicex (MatrixView)")
     auto b = view(correct);
     auto c = view(data).slicex<1, 3>();
 
+    REQUIRE(!a.isContinuous());
+    REQUIRE(!a.canCopyBySpan(a));
+    REQUIRE(!a.canCopyBySpan(b));
+
     REQUIRE(a.equals(b));
     REQUIRE(c.equals(b));
 }
@@ -108,6 +126,10 @@ TEST_CASE("slicey (MatrixView)")
     auto a = view(data).slicey(1, 3);
     auto b = view(correct);
     auto c = view(data).slicey<1, 3>();
+
+    REQUIRE(a.isContinuous());
+    REQUIRE(a.canCopyBySpan(a));
+    REQUIRE(a.canCopyBySpan(b));
 
     REQUIRE(a.equals(b));
     REQUIRE(c.equals(b));
@@ -131,6 +153,10 @@ TEST_CASE("sparsex (MatrixView)")
     auto b = view(correct);
     auto c = view(data).sparsex<2>();
 
+    REQUIRE(!a.isContinuous());
+    REQUIRE(!a.canCopyBySpan(a));
+    REQUIRE(!a.canCopyBySpan(b));
+
     REQUIRE(a.equals(b));
     REQUIRE(c.equals(b));
 }
@@ -151,6 +177,10 @@ TEST_CASE("sparsey (MatrixView)")
     auto a = view(data).sparsey(2);
     auto b = view(correct);
     auto c = view(data).sparsey<2>();
+
+    REQUIRE(!a.isContinuous());
+    REQUIRE(!a.canCopyBySpan(a));
+    REQUIRE(!a.canCopyBySpan(b));
 
     REQUIRE(a.equals(b));
     REQUIRE(c.equals(b));
