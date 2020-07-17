@@ -33,7 +33,7 @@ namespace Pastel {
         {
         }
 
-        explicit MatrixView(
+        MatrixView(
             Real* data, 
             integer m, 
             integer n,
@@ -196,7 +196,7 @@ namespace Pastel {
         }
 
         MatrixView<Real, N, M, ColumnMajor> transpose() const {
-            return {data_, cols(), rows(), jStride, iStride};
+            return {data_, cols(), rows(), jStride(), iStride()};
         }
 
         MatrixView<Real, M, N, ColumnMajor> flipx() const {
@@ -237,31 +237,31 @@ namespace Pastel {
 
         template <int Step>
         requires (N >= 0 && Step > 0)
-        MatrixView<Real, M, N / Step, ColumnMajor> sparsex() {
-            return {data_, rows(), cols() / Step, iStride(), jStride() * Step};
+        MatrixView<Real, M, ModifyN<N, (N + Step - 1) / Step>, ColumnMajor> sparsex() {
+            return {data_, rows(), divideAndRoundUp(cols(), (integer)Step), iStride(), jStride() * Step};
         }
 
         MatrixView<Real, M, Dynamic, ColumnMajor> sparsex(integer step) {
             ASSERT_OP(step, >, 0);
-            return {data_, rows(), cols() / step, iStride(), jStride() * step};
+            return {data_, rows(), divideAndRoundUp(cols(), step), iStride(), jStride() * step};
         }
 
         template <int Step>
         requires (M >= 0 && Step > 0)
-        MatrixView<Real, M / Step, N, ColumnMajor> sparsey() {
-            return {data_, rows() / Step, cols(), iStride() * Step, jStride()};
+        MatrixView<Real, ModifyN<M, (M + Step - 1) / Step>, N, ColumnMajor> sparsey() {
+            return {data_, divideAndRoundUp(rows(), (integer)Step), cols(), iStride() * Step, jStride()};
         }
 
         MatrixView<Real, Dynamic, N, ColumnMajor> sparsey(integer step) {
             ASSERT_OP(step, >, 0);
-            return {data_, rows() / step, cols(), iStride() * step, jStride()};
+            return {data_, divideAndRoundUp(rows(), step), cols(), iStride() * step, jStride()};
         }
 
-        MatrixView<Real, M, Dynamic, ColumnMajor> repeatcolumn(integer col, integer times) {
+        MatrixView<Real, M, Dynamic, ColumnMajor> repeatColumn(integer col, integer times) {
             return {data_ + toIndex(0, col), rows(), times, iStride(), 0};
         }
 
-        MatrixView<Real, Dynamic, N, ColumnMajor> repeatrow(integer row, integer times) {
+        MatrixView<Real, Dynamic, N, ColumnMajor> repeatRow(integer row, integer times) {
             return {data_ + toIndex(row, 0), times, cols(), 0, jStride()};
         }
 
@@ -297,10 +297,10 @@ namespace Pastel {
     template <typename Real, int N = Dynamic>
     using RowMatrixView = MatrixView<Real, 1, N>;
 
-	template <typename Real, int M, int N>
+	template <typename Real, int M, int N, bool ColumnMajor>
 	std::ostream& operator<<(
 		std::ostream& stream,
-		const MatrixView<Real, M, N>& that)
+		const MatrixView<Real, M, N, ColumnMajor>& that)
 	{
         for (integer i = 0; i < that.rows(); ++i) {
             for (integer j = 0;j < that.cols(); ++j) {

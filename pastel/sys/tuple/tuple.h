@@ -16,15 +16,6 @@
 namespace Pastel
 {
 
-	template <int N, int NewN>
-	inline constexpr int ModifyN = (N == Dynamic) ? Dynamic : NewN;
-
-	template <int N, int i = 1>
-	inline constexpr int AddN = ModifyN<N, N + i>;
-
-	template <int N, int i = 1>
-	inline constexpr int SubN = ModifyN<N, N - i>;
-
 	class Dimension
 	{
 	public:
