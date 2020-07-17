@@ -259,20 +259,20 @@ namespace Pastel {
 
         template <integer times>
         MatrixView<Real, M, times, ColumnMajor> repeatColumn(integer col) {
-            return {data_ + toIndex(0, col), rows(), times, iStride(), 0};
+            return {data_ + toIndex(0, col), rows(), times, iStride(), times == 1 ? jStride() : 0};
         }
 
         MatrixView<Real, M, Dynamic, ColumnMajor> repeatColumn(integer col, integer times) {
-            return {data_ + toIndex(0, col), rows(), times, iStride(), 0};
+            return {data_ + toIndex(0, col), rows(), times, iStride(), times == 1 ? jStride() : 0};
         }
 
         template <integer times>
         MatrixView<Real, times, N, ColumnMajor> repeatRow(integer row) {
-            return {data_ + toIndex(row, 0), times, cols(), 0, jStride()};
+            return {data_ + toIndex(row, 0), times, cols(), times == 1 ? iStride() : 0, jStride()};
         }
 
         MatrixView<Real, Dynamic, N, ColumnMajor> repeatRow(integer row, integer times) {
-            return {data_ + toIndex(row, 0), times, cols(), 0, jStride()};
+            return {data_ + toIndex(row, 0), times, cols(), times == 1 ? iStride() : 0, jStride()};
         }
 
         template <typename Real_, int M_, int N_, bool ColumnMajor_>

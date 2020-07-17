@@ -194,18 +194,48 @@ TEST_CASE("repeatColumn (MatrixView)")
         {7, 8, 9}
     };
 
-    int correct[3][4] = {
-        {2, 2, 2, 2},
-        {5, 5, 5, 5},
-        {8, 8, 8, 8}
-    };
+    {
+        int correct[3][4] = {
+            {2, 2, 2, 2},
+            {5, 5, 5, 5},
+            {8, 8, 8, 8}
+        };
+        auto a = view(data).repeatColumn(1, 4);
+        REQUIRE(a.equals(view(correct)));
+        REQUIRE(!a.hasUniqueAddresses());
+    }
+    {
+        int correct[3][4] = {
+            {3, 3, 3, 3},
+            {6, 6, 6, 6},
+            {9, 9, 9, 9}
+        };
+        auto a = view(data).repeatColumn<4>(2);
+        REQUIRE(a.equals(view(correct)));
+        REQUIRE(!a.hasUniqueAddresses());
+    }
+    {
+        int correct[3][1] = {
+            {2},
+            {5},
+            {8}
+        };
 
-    auto a = view(data).repeatColumn(1, 4);
-    auto b = view(correct);
-    auto c = view(data).repeatColumn<4>(1);
+        auto a = view(data).repeatColumn(1, 1);
+        REQUIRE(a.equals(view(correct)));
+        REQUIRE(a.hasUniqueAddresses());
+    }
+    {
+        int correct[3][1] = {
+            {3},
+            {6},
+            {9}
+        };
 
-    REQUIRE(a.equals(b));
-    REQUIRE(c.equals(b));
+        auto a = view(data).repeatColumn<1>(2);
+        REQUIRE(a.equals(view(correct)));
+        REQUIRE(a.hasUniqueAddresses());
+    }
 }
 
 TEST_CASE("repeatRow (MatrixView)")
