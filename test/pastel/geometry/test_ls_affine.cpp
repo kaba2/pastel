@@ -26,7 +26,7 @@ namespace
 			integer d = randomInteger(10) + 1;
 			integer n = randomInteger(100) + 10;
 			Matrix<Real> W = Matrix<Real>::Identity(n, n);
-			MatrixView<Real> Ws(W.data(), W.rows(), W.cols());
+			MatrixView<Real> Ws = view(W);
 
 			// Note that this is a multiple of the
 			// identity matrix, and so should not affect
@@ -200,7 +200,7 @@ namespace
 
 }
 
-TEST_CASE("lsAffine (lsAffine)")
+TEST_CASE("lsAffine", "[lsAffine]")
 {
 	testRandom<float>();
 	testRandom<double>();

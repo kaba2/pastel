@@ -12,7 +12,7 @@ namespace Pastel
 {
 
 	//! LU decomposition
-	template <typename Real, int M = Dynamic, int N = Dynamic, bool ColumnMajor = true>
+	template <typename Real, int M = Dynamic, int N = Dynamic>
 	requires
 		IsPlain<Real>
 	class LuDecompositionInplace
@@ -28,7 +28,7 @@ namespace Pastel
 		Preconditions:
 		matrix.rows() == matrix.n()
 		*/
-		LuDecompositionInplace(const MatrixView<Real, M, N, ColumnMajor>& matrix)
+		LuDecompositionInplace(const MatrixView<Real, M, N>& matrix)
 			: packedLu_(matrix)
 			, rowPermutation_(ofDimension(packedLu_.cols()))
 			, evenPermutation_(true)
@@ -52,7 +52,7 @@ namespace Pastel
 		The diagonal belongs to the U matrix; the L has 1's 
 		on the diagonal.
 		*/
-		MatrixView<const Real, M, N, ColumnMajor> packedLu() const
+		MatrixView<const Real, M, N> packedLu() const
 		{
 			return packedLu_;
 		}
@@ -214,7 +214,7 @@ namespace Pastel
 			return true;
 		}
 
-		MatrixView<Real, M, N, ColumnMajor> packedLu_;
+		MatrixView<Real, M, N> packedLu_;
 		Tuple<integer, N> rowPermutation_;
 		bool evenPermutation_;
 		bool singular_;
@@ -228,9 +228,9 @@ namespace Pastel
 {
 
 	//! Solves the linear system PLUx = b.
-	template <typename Real, int M, int N, bool ColumnMajor>
+	template <typename Real, int M, int N>
 	Vector<Real> solveLinear(
-		const LuDecompositionInplace<Real, M, N, ColumnMajor>& lu,
+		const LuDecompositionInplace<Real, M, N>& lu,
 		const Vector<Real, N>& b)
 	{
 		auto packedLu = lu.packedLu();
@@ -289,9 +289,9 @@ namespace Pastel
 	}
 
 	//! Returns the determinant of PLU.
-	template <typename Real, int M, int N, bool ColumnMajor>
+	template <typename Real, int M, int N>
 	Real determinant(
-		const LuDecompositionInplace<Real, M, N, ColumnMajor>& lu)
+		const LuDecompositionInplace<Real, M, N>& lu)
 	{
 		if (lu.singular())
 		{

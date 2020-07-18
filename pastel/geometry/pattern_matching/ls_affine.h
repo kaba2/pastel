@@ -164,7 +164,7 @@ namespace Pastel
         MapMatrix<Real, D, D> Q = asMatrix(Qs);
         MapMatrix<Real, D, D> S = asMatrix(Ss);
         MapColMatrix<Real, D> t = asMatrix(ts);
-        MapMatrix<Real> W(Ws.data(), Ws.rows(), Ws.cols());
+        MapMatrix<Real> W = asMatrix(Ws);
 
 		// Initialize Q, S, and t.
 		Q = Matrix<Real, D, D>::Identity(d, d);

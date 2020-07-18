@@ -5,7 +5,7 @@
 
 namespace Pastel {
 
-    template <typename Real, int M = Dynamic, int N = Dynamic, bool ColumnMajor = true>
+    template <typename Real, int M = Dynamic, int N = Dynamic>
     requires IsPlain<Real>
     class MatrixData {
     private:
@@ -36,15 +36,17 @@ namespace Pastel {
     public:
         MatrixData() 
         : data_()
+        , iStride_(0)
+        , jStride_(0)
         {
         }
 
-        template <typename Real_, int M_, int N_, bool ColumnMajor_>
+        template <typename Real_, int M_, int N_>
         requires 
             IsEqualDim<M, M_> &&
             IsEqualDim<N, N_> &&
             std::is_convertible_v<Real_, Real>
-        MatrixData(const MatrixView<Real_, M_, N_, ColumnMajor_>& that) 
+        MatrixData(const MatrixView<Real_, M_, N_>& that)
         : MatrixData(that.rows(), that.cols())
         {
             view().assign(that);
@@ -74,7 +76,9 @@ namespace Pastel {
             }
         }
 
-        MatrixData(integer rows, integer cols)
+        MatrixData(
+            integer rows, integer cols,
+            bool columnMajor = true)
         : MatrixData() 
         {
             ENSURE_OP(rows, >=, 0);
@@ -91,6 +95,11 @@ namespace Pastel {
             if constexpr (N == Dynamic) {
                 data_.cols = cols;
             }
+            iStride_ = 1;
+            jStride_ = rows;
+            if (!columnMajor) {
+                std::swap(iStride_, jStride_);
+            }
         }
 
         Real& operator()(integer i, integer j) {
@@ -98,11 +107,7 @@ namespace Pastel {
         }
 
         const Real& operator()(integer i, integer j) const {
-            if constexpr (ColumnMajor) {
-                return *(data() + j * rows() + i);
-            } else {
-                return *(data() + i * cols() + j);
-            }
+            return *(data() + i * iStride + j * jStride);
         }
 
         void swap(MatrixData& that) {
@@ -135,6 +140,14 @@ namespace Pastel {
             }
         }
 
+        integer iStride() const {
+            return iStride_;
+        }
+
+        integer jStride() const {
+            return jStride_;
+        }
+
         integer size() const {
             return rows() * cols();
         }
@@ -151,47 +164,49 @@ namespace Pastel {
             }
         }
 
-        template <typename Real_, int M_, int N_, bool ColumnMajor_>
-        bool operator==(const MatrixView<Real_, M_, N_, ColumnMajor_>& that) const {
+        template <typename Real_, int M_, int N_>
+        bool operator==(const MatrixView<Real_, M_, N_>& that) const {
             return view().equals(that);
         }
 
-        template <typename Real_, int M_, int N_, bool ColumnMajor_>
-        bool operator!=(const MatrixView<Real_, M_, N_, ColumnMajor_>& that) const {
+        template <typename Real_, int M_, int N_>
+        bool operator!=(const MatrixView<Real_, M_, N_>& that) const {
             return !(*this == that);
         }
 
-        template <typename Real_, int M_, int N_, bool ColumnMajor_>
+        template <typename Real_, int M_, int N_>
         requires std::is_convertible_v<Real_, Real>
-        MatrixData& operator=(const MatrixData<Real_, M_, N_, ColumnMajor_>& that) {
+        MatrixData& operator=(const MatrixData<Real_, M_, N_>& that) {
             return assign(that.view());
         }
 
-        template <typename Real_, int M_, int N_, bool ColumnMajor_>
+        template <typename Real_, int M_, int N_>
         requires std::is_convertible_v<Real_, Real>
-        MatrixData& operator=(const MatrixView<Real_, M_, N_, ColumnMajor_>& that) {
+        MatrixData& operator=(const MatrixView<Real_, M_, N_>& that) {
             view().assign(that);
             return *this;
         }
 
-        operator MatrixView<Real, M, N, ColumnMajor>() {
+        operator MatrixView<Real, M, N>() {
             return view();
         }
 
-        operator MatrixView<const Real, M, N, ColumnMajor>() const {
+        operator MatrixView<const Real, M, N>() const {
             return view();
         }
 
-        MatrixView<Real, M, N, ColumnMajor> view() {
-            return MatrixView<Real, M, N, ColumnMajor>(data(), rows(), cols());
+        MatrixView<Real, M, N> view() {
+            return MatrixView<Real, M, N>(data(), rows(), cols(), iStride(), jStride());
         }
 
-        MatrixView<const Real, M, N, ColumnMajor> view() const {
-            return MatrixView<const Real, M, N, ColumnMajor>(data(), rows(), cols());
+        MatrixView<const Real, M, N> view() const {
+            return MatrixView<const Real, M, N>(data(), rows(), cols(), iStride(), jStride());
         }
 
     private:
         Data data_;
+        integer iStride_;
+        integer jStride_;
     };
 
 }

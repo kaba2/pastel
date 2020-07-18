@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-TEST_CASE("qr_decomposition (qr_decomposition)")
+TEST_CASE("qr_decomposition", "[qr_decomposition]")
 {
 	integer n = 10;
 

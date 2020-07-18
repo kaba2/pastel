@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	//! Cholesky decomposition
-	template <typename Real, int M = Dynamic, int N = Dynamic, bool ColumnMajor = true>
+	template <typename Real, int M = Dynamic, int N = Dynamic>
 	requires
 		IsPlain<Real>
 	class CholeskyDecompositionInplace
@@ -26,7 +26,7 @@ namespace Pastel
 		Preconditions:
 		that.rows() == that.n()
 		*/
-		CholeskyDecompositionInplace(const MatrixView<Real, M, N, ColumnMajor>& that)
+		CholeskyDecompositionInplace(const MatrixView<Real, M, N>& that)
 			: cholesky_(that)
 			, succeeded_(false)
 		{
@@ -43,7 +43,7 @@ namespace Pastel
 		}
 
 		//! Returns the L matrix.
-		MatrixView<const Real, M, N, ColumnMajor> lower() const
+		MatrixView<const Real, M, N> lower() const
 		{
 			return cholesky_;
 		}
@@ -106,7 +106,7 @@ namespace Pastel
 			return succeeded_;
 		}
 
-		MatrixView<Real, M, N, ColumnMajor> cholesky_;
+		MatrixView<Real, M, N> cholesky_;
 		bool succeeded_;
 	};
 
@@ -114,8 +114,8 @@ namespace Pastel
 
 namespace Pastel {
 
-	template <typename Real, int M, int N, bool ColumnMajor>
-	Real determinant(const CholeskyDecompositionInplace<Real, M, N, ColumnMajor>& that)
+	template <typename Real, int M, int N>
+	Real determinant(const CholeskyDecompositionInplace<Real, M, N>& that)
 	{
 		auto lower = that.lower();
 		integer n = lower.cols();

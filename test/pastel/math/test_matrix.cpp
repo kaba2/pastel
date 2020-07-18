@@ -17,7 +17,42 @@ namespace
 
 }
 
-TEST_CASE("Implicit (Implicit)")
+TEST_CASE("View", "[Matrix]")
+{
+	{
+		Matrix<dreal, 2, 3, true> a;
+		auto b = view(a);
+		REQUIRE(b.rows() == 2);
+		REQUIRE(b.cols() == 3);
+		REQUIRE(b.iStride() == 1);
+		REQUIRE(b.jStride() == 2);
+		REQUIRE(b.isColumnMajor());
+		auto c = asMatrix(b);
+		REQUIRE(c.rows() == 2);
+		REQUIRE(c.cols() == 3);
+		REQUIRE(c.innerStride() == 1);
+		REQUIRE(c.outerStride() == 2);
+	}
+	{
+		Matrix<dreal, 2, 3, false> a;
+
+		auto b = view(a);
+		REQUIRE(b.rows() == 2);
+		REQUIRE(b.cols() == 3);
+		REQUIRE(b.iStride() == 3);
+		REQUIRE(b.jStride() == 1);
+		REQUIRE(b.isRowMajor());
+
+		auto c = asMatrix(b);
+		REQUIRE(c.rows() == 2);
+		REQUIRE(c.cols() == 3);
+		REQUIRE(c.innerStride() == 3);
+		REQUIRE(c.outerStride() == 1);
+	}
+
+}
+
+TEST_CASE("Implicit", "[Matrix]")
 {
 	auto f = [&](MatrixD matrix)
 	{
@@ -28,7 +63,7 @@ TEST_CASE("Implicit (Implicit)")
 	f(identityMatrix<dreal>(3, 3));
 }
 
-TEST_CASE("Norm (Norm)")
+TEST_CASE("Norm", "[Matrix]")
 {
 	MatrixD m(2, 3);
 	m << -1, 2, 3,
@@ -52,7 +87,7 @@ TEST_CASE("Norm (Norm)")
 	}
 }
 
-TEST_CASE("Trace (Trace)")
+TEST_CASE("Trace", "[Matrix]")
 {
 	MatrixD m(2, 3);
 	m << -1, 2, 3,
@@ -64,7 +99,7 @@ TEST_CASE("Trace (Trace)")
 	}
 }
 
-TEST_CASE("DiagonalProduct (DiagonalProduct)")
+TEST_CASE("DiagonalProduct", "[Matrix]")
 {
 	MatrixD m(2, 3);
 	m << -1, 2, 3,
@@ -76,7 +111,7 @@ TEST_CASE("DiagonalProduct (DiagonalProduct)")
 	}
 }
 
-TEST_CASE("Determinant (Determinant)")
+TEST_CASE("Determinant", "[Matrix]")
 {
 	{
 		MatrixD m(1, 1);
@@ -116,7 +151,7 @@ TEST_CASE("Determinant (Determinant)")
 	//}
 }
 
-TEST_CASE("MatrixExpressions (MatrixExpressions)")
+TEST_CASE("MatrixExpressions", "[Matrix]")
 {
 	// Construct an empty matrix.
 	MatrixD empty(0, 0);
@@ -299,7 +334,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 	}
 }
 
-TEST_CASE("Matrix row and column ranges")
+TEST_CASE("Row and column ranges", "[Matrix]")
 {
 	{
 		dreal dataSet[4][3] = {
@@ -330,7 +365,7 @@ TEST_CASE("Matrix row and column ranges")
 	}
 }
 
-TEST_CASE("MatrixArray (MatrixArray)")
+TEST_CASE("MatrixArray", "[Matrix]")
 {
 	MatrixD a(3, 3);
 	a << 1, 2, 3,
@@ -348,7 +383,7 @@ TEST_CASE("MatrixArray (MatrixArray)")
 	REQUIRE(c[2] == -4);
 }
 
-TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
+TEST_CASE("MatrixLowDimensional", "[Matrix]")
 {
 	{
 		Matrix<dreal, 1, 1> a = matrix1x1<dreal>(5);
@@ -487,7 +522,7 @@ TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
 	}
 }
 
-TEST_CASE("MatrixSimpleArithmetic (MatrixSimpleArithmetic)")
+TEST_CASE("MatrixSimpleArithmetic", "[Matrix]")
 {
 	Matrix<dreal, 2, 3> a;
 
@@ -570,7 +605,7 @@ TEST_CASE("Inverse (Inverse)")
 	REQUIRE(count < 3);
 }
 
-TEST_CASE("MatrixMultiply (MatrixMultiply)")
+TEST_CASE("MatrixMultiply", "[Matrix]")
 {
 	integer n = 10;
 	integer matrices = 100;
@@ -603,7 +638,7 @@ TEST_CASE("MatrixMultiply (MatrixMultiply)")
 	REQUIRE(count < 3);
 }
 
-TEST_CASE("MatrixAssigns (MatrixAssigns)")
+TEST_CASE("MatrixAssigns", "[Matrix]")
 {
 	// The idea here is to test
 	// for an assignment with an expression
@@ -647,7 +682,7 @@ TEST_CASE("MatrixAssigns (MatrixAssigns)")
 	}
 }
 
-TEST_CASE("MatrixSolve (MatrixSolve)")
+TEST_CASE("MatrixSolve", "[Matrix]")
 {
 	integer iterations = 100;
 	integer n = 10;

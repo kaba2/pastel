@@ -44,13 +44,13 @@ namespace
 	{
 		Real threshold = 1e-4;
 
-		MapMatrix<Real> P(Ps.data(), Ps.rows(), Ps.cols());
-		MapMatrix<Real> Q(Qs.data(), Qs.rows(), Qs.cols());
-		MapMatrix<Real> S(Ss.data(), Ss.rows(), Ss.cols());
-		MapColMatrix<Real> t(ts.data(), ts.rows(), ts.cols());
+		MapMatrix<Real> P = asMatrix(Ps);
+		MapMatrix<Real> Q = asMatrix(Qs);
+		MapMatrix<Real> S = asMatrix(Ss);
+		MapColMatrix<Real> t = asMatrix(ts);
 
 		Matrix<Real> R = (Q * S * P).colwise() + t;
-		MatrixView<Real> Rs(R.data(), R.rows(), R.cols());
+		MatrixView<Real> Rs = view(R);
 
 		REQUIRE(Ps.rows() == 2);
 

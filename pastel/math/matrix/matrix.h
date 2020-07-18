@@ -18,23 +18,28 @@ namespace Pastel
 			((M == 1 && N != 1) || !ColumnMajor) ? Eigen::RowMajor : Eigen::ColMajor
 		);
 
+	using StrideD = Eigen::Stride<Eigen::Dynamic, Eigen::Dynamic>;
+
 	template <typename Real, int M = Eigen::Dynamic, int N = Eigen::Dynamic, bool ColumnMajor = true>
 	using Matrix = Eigen::Matrix<Real, M, N, EigenOptions<M, N, ColumnMajor>>;
 
-	template <typename Real, int M = Eigen::Dynamic, int N = Eigen::Dynamic, bool ColumnMajor = true>
-	using MapMatrix = Eigen::Map<Matrix<Real, M, N, ColumnMajor>>;
+	template <typename Real, int M = Eigen::Dynamic, int N = Eigen::Dynamic>
+	using MapMatrix = Eigen::Map<Eigen::Matrix<Real, M, N, Eigen::ColMajor>, Eigen::Unaligned, Eigen::Stride<Eigen::Dynamic, Eigen::Dynamic>>;
+
+	template <typename Real, int M = Eigen::Dynamic, int N = Eigen::Dynamic>
+	using MapConstMatrix = Eigen::Map<const Eigen::Matrix<Real, M, N, Eigen::ColMajor>, Eigen::Unaligned, Eigen::Stride<Eigen::Dynamic, Eigen::Dynamic>>;
 
 	template <typename Real, int N = Eigen::Dynamic>
-	using RowMatrix = Matrix<Real, 1, N, false>;
+	using RowMatrix = Matrix<Real, 1, N>;
 
 	template <typename Real, int N = Eigen::Dynamic>
-	using MapRowMatrix = MapMatrix<Real, 1, N, false>;
+	using MapRowMatrix = MapMatrix<Real, 1, N>;
 
 	template <typename Real, int M = Eigen::Dynamic>
-	using ColMatrix = Matrix<Real, M, 1, true>;
+	using ColMatrix = Matrix<Real, M, 1>;
 
 	template <typename Real, int M = Eigen::Dynamic>
-	using MapColMatrix = MapMatrix<Real, M, 1, true>;
+	using MapColMatrix = MapMatrix<Real, M, 1>;
 
 	template <typename T>
 	using MatrixExpr = Eigen::MatrixBase<T>;
@@ -98,24 +103,34 @@ namespace Pastel {
 		return that.eval();
 	}
 
-    template <typename Real, int M, int N, bool ColumnMajor>
-    MapMatrix<Real, M, N, ColumnMajor> asMatrix(const MatrixView<Real, M, N, ColumnMajor>& view) {
-        return MapMatrix<Real, M, N, ColumnMajor>(view.data(), view.rows(), view.cols());
+    template <typename Real, int M, int N>
+    MapMatrix<Real, M, N> asMatrix(const MatrixView<Real, M, N>& view) {
+        return MapMatrix<Real, M, N>(
+			view.data(), view.rows(), view.cols(), 
+			StrideD(view.jStride(), view.iStride()));
     }
 
-    template <typename Real, int M, int N, bool ColumnMajor>
-    Eigen::Map<const Matrix<Real, M, N, ColumnMajor>> asMatrix(const MatrixView<const Real, M, N, ColumnMajor>& view) {
-        return Eigen::Map<const Matrix<Real, M, N, ColumnMajor>>(view.data(), view.rows(), view.cols());
+    template <typename Real, int M, int N>
+    MapConstMatrix<Real, M, N> asMatrix(const MatrixView<const Real, M, N>& view) {
+        return MapConstMatrix<Real, M, N>(
+			view.data(), view.rows(), view.cols(), 
+			StrideD(view.jStride(), view.iStride()));
+	}
+
+    template <typename Real, int M, int N, int Options> 
+    MatrixView<Real, M, N> view(Eigen::Matrix<Real, M, N, Options>& matrix) {
+        return MatrixView<Real, M, N>(
+			matrix.data(), matrix.rows(), matrix.cols(),
+			(Options == Eigen::ColMajor) ? matrix.innerStride() : matrix.outerStride(),
+			(Options == Eigen::ColMajor) ? matrix.outerStride() : matrix.innerStride());
     }
 
-    template <typename Real, int M, int N> 
-    MatrixView<Real, M, N> view(Matrix<Real, M, N>& matrix) {
-        return MatrixView<Real, M, N>(matrix.data(), matrix.rows(), matrix.cols());
-    }
-
-    template <typename Real, int M, int N> 
-    MatrixView<const Real, M, N> view(const Matrix<Real, M, N>& matrix) {
-        return MatrixView<const Real, M, N>(matrix.data(), matrix.rows(), matrix.cols());
+    template <typename Real, int M, int N, int Options> 
+    MatrixView<const Real, M, N> view(const Eigen::Matrix<Real, M, N, Options>& matrix) {
+        return MatrixView<const Real, M, N>(
+			matrix.data(), matrix.rows(), matrix.cols(),
+			(Options == Eigen::ColMajor) ? matrix.innerStride() : matrix.outerStride(),
+			(Options == Eigen::ColMajor) ? matrix.outerStride() : matrix.innerStride());
     }
 
 }
