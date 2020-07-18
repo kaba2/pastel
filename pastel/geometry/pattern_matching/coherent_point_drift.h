@@ -237,7 +237,7 @@ namespace Pastel
 
         // The weighting matrix will be computed here.
         Matrix<Real, N_from, N_to> W(m, n);
-        MatrixView<Real, N_from, N_to> Ws(W.data(), m, n);
+        MatrixView<Real, N_from, N_to> Ws = view(W);
 
         // These will be used as temporary space for
         // computing the weighting matrix.

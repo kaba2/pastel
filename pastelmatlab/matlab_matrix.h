@@ -15,7 +15,7 @@ namespace Pastel {
         }
 
         MatlabMatrix(integer rows, integer cols)
-        : data_(rows * cols, 0)
+        : data_(rows, cols)
         , view_(data_.data(), rows, cols) {
         }
 
@@ -39,8 +39,8 @@ namespace Pastel {
 
             if (typeToMatlabClassId<Real>() != mxGetClassID(that)) {
                 // Types do not match; copy the data.
-                data_.resize(m * n);
-                matlabGetScalars(that, data_.begin());
+                MatrixData<Real>(rows, cols).swap(data_);
+                matlabGetScalars(that, std::begin(data_.view().range()));
                 data = data_.data();
             }
 
@@ -97,7 +97,7 @@ namespace Pastel {
         }
 
     private:
-        std::vector<Real> data_;
+        MatrixData<Real> data_;
         MatrixView<Real, M, N> view_;
     };
 

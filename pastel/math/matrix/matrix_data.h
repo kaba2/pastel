@@ -25,8 +25,8 @@ namespace Pastel {
             integer cols = 0;
         };
 
-        using StaticData = Real[M * N];
-        
+        using StaticData = Real[M * N > 0 ? M * N : 1];
+
         static constexpr bool IsStatic = (M != Dynamic && N != Dynamic);
         using Data = std::conditional_t<M == Dynamic,
             std::conditional_t<N == Dynamic, DynamicData, ColData>,
@@ -55,11 +55,7 @@ namespace Pastel {
         MatrixData(const MatrixData& that) 
         : MatrixData(that.rows(), that.cols())
         {
-            if constexpr (IsStatic) {
-                data_ = that.data_;
-            } else {
-                std::copy(that.data(), that.data() + that.size(), data());
-            }
+            view().assign(that.view());
         }
         
         MatrixData(MatrixData&& that) 
@@ -122,6 +118,9 @@ namespace Pastel {
                     std::swap(data_.cols, that.data_.cols);
                 }
             }
+
+            std::swap(iStride_, that.iStride_);
+            std::swap(jStride_, that.jStride_);
         }
 
         integer rows() const {
