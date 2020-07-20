@@ -356,14 +356,35 @@ namespace Pastel
 	*/
 	template <typename Type>
 	MatlabMatrix<Type> matlabAsMatrix(
-		const mxArray* that, 
-		bool asRowMatrix = false)
+		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
-		if (asRowMatrix) {
-			return MatlabMatrix<Type>(that, 1, mxGetNumberOfElements(that));
-		}
 		return MatlabMatrix<Type>(that);
+	}
+
+	//! Retrieves a reference to a dreal matrix.
+	/*!
+	Preconditions:
+	mxIsNumeric(that)
+	*/
+	template <typename Type>
+	MatlabMatrix<Type, Dynamic, 1> matlabAsColMatrix(
+		const mxArray* that)
+	{
+		ENSURE(mxIsNumeric(that));
+		return MatlabMatrix<Type, Dynamic, 1>(that);
+	}
+
+	//! Retrieves a reference to a dreal matrix.
+	/*!
+	Preconditions:
+	mxIsNumeric(that)
+	*/
+	template <typename Type>
+	MatlabMatrix<Type> matlabAsVectorizedMatrix(const mxArray* that)
+	{
+		ENSURE(mxIsNumeric(that));
+		return MatlabMatrix<Type>(that, 1, mxGetNumberOfElements(that));
 	}
 
 	//! Reports all dreal arrays in a cell-array.
