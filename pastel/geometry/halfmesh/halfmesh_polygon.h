@@ -13,9 +13,6 @@ namespace Pastel
 
 		template <typename Settings>
 		class Polygon
-			: boost::less_than_comparable<Polygon<Settings>
-			, boost::equality_comparable<Polygon<Settings>
-			> >
 		{
 		public:
 			using Fwd = HalfMesh_Fwd<Settings>;

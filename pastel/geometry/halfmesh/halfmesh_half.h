@@ -13,9 +13,6 @@ namespace Pastel
 
 		template <typename Settings>
 		class Half
-			: boost::less_than_comparable<Half<Settings>
-			, boost::equality_comparable<Half<Settings>
-			> >
 		{
 		public:
 			using Fwd = HalfMesh_Fwd<Settings>;

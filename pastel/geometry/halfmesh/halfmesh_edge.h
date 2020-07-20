@@ -13,9 +13,6 @@ namespace Pastel
 
 		template <typename Settings>
 		class Edge
-			: boost::less_than_comparable<Edge<Settings>
-			, boost::equality_comparable<Edge<Settings>
-			> >
 		{
 		public:
 			using Fwd = HalfMesh_Fwd<Settings>;

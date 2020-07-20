@@ -13,9 +13,6 @@ namespace Pastel
 	
 		template <typename Settings>
 		class Vertex
-			: boost::less_than_comparable<Vertex<Settings>
-			, boost::equality_comparable<Vertex<Settings>
-			> >
 		{
 		public:
 			using Fwd = HalfMesh_Fwd<Settings>;
