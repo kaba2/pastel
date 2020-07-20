@@ -8,16 +8,13 @@
 
 #include "pastel/sys/range/transformed_range.h"
 
-#include <boost/operators.hpp>
+#include <compare>
 
 namespace Pastel
 {
 
 	template <typename Settings>
 	class TdTree_Fwd<Settings>::Cursor
-		: boost::less_than_comparable<Cursor
-		, boost::equality_comparable<Cursor
-		> >
 	{
 	public:
 		// Using default copy constructor.
@@ -29,15 +26,7 @@ namespace Pastel
 		{
 		}
 
-		bool operator<(const Cursor& that) const
-		{
-			return node_ < that.node_;
-		}
-
-		bool operator==(const Cursor& that) const
-		{
-			return node_ == that.node_;
-		}
+		auto operator<=>(const Cursor& that) const = default;
 
 		explicit operator bool() const
 		{

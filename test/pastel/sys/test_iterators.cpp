@@ -10,6 +10,7 @@
 
 #include <boost/iterator/transform_iterator.hpp>
 #include <map>
+#include <compare>
 
 namespace
 {
@@ -28,15 +29,7 @@ namespace
 		{
 		}
 
-		bool operator<(const A& that) const
-		{
-			return a_ < that.a_;
-		}
-
-		bool operator==(const A& that) const
-		{
-			return a_ == that.a_;
-		}
+		auto operator<=>(const A& that) const = default;
 
 		int a_;
 	};

@@ -42,3 +42,4 @@ Makefile
 *.sln
 *.sublime-workspace
 *.vs*
+catch.hpp
