@@ -103,7 +103,7 @@ namespace Pastel {
         }
 
         const Real& operator()(integer i, integer j) const {
-            return *(data() + i * iStride + j * jStride);
+            return *(data() + i * iStride() + j * jStride());
         }
 
         void swap(MatrixData& that) {
@@ -179,10 +179,24 @@ namespace Pastel {
             return assign(that.view());
         }
 
+        MatrixData& operator=(const MatrixData& that) {
+            return assign(that.view());
+        }
+
         template <typename Real_, int M_, int N_>
         requires std::is_convertible_v<Real_, Real>
         MatrixData& operator=(const MatrixView<Real_, M_, N_>& that) {
-            view().assign(that);
+            return assign(that);
+        }
+
+        template <typename Real_, int M_, int N_>
+        requires std::is_convertible_v<Real_, Real>
+        MatrixData& assign(const MatrixView<Real_, M_, N_>& that) {
+            if (rows() == that.rows() && cols() == that.cols()) {
+                view().assign(that.view());
+            } else {
+                MatrixData(that).swap(*this);
+            }
             return *this;
         }
 

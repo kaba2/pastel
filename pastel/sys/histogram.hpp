@@ -18,8 +18,6 @@ namespace Pastel
 	{
 		ENSURE_OP(bins, >, 0);
 
-		typedef ranges::iterator_t<Real_ConstRange>
-			Real_ConstIterator;
 		typedef ranges::range_value_t<Real_ConstRange>
 			Real;
 
@@ -27,15 +25,10 @@ namespace Pastel
 
 		std::vector<Real> hitSet(bins, 0);
 
-		Real_ConstIterator iter = dataSet.begin();
-		Real_ConstIterator iterEnd = dataSet.end();
 		integer samples = 0;
-
-		while(iter != iterEnd)
+		for (auto&& x : dataSet)
 		{
-
-			Real value = *iter;
-
+			Real value = x;
 			if (value >= min && value <= max)
 			{
 				value -= min;
@@ -47,7 +40,6 @@ namespace Pastel
 				++hitSet[bin];
 			}
 			
-			++iter;
 			++samples;
 		}
 

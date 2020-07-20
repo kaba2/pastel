@@ -11,18 +11,8 @@
 namespace Pastel
 {
 
-	//! Set
-	/*!
-	To be precise, the set-concept represents a multi-set;
-	elements can occur multiple times. Here we use the term 
-	'set' a bit loosely, for brevity.
-	*/
 	template <typename T>
-	concept Range_Concept_ = ranges::forward_range<T>;
-
-	template <typename T>
-	concept Range_Concept = 
-		Range_Concept_<RemoveCvRef<T>>;
+	concept Range_Concept = ranges::forward_range<T>;
 
 	template <Range_Concept Range>
 	using Range_Iterator = 
@@ -42,6 +32,11 @@ namespace Pastel
 	{
 		return ranges::distance(std::forward<Range>(set));
 	}
+
+	template <typename T, typename E>
+	concept RangeOf = 
+		Range_Concept<T> &&
+		std::is_same_v<Range_Value<T>, E>;
 
 }
 

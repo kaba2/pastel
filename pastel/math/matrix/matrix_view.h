@@ -87,9 +87,9 @@ namespace Pastel {
             ENSURE_OP(cols(), ==, that.cols());
 
             if (canCopyBySpan(that)) {
-                ranges::copy(span(), that.span().begin());
+                ranges::copy(that.span(), std::begin(span()));
             } else {
-                ranges::copy(range(), that.range());
+                ranges::copy(that.range(), std::begin(range()));
             }
             return *this;
         }
@@ -251,12 +251,15 @@ namespace Pastel {
             return {data_ + toIndex(IBegin, 0), IEnd - IBegin, cols(), iStride(), jStride()};
         }
 
-        MatrixView<Real, Dynamic, N> slicey(
-            integer iBegin, integer iEnd) const {
+        MatrixView<Real, Dynamic, N> slicey(integer iBegin, integer iEnd) const {
             ASSERT_OP(iBegin, >=, 0);
             ASSERT_OP(iBegin, <=, iEnd);
             ASSERT_OP(iEnd, <=, rows());
             return {data_ + toIndex(iBegin, 0), iEnd - iBegin, cols(), iStride(), jStride()};
+        }
+
+        MatrixView<Real, Dynamic, N> slicey(integer iBegin) const {
+            return slicey(iBegin, rows());
         }
 
         template <int JBegin, int JEnd>
@@ -265,12 +268,15 @@ namespace Pastel {
             return {data_ + toIndex(0, JBegin), rows(), JEnd - JBegin, iStride(), jStride()};
         }
 
-        MatrixView<Real, M, Dynamic> slicex(
-            integer jBegin, integer jEnd) const {
+        MatrixView<Real, M, Dynamic> slicex(integer jBegin, integer jEnd) const {
             ASSERT_OP(jBegin, >=, 0);
             ASSERT_OP(jBegin, <=, jEnd);
             ASSERT_OP(jEnd, <=, rows());
             return {data_ + toIndex(0, jBegin), rows(), jEnd - jBegin, iStride(), jStride()};
+        }
+
+        MatrixView<Real, Dynamic, N> slicex(integer jBegin) const {
+            return slicex(jBegin, cols());
         }
 
         template <integer step>

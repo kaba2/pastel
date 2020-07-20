@@ -3,6 +3,7 @@
 
 #include "pastel/math/matrix.h"
 #include "pastelmatlab/matlab_mex.h"
+#include "pastel/sys/array.h"
 
 namespace Pastel {
 
@@ -61,7 +62,11 @@ namespace Pastel {
         }
 
         MatlabMatrix& operator=(const MatlabMatrix& that) = delete;
-        MatlabMatrix& operator=(MatlabMatrix&& that) = delete;
+        
+        MatlabMatrix& operator=(MatlabMatrix&& that) {
+            MatlabMatrix(std::move(that)).swap(*this);
+            return *this;
+        }
 
         bool hasMemory() const {
             return data_.data() == view_.data();
@@ -100,40 +105,6 @@ namespace Pastel {
         MatrixData<Real> data_;
         MatrixView<Real, M, N> view_;
     };
-
-	//! Retrieves a reference to a dreal matrix.
-	/*!
-	Preconditions:
-	mxIsNumeric(that)
-	*/
-	template <typename Type, int M = Dynamic, int N = Dynamic>
-	MatlabMatrix<Type, M, N> matlabAsMatrix(
-		const mxArray* that)
-	{
-		ENSURE(mxIsNumeric(that));
-		return MatlabMatrix<Type, M, N>(that);
-	}
-
-	template <typename Type, int M = Dynamic>
-	MatlabMatrix<Type, M, 1> matlabAsColMatrix(
-		const mxArray* that)
-	{
-		return MatlabMatrix<Type, M, 1>(that, mxGetNumberOfElements(that), 1);
-	}
-
-	//! Retrieves a reference to a linearized dreal array.
-	/*!
-	Preconditions:
-	mxIsNumeric(that)
-	*/
-	template <typename Type, int M = Dynamic, int N = Dynamic>
-	MatlabMatrix<Type, M, N> matlabAsVectorizedMatrix(
-		const mxArray* that)
-	{
-		ENSURE(mxIsNumeric(that));
-
-		return MatlabMatrix<Type, M, N>(that, mxGetNumberOfElements(that), 1);
-	}
 
 }
 

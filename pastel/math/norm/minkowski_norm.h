@@ -18,6 +18,10 @@ namespace Pastel
 		{
 		}
 
+		Real power() const {
+			return p_;
+		}
+
 		auto operator()(const Real& distance = 0) const
 		{
 			return Minkowski_Distance<Real>(distance, p_);

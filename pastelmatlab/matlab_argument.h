@@ -11,6 +11,7 @@
 #include "pastel/math/matrix.h"
 
 #include "pastelmatlab/matlab_mex.h"
+#include "pastelmatlab/matlab_class_ids.h"
 #include "pastelmatlab/matlab_matrix.h"
 
 namespace Pastel
@@ -92,7 +93,6 @@ namespace Pastel
 		switch(mxGetClassID(input))
 		{
 		case mxSINGLE_CLASS:
-
 			result = *((real32*)mxGetData(input) + index);
 			break;
 		case mxDOUBLE_CLASS:
@@ -310,7 +310,6 @@ namespace Pastel
 		switch(mxGetClassID(input))
 		{
 		case mxSINGLE_CLASS:
-
 			copy_n((real32*)mxGetData(input) + offset, m, output);
 			break;
 		case mxDOUBLE_CLASS:
@@ -350,80 +349,74 @@ namespace Pastel
 		return n;
 	}
 
-	//! Returns the Matlab class-id corresponding to 'Type'.
+	//! Retrieves a reference to a dreal matrix.
+	/*!
+	Preconditions:
+	mxIsNumeric(that)
+	*/
 	template <typename Type>
-	mxClassID typeToMatlabClassId()
+	MatlabMatrix<Type> matlabAsMatrix(
+		const mxArray* that, 
+		bool asRowMatrix = false)
 	{
-		PASTEL_STATIC_ASSERT(
-			std::is_pointer<Type>::value ||
-			std::is_integral<Type>::value || 
-			std::is_floating_point<Type>::value)
-
-		if (std::is_pointer<Type>::value)
-		{
-			switch(sizeof(Type))
-			{
-			case 8:
-				return mxUINT64_CLASS;
-			case 4:
-				return mxUINT32_CLASS;
-			};
+		ENSURE(mxIsNumeric(that));
+		if (asRowMatrix) {
+			return MatlabMatrix<Type>(that, 1, mxGetNumberOfElements(that));
 		}
+		return MatlabMatrix<Type>(that);
+	}
 
-		// Note: the mxCHAR_CLASS coincides in type with
-		// mxINT8_CLASS. Therefore, we leave it out here:
-		// the important thing is to support the 
-		// numeric types. The mxCHAR_CLASS is handled
-		// specially for strings.
+	//! Reports all dreal arrays in a cell-array.
+	/*!
+	Preconditions:
+	mxIsCell(cellArray)
+	mxGetClassID(cell) == typeToMatlabClassId<Real>() 
 
-		if (std::is_integral<Type>::value)
+	returns:
+	A random acccess range of MatlabMatrix's.
+
+	Note: The elements are reported in Matlab's linearized
+	order.
+	*/
+	template <typename Real>
+	ranges::random_access_range auto matlabAsMatrixRange(const mxArray* cellArray)
+	{
+		ENSURE(mxIsCell(cellArray));
+
+		return ranges::views::transform(
+			ranges::views::ints((integer)0, (integer)mxGetNumberOfElements(cellArray)),
+			[cellArray](integer i) {
+				const mxArray* cell = mxGetCell(cellArray, i);
+				return matlabAsMatrix<Real>(cell);
+			}
+		);
+	}
+
+	//! Retrieves an array of signals.
+    template <typename Real>
+	inline Array<MatlabMatrix<Real>> matlabAsMatrixArray(
+		const mxArray* cellArray)
+	{
+		ENSURE(mxIsCell(cellArray));
+
+		integer signals = mxGetM(cellArray);
+		integer trials = mxGetN(cellArray);
+		
+		Array<MatlabMatrix<Real>> signalSet(
+			Vector2i(trials, signals));
+
+		for (integer y = 0;y < signals;++y)
 		{
-			if (std::is_signed<Type>::value)
+			for (integer x = 0;x < trials;++x)
 			{
-				switch(sizeof(Type))
-				{
-				case 8:
-					return mxINT64_CLASS;
-				case 4:
-					return mxINT32_CLASS;
-				case 2:
-					return mxINT16_CLASS;
-				case 1:
-					return mxINT8_CLASS;
-				};
-			}
-			else
-			{
-				switch(sizeof(Type))
-				{
-				case 8:
-					return mxUINT64_CLASS;
-				case 4:
-					return mxUINT32_CLASS;
-				case 2:
-					return mxUINT16_CLASS;
-				case 1:
-					return mxUINT8_CLASS;
-				};
-			}
-		}
+				const mxArray* signal = 
+					mxGetCell(cellArray, signals * x + y);
 
-		if (std::is_floating_point<Type>::value)
-		{
-			if (std::is_same<float, typename std::remove_cv<Type>::type>::value)
-			{
-				return mxSINGLE_CLASS;
-			}
-			if (std::is_same<double, typename std::remove_cv<Type>::type>::value)
-			{
-				return mxDOUBLE_CLASS;
+				matlabAsMatrix<Real>(signal).swap(signalSet(x, y));
 			}
 		}
 
-		bool reachedHere = true;
-		ENSURE(!reachedHere);
-
-		return mxUNKNOWN_CLASS;
+		return signalSet;
 	}
 
 }

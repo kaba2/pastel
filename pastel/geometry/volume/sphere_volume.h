@@ -7,6 +7,7 @@
 
 #include "pastel/geometry/shape/sphere.h"
 #include "pastel/geometry/area/sphere_area.h"
+#include "pastel/math/norm.h"
 
 #include "pastel/sys/math/gamma.h"
 #include "pastel/sys/math/constants.h"
@@ -64,6 +65,11 @@ namespace Pastel
 		return std::exp(lnVolumeUnitSphereManhattan<Real>(n));
 	} 
 
+	template <typename Real>
+	Real lnVolumeUnitSphere(const Manhattan_Norm<Real>& norm, integer n) {
+		return lnVolumeUnitSphereManhattan<Real>(n);
+	}
+
 	//! Returns the natural logarithm of the volume of Euclidean unit sphere.
 	/*!
 	Preconditions:
@@ -83,6 +89,11 @@ namespace Pastel
 
 		Real nHalf = (Real)n / 2;
 		return nHalf * std::log(constantPi<Real>()) - lnGamma<Real>(nHalf + 1);
+	}
+
+	template <typename Real>
+	Real lnVolumeUnitSphere(const Euclidean_Norm<Real>& norm, integer n) {
+		return Pastel::lnVolumeUnitSphere<Real>(n);
 	}
 
 	//! Returns the volume of the Euclidean unit sphere.
@@ -152,6 +163,11 @@ namespace Pastel
 			n * constantLn2<Real>();
 	}
 
+	template <typename Real>
+	Real lnVolumeUnitSphere(const Minkowski_Norm<Real>& norm, integer n) {
+		return lnVolumeUnitSphereMinkowski<Real>(n, norm.power());
+	}
+
 	//! Returns the natural logarithm of the volume of Infinity unit sphere.
 	/*!
 	Preconditions:
@@ -170,6 +186,11 @@ namespace Pastel
 		// = n ln(2)
 
 		return n * constantLn2<Real>();
+	}
+
+	template <typename Real>
+	Real lnVolumeUnitSphere(const Maximum_Norm<Real>& norm, integer n) {
+		return lnVolumeUnitSphereInfinity<Real>(n);
 	}
 
 	template <typename Real>
