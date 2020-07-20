@@ -8,7 +8,7 @@
 #include "pastel/sys/pointer/countedptr/referencecounted.h"
 #include "pastel/sys/pointer/weakptr.h"
 
-#include <boost/operators.hpp>
+#include <compare>
 
 namespace Pastel
 {
@@ -25,11 +25,6 @@ namespace Pastel
 	*/
 	template <typename Type>
 	class CountedPtr
-		: boost::less_than_comparable<
-		CountedPtr<Type>
-		, boost::equality_comparable<
-		CountedPtr<Type>
-		> >
 	{
 	public:
 		template <typename ThatType>
@@ -106,15 +101,9 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		template <typename ThatType>
-		bool operator==(const CountedPtr<ThatType>& that) const;
-
-		//! Compares two pointers.
-		/*!
-		Time complexity: constant
-		Exception safety: nothrow
-		*/
-		template <typename ThatType>
-		bool operator<(const CountedPtr<ThatType>& that) const;
+		bool operator<=>(const CountedPtr<ThatType>& that) const {
+			return data_ <=> that.data_;
+		}
 
 		//! Returns the contained pointer.
 		/*!

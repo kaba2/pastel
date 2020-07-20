@@ -71,22 +71,6 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	template <typename ThatType>
-	bool WeakPtr<Type>::operator==(
-		const WeakPtr<ThatType>& that) const
-	{
-		return data_ == that.data_;
-	}
-
-	template <typename Type>
-	template <typename ThatType>
-	bool WeakPtr<Type>::operator<(
-		const WeakPtr<ThatType>& that) const
-	{
-		return data_ < that.data_;
-	}
-
-	template <typename Type>
 	WeakPtr<Type>::~WeakPtr()
 	{
 		clear();

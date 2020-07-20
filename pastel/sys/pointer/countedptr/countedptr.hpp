@@ -87,22 +87,6 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	template <typename ThatType>
-	bool CountedPtr<Type>::operator==(
-		const CountedPtr<ThatType>& that) const
-	{
-		return data_ == that.data_;
-	}
-
-	template <typename Type>
-	template <typename ThatType>
-	bool CountedPtr<Type>::operator<(
-		const CountedPtr<ThatType>& that) const
-	{
-		return data_ < that.data_;
-	}
-
-	template <typename Type>
 	CountedPtr<Type>::~CountedPtr()
 	{
 		clear();

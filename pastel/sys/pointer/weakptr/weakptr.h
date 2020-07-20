@@ -9,7 +9,7 @@
 #include "pastel/sys/pointer/countedptr/referencecounted.h"
 #include "pastel/sys/hashing.h"
 
-#include <boost/operators.hpp>
+#include <compare>
 
 namespace Pastel
 {
@@ -20,11 +20,6 @@ namespace Pastel
 	//! A non-counting smart-pointer
 	template <typename Type>
 	class WeakPtr
-		: boost::less_than_comparable<
-		WeakPtr<Type>
-		, boost::equality_comparable<
-		WeakPtr<Type>
-		> >
 	{
 	public:
 		template <typename ThatType>
@@ -101,15 +96,9 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		template <typename ThatType>
-		bool operator==(const WeakPtr<ThatType>& that) const;
-
-		//! Compares two pointers.
-		/*!
-		Time complexity: constant
-		Exception safety: nothrow
-		*/
-		template <typename ThatType>
-		bool operator<(const WeakPtr<ThatType>& that) const;
+		auto operator<=>(const WeakPtr<ThatType>& that) const {
+			return data_ <=> that.data_;
+		}
 
 		//! Returns the contained pointer.
 		/*!

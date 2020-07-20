@@ -5,6 +5,8 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/generic/addressof.h"
 
+#include <compare>
+
 namespace Pastel
 {
 
@@ -31,16 +33,10 @@ namespace Pastel
 		clear();
 	}
 
-	inline bool PoolAllocator::operator==(
+	inline auto PoolAllocator::operator<=>(
 		const PoolAllocator& that) const
 	{
-		return this == &that;
-	}
-
-	inline bool PoolAllocator::operator<(
-		const PoolAllocator& that) const
-	{
-		return this < &that;
+		return this <=> &that;
 	}
 
 	inline void PoolAllocator::swap(PoolAllocator& that)

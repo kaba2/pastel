@@ -6,8 +6,6 @@
 
 #include "pastel/sys/mytypes.h"
 
-#include <boost/operators.hpp>
-
 #include <set>
 
 namespace Pastel
@@ -22,11 +20,6 @@ namespace Pastel
 	it can also be allocated.
 	*/
 	class PoolAllocator
-		: boost::equality_comparable<
-		PoolAllocator
-		, boost::less_than_comparable<
-		PoolAllocator
-		> >
 	{
 	public:
 		//! Constructs the allocator with the given unit size.
@@ -54,18 +47,8 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		bool operator==(const PoolAllocator& that) const;
-
-		//! Compares two allocators.
-		/*!
-		The allocators are compared by their
-		memory address.
-
-		Time complexity: constant
-		Exception safety: nothrow
-		*/
-		bool operator<(const PoolAllocator& that) const;
-
+		inline auto operator<=>(const PoolAllocator& that) const;
+		
 		//! Swaps two allocators.
 		/*!
 		Time complexity: constant
