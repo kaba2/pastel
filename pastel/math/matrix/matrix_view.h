@@ -5,6 +5,7 @@
 
 #include "pastel/sys/algebra/ring_concept.h"
 #include "pastel/sys/range/sparse_range.h"
+#include "pastel/sys/math/divide_and_round_up.h"
 
 namespace Pastel {
 
@@ -20,10 +21,7 @@ namespace Pastel {
             Ring_Concept<Real_>
         friend class MatrixView;
 
-        MatrixView() 
-        : MatrixView(nullptr)
-        {
-        }
+        MatrixView() = default;
 
         explicit MatrixView(
             Real* data, 
@@ -64,10 +62,7 @@ namespace Pastel {
         }
 
         MatrixView(const MatrixView& that) = default;
-        MatrixView(MatrixView&& that) 
-        {
-            swap(that);
-        }
+        MatrixView(MatrixView&& that) = default;
 
         void swap(MatrixView& that) {
             std::swap(data_, that.data_);
@@ -199,13 +194,17 @@ namespace Pastel {
 
         auto rowRange(integer row) const {
             return Pastel::sparseRange(
-                std::span(data() + toIndex(row, 0), data() + toIndex(row, 0) + jStride() * cols()),
+                std::span(
+                    data() + toIndex(row, 0), 
+                    data() + toIndex(row, 0) + rowSpanSize()),
                 jStride());
         }
 
         auto columnRange(integer col) const {
             return Pastel::sparseRange(
-                std::span(data() + toIndex(0, col), data() + toIndex(0, col) + iStride() * rows()),
+                std::span(
+                    data() + toIndex(0, col), 
+                    data() + toIndex(0, col) + colSpanSize()),
                 iStride());
         }
 
@@ -271,7 +270,7 @@ namespace Pastel {
         MatrixView<Real, M, Dynamic> slicex(integer jBegin, integer jEnd) const {
             ASSERT_OP(jBegin, >=, 0);
             ASSERT_OP(jBegin, <=, jEnd);
-            ASSERT_OP(jEnd, <=, rows());
+            ASSERT_OP(jEnd, <=, cols());
             return {data_ + toIndex(0, jBegin), rows(), jEnd - jBegin, iStride(), jStride()};
         }
 

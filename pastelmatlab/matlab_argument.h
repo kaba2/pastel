@@ -12,7 +12,6 @@
 
 #include "pastelmatlab/matlab_mex.h"
 #include "pastelmatlab/matlab_class_ids.h"
-#include "pastelmatlab/matlab_matrix.h"
 
 namespace Pastel
 {
@@ -349,44 +348,6 @@ namespace Pastel
 		return n;
 	}
 
-	//! Retrieves a reference to a dreal matrix.
-	/*!
-	Preconditions:
-	mxIsNumeric(that)
-	*/
-	template <typename Type>
-	MatlabMatrix<Type> matlabAsMatrix(
-		const mxArray* that)
-	{
-		ENSURE(mxIsNumeric(that));
-		return MatlabMatrix<Type>(that);
-	}
-
-	//! Retrieves a reference to a dreal matrix.
-	/*!
-	Preconditions:
-	mxIsNumeric(that)
-	*/
-	template <typename Type>
-	MatlabMatrix<Type, Dynamic, 1> matlabAsColMatrix(
-		const mxArray* that)
-	{
-		ENSURE(mxIsNumeric(that));
-		return MatlabMatrix<Type, Dynamic, 1>(that);
-	}
-
-	//! Retrieves a reference to a dreal matrix.
-	/*!
-	Preconditions:
-	mxIsNumeric(that)
-	*/
-	template <typename Type>
-	MatlabMatrix<Type> matlabAsVectorizedMatrix(const mxArray* that)
-	{
-		ENSURE(mxIsNumeric(that));
-		return MatlabMatrix<Type>(that, 1, mxGetNumberOfElements(that));
-	}
-
 	//! Reports all dreal arrays in a cell-array.
 	/*!
 	Preconditions:
@@ -413,33 +374,8 @@ namespace Pastel
 		);
 	}
 
-	//! Retrieves an array of signals.
-    template <typename Real>
-	inline Array<MatlabMatrix<Real>> matlabAsMatrixArray(
-		const mxArray* cellArray)
-	{
-		ENSURE(mxIsCell(cellArray));
-
-		integer signals = mxGetM(cellArray);
-		integer trials = mxGetN(cellArray);
-		
-		Array<MatlabMatrix<Real>> signalSet(
-			Vector2i(trials, signals));
-
-		for (integer y = 0;y < signals;++y)
-		{
-			for (integer x = 0;x < trials;++x)
-			{
-				const mxArray* signal = 
-					mxGetCell(cellArray, signals * x + y);
-
-				matlabAsMatrix<Real>(signal).swap(signalSet(x, y));
-			}
-		}
-
-		return signalSet;
-	}
-
 }
+
+#include "pastelmatlab/matlab_matrix.h"
 
 #endif

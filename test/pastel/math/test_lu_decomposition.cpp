@@ -26,7 +26,7 @@ namespace
 			Matrix<dreal> m = randomMatrix<dreal>(n, n);
 			Matrix<dreal> mCopy = m;
 
-			LuDecompositionInplace lu(view(mCopy));
+			LuDecompositionInplace<dreal> lu(view(mCopy));
 
 			if (!lu.singular())
 			{

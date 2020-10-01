@@ -228,29 +228,29 @@ namespace Pastel
 {
 
 	//! Solves the linear system PLUx = b.
-	template <typename Real, int M, int N>
-	Vector<Real> solveLinear(
+	template <typename Real, int M, int N, int M_b>
+	Vector<Real, M_b> solveLinear(
 		const LuDecompositionInplace<Real, M, N>& lu,
-		const Vector<Real, N>& b)
+		const Vector<Real, M_b>& b)
 	{
 		auto packedLu = lu.packedLu();
 
-		integer n = packedLu.cols();
+		integer m = packedLu.rows();
 
-		ENSURE2(b.size() == n, b.size(), n);
+		ENSURE2(b.size() == m, b.size(), m);
 
 		if (lu.singular())
 		{
-			return Vector<Real>(ofDimension(n));
+			return Vector<Real>(ofDimension(m));
 		}
 
 		// Ax = b <=> PLU x = b
 
 		// First solve Pz = b.
-		Vector<Real, N> x(ofDimension(n));
+		Vector<Real, M_b> x(ofDimension(m));
 
 		const Tuple<integer>& rowPermutation = lu.rowPermutation();
-		for (integer i = 0;i < n;++i)
+		for (integer i = 0;i < m;++i)
 		{
 			x[i] = b[rowPermutation[i]];
 		}

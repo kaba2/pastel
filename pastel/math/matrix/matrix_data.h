@@ -10,19 +10,41 @@ namespace Pastel {
     class MatrixData {
     private:
         struct RowData {
+            RowData() = default;
+            
             Real* data = nullptr;
             integer cols = 0;
+
+            void swap(RowData& that) {
+                std::swap(data, that.data);
+                std::swap(cols, that.cols);
+            }
         };
 
         struct ColData {
+            ColData() = default;
+
             Real* data = nullptr;
             integer rows = 0;
+
+            void swap(ColData& that) {
+                std::swap(data, that.data);
+                std::swap(rows, that.rows);
+            }
         };
 
         struct DynamicData {
+            DynamicData() = default;
+
             Real* data = nullptr;
             integer rows = 0;
             integer cols = 0;
+
+            void swap(DynamicData& that) {
+                std::swap(data, that.data);
+                std::swap(rows, that.rows);
+                std::swap(cols, that.cols);
+            }
         };
 
         using StaticData = Real[M * N > 0 ? M * N : 1];
@@ -110,13 +132,7 @@ namespace Pastel {
             if constexpr (IsStatic) {
                 std::swap(data_, that.data_);
             } else {
-                std::swap(data_.data, that.data_.data);
-                if (M == Dynamic) {
-                    std::swap(data_.rows, that.data_.rows);
-                }
-                if (N == Dynamic) {
-                    std::swap(data_.cols, that.data_.cols);
-                }
+                data_.swap(that.data_);
             }
 
             std::swap(iStride_, that.iStride_);
@@ -152,7 +168,11 @@ namespace Pastel {
         }
 
         Real* data() {
-            return (Real*)((const MatrixData*)this)->data();
+            if constexpr (IsStatic) {
+                return &data_[0];
+            } else {
+                return data_.data;
+            }
         }
 
         const Real* data() const {
@@ -199,6 +219,14 @@ namespace Pastel {
             }
             return *this;
         }
+
+        // template <typename Real_, int M_, int N_>
+        // requires std::is_convertible_v<Real_, Real>
+        // MatrixData& assign(MatrixView<Real_, M_, N_>&& that) {
+        //     that.swap(*this);
+        //     MatrixData().swap(that);
+        //     return *this;
+        // }
 
         operator MatrixView<Real, M, N>() {
             return view();

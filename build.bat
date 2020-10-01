@@ -6,7 +6,7 @@ if not exist %buildDir% (
     mkdir %buildDir%
 )
 
-set buildType=Release
+set buildType=RelWithDebInfo
 if NOT [%1]==[] (
     set buildType=%1
 )
@@ -24,7 +24,8 @@ echo Toolchain: %toolchainFile%
 
 REM goto NARP
 
-cmake -S . -G"Visual Studio 16 2019" -T ClangCL -DCMAKE_BUILD_TYPE=%buildType% -B %buildDir% -DCMAKE_TOOLCHAIN_FILE=%toolchainFile%
+REM cmake -S . -G"Visual Studio 16 2019" -T ClangCL -DCMAKE_BUILD_TYPE=%buildType% -B %buildDir% -DCMAKE_TOOLCHAIN_FILE=%toolchainFile%
+cmake -S . -G"Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=%buildType% -B %buildDir% -DCMAKE_TOOLCHAIN_FILE=%toolchainFile%
 
 REM start %buildDir%\Pastel.sln
 
