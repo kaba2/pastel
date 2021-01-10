@@ -30,6 +30,7 @@ math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 # For example: msvc, gnu, clang
 string (TOLOWER ${CMAKE_CXX_COMPILER_ID} CompilerId)
 string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
+string (TOUPPER "${CMAKE_BUILD_TYPE}" UPPER_CMAKE_BUILD_TYPE)
 
 # We use a tool-set id to separate the outputs of 
 # different compilers to different directories.

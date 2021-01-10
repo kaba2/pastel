@@ -76,8 +76,9 @@ find_package(TBB CONFIG REQUIRED)
 link_libraries(TBB::tbb)
 
 get_target_property(TbbIncludeDirectory TBB::tbb INTERFACE_INCLUDE_DIRECTORIES)
-get_target_property(TbbLibraryDirectory TBB::tbb IMPORTED_LOCATION_RELEASE)
-get_filename_component(TbbLibraryDirectory ${TbbLibraryDirectory} DIRECTORY)
+get_target_property(TbbLibraryPath TBB::tbb IMPORTED_LOCATION_RELEASE)
+get_filename_component(TbbLibraryDirectory ${TbbLibraryPath} DIRECTORY)
+get_filename_component(TbbLibraryName ${TbbLibraryPath} NAME)
 
 if (BuildMatlab)
 	set (MatlabDirectoryWindows "C:/Program Files/Polyspace/R2020a")
@@ -104,7 +105,7 @@ endif()
 message(STATUS "Range-v3: ${RangesIncludeDirectory}")
 message(STATUS "Boost: ${Boost_INCLUDE_DIRS} ${Boost_LIBRARIES}")
 message(STATUS "Eigen: ${EIGEN3_INCLUDE_DIRS}")
-message(STATUS "TBB: ${TbbIncludeDirectory} ${TbbLibraryDirectory}")
+message(STATUS "TBB: ${TbbIncludeDirectory} ${TbbLibraryPath}")
 
 # Copy files
 # ----------

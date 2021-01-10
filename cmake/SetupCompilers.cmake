@@ -130,17 +130,20 @@ endif()
 
 if (MSVC)
 	if (BuildMatlabMex)
-		# Force Visual Studio to use release-mode C and C++ standard libraries.
-		# This is needed for Matlab, because otherwise there will be LNK4098
-		# about conflicting versions of the standard library.
-		string(REPLACE "/MDd" "/MD" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
-		string(REPLACE "/D_DEBUG" "" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+		if (CMAKE_BUILD_TYPE MATCHES Debug) 
+			# Force Visual Studio to use release-mode C and C++ standard libraries.
+			# This is needed for Matlab, because its mex compilation flags only
+			# include /MD; there is no debug version. Otherwise there will be LNK4098
+			# about conflicting versions of the standard library.
+			string(REPLACE "/MDd" "/MD" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+			string(REPLACE "/D_DEBUG" "" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 
-		# Emit a warning about forcing release-mode libraries
-		message (
-			"BuildMatlabMex: Forcing release-mode C and C++ standard libraries "
-			"in Visual Studio. Use this only when the intent is to make "
-			"${CMAKE_PROJECT_NAME} usable for Matlab mex.")
+			# Emit a warning about forcing release-mode libraries
+			message (
+				"BuildMatlabMex: Forcing release-mode C and C++ standard libraries "
+				"in Visual Studio. Use this only when the intent is to make "
+				"${CMAKE_PROJECT_NAME} usable for Matlab mex.")
+		endif()
 	endif()
 
 	add_definitions (
