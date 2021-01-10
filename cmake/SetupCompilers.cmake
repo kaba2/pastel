@@ -152,6 +152,8 @@ if (MSVC)
 		/EHsc
 		# Use C++20 features.
 		/std:c++latest
+		# Increase number of sections in .obj file.
+		/bigobj
 		/permissive-
 		# Boost uses std::unary_function etc which are removed from C++17.
 		# Bring them back.
