@@ -81,6 +81,9 @@ include_directories (${ProjectIncludeDirectory})
 # The directory to place the static libraries (e.g. lib/msvc64-release).
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${ProjectLibraryDirectory})
 
+# The directory to place the debugging pdb files (e.g. lib/msvc64-release).
+# set (CMAKE_COMPILE_PDB_OUTPUT_DIRECTORY ${ProjectLibraryDirectory})
+
 # The directory to place the shared libraries (e.g. lib/msvc64-release).
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${ProjectLibraryDirectory})
 
@@ -213,6 +216,26 @@ macro (EcAddLibrary Type LibraryName SourceGlobSet)
 	else ()
 		message (FATAL_ERROR "Unknown library type ${Type}.")
 	endif()
+
+	set_target_properties(
+		${LibraryName}
+		PROPERTIES
+		COMPILE_PDB_NAME ${LibraryName}
+		COMPILE_PDB_OUTPUT_DIRECTORY ${CMAKE_COMPILE_PDB_OUTPUT_DIRECTORY}
+		)
+	
+	get_target_property(TULOS ${LibraryName} COMPILE_PDB_OUTPUT_DIRECTORY)
+	message(WAATADASD ${TULOS})
+
+	# foreach (CONFIG ${CMAKE_CONFIGURATION_TYPES})
+	# 	set_target_properties(
+	# 		${LibraryName}
+	# 		PROPERTIES
+	# 		COMPILE_PDB_NAME_${CONFIG} ${LibraryName}WAAT
+	# 		COMPILE_PDB_OUTPUT_DIRECTORY_${CONFIG} ${CMAKE_COMPILE_PDB_OUTPUT_DIRECTORY}
+	# 	)
+	# endforeach()
+
 endmacro()
 
 # Configures a Pastel Matlab library.

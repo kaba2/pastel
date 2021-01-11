@@ -149,6 +149,8 @@ if (MSVC)
 	add_definitions (
 		# Disable Microsoft's Secure STL.
 		# /D_ITERATOR_DEBUG_LEVEL=0
+		# Embed debugging information into static libraries.
+		/Z7
 		# Use multiple processes for compiling.
 		/MP
 		# Enable exceptions.
