@@ -23,11 +23,16 @@ namespace Pastel {
 
         MatrixView() = default;
 
-        explicit MatrixView(
+        explicit MatrixView(Real* data)
+        : MatrixView(data, M, N)
+        {
+        }
+
+        MatrixView(
             Real* data, 
-            integer m = (M >= 0 ? M : 0), 
-            integer n = (N >= 0 ? N : 0))
-        : MatrixView(data, m, n,  1, m)
+            integer m, 
+            integer n)
+        : MatrixView(data, m, n, 1, m)
         {
         }
 
@@ -38,13 +43,13 @@ namespace Pastel {
             integer iStride,
             integer jStride) 
         : data_(data)
-        , m_(m)
-        , n_(n)
+        , m_((m == 0 && M >= 0) ? M : m)
+        , n_((n == 0 && N >= 0) ? N : n)
         , iStride_(iStride)
         , jStride_(jStride)
         {
-            ENSURE(M == Dynamic || M == m);
-            ENSURE(N == Dynamic || N == n);
+            ENSURE2(M == Dynamic || M == m_, m_, M);
+            ENSURE2(N == Dynamic || N == n_, n_, N);
         }
 
         template <typename Real_, int M_, int N_>
