@@ -10,7 +10,7 @@
 #include "pastel/geometry/tdtree/tdtree_node.h"
 #include "pastel/geometry/shape/alignedbox.h"
 #include "pastel/geometry/bounding/bounding_alignedbox.h"
-#include "pastel/geometry/splitrule/longestmedian_splitrule.h"
+#include "pastel/geometry/splitrule/slidingmidpoint2_splitrule.h"
 
 #include "pastel/sys/sequence/fair_stable_partition.h"
 #include "pastel/sys/range/interval_range.h"
@@ -79,6 +79,7 @@ namespace Pastel
 		, locator_()
 		, simple_(true)
 		, bound_()
+		, nodes_(0)
 		{
 		}
 
@@ -140,7 +141,7 @@ namespace Pastel
 		, bound_(Pastel::pointSetDimension(pointSet))
 		{
 			auto&& timeSet = PASTEL_ARG_S(timeSet, intervalRange((integer)0, (integer)Infinity()));
-			auto&& splitRule = PASTEL_ARG_S(splitRule, LongestMedian_SplitRule());
+			auto&& splitRule = PASTEL_ARG_S(splitRule, SlidingMidpoint2_SplitRule());
 				
 			enum : bool
 			{
@@ -388,6 +389,26 @@ namespace Pastel
 			return bound_;
 		}
 
+		//! Returns the number of nodes.
+		integer nodes() const {
+			return nodes_;
+		}
+
+		//! Returns the height of the tree.
+		integer height() const {
+			return height(root());
+		}
+
+		//! Returns the height of a node.
+		integer height(const Cursor& cursor) const {
+			if (cursor.leaf()) {
+				return 1;
+			}
+			return std::max(
+				height(cursor.child(false)), 
+				height(cursor.child(true))) + 1;
+		}
+
 		//! Returns whether the time-coordinates are simple.
 		/*!
 		The time-coordinates of the stored points are simple, if
@@ -542,6 +563,7 @@ namespace Pastel
 
 			Node* node = new Node(pointSet);
 			node->isolate(end_.get());
+			++nodes_;
 
 			if (parent)
 			{
@@ -691,6 +713,9 @@ namespace Pastel
 
 		//! Minimum bounding box for the points.
 		AlignedBox<Real, N> bound_;
+
+		//! Number of nodes.
+		integer nodes_;
 	};
 
 }

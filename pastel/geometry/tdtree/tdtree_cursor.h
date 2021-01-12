@@ -41,6 +41,12 @@ namespace Pastel
 			return Cursor(node_->parent());
 		}
 
+		Cursor child(bool right) const
+		{
+			PENSURE(node_);
+			return Cursor(node_->child(right));
+		}
+
 		Cursor right() const
 		{
 			PENSURE(node_);
