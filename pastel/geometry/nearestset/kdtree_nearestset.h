@@ -352,7 +352,16 @@ namespace Pastel
 		Real maxRelativeError = PASTEL_ARG_S(maxRelativeError, 0);
 		ENSURE_OP(maxRelativeError, >=, 0);
 
-		integer nBruteForce = PASTEL_ARG_S(nBruteForce, 16);
+		// Timings on computing mutual information on TIM 
+		// as a function of nBruteForce were following:
+		// 16  | 67s
+		// 32  | 65s
+		// 64  | 64s
+		// 128 | 63s
+		// 256 | 68s
+		// 512 | 73s
+		// Hence, we chose 128 as the default.
+		integer nBruteForce = PASTEL_ARG_S(nBruteForce, 128);
 		ENSURE_OP(nBruteForce, >=, 0);
 
 		auto&& timeIntervalSequence = 
