@@ -139,6 +139,7 @@ namespace Pastel
 		, locator_(Pastel::pointSetLocator(pointSet))
 		, simple_(true)
 		, bound_(Pastel::pointSetDimension(pointSet))
+		, nodes_(0)
 		{
 			auto&& timeSet = PASTEL_ARG_S(timeSet, intervalRange((integer)0, (integer)Infinity()));
 			auto&& splitRule = PASTEL_ARG_S(splitRule, SlidingMidpoint2_SplitRule());
@@ -222,6 +223,7 @@ namespace Pastel
 			swap(locator_, that.locator_);
 			swap(simple_, that.simple_);
 			bound_.swap(that.bound_);
+			swap(nodes_, that.nodes_);
 		}
 
 		//! Removes all points from the tree.
