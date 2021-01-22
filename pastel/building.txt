@@ -3,7 +3,7 @@ Building the Pastel library
 
 [[Parent]]: pastel.txt
 
-This section describes how to build the Pastel library. 
+Here are the steps to build Pastel in Linux. The same steps work in Windows with small changes.
 
 Compiler
 --------
@@ -12,116 +12,44 @@ Since Pastel uses C++14, it requires a recent compiler to be built. The followin
 
 Operating system           | Compiler
 ---------------------------|------------------------
-Windows                    | Visual Studio 2017
-Linux                      | Gcc 5.4
-MacOsX                     | XCode 6.4
+Windows                    | Visual Studio 2019 or later
+Linux                      | Gcc 10 or later
+MacOsX                     | XCode ? or later
 
-External dependencies
----------------------
+Clone Pastel from github
+------------------------
 
-The external dependencies are detailed [here][Dependencies].
+    cd ~
+    mkdir code
+    cd code
+    git clone https://github.com/kaba2/pastel
 
-[Dependencies]: [[Ref]]: dependencies.txt
+Install vcpkg
+-------------
 
-### Boost
+    cd pastel
+    git clone https://github.com/microsoft/vcpkg
+    ./vcpkg/bootstrap-vcpkg.sh
+    ./vcpkg/vcpkg integrate bash
 
-#### Windows
+Install dependencies
+--------------------
 
-Under Windows, unpack [Boost][Boost] to some directory.
+    ./vcpkg/vcpkg install boost
+    ./vcpkg/vcpkg install tbb
+    ./vcpkg/vcpkg install range-v3
+    ./vcpkg/vcpkg install eigen3
 
-#### Linux
+Generate build files
+--------------------
 
-Under Linux and `aptitude` write:
+The build files are generated using [CMake][]:
 
-	sudo apt install libboost-dev
+    cmake -S . -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build
 
-[Boost]: http://www.boost.org/
+[CMake]: http://www.cmake.org/
 
-### Ranges-v3
-
-#### Windows
-
-Under Windows, unpack the [modified ranges-v3][Ranges-v3-vs] to some directory.
-
-[Ranges-v3-vs]: https://github.com/microsoft/Range-V3-VS2015
-
-#### Linux
-
-Under Linux, unpack the [original ranges-v3][Ranges-v3] to some directory.
-
-[Ranges-v3]: https://github.com/ericniebler/range-v3
-
-### Armadillo
-
-#### Windows
-
-Under Windows, unpack [Armadillo][Armadillo] to some directory.
-
-#### Linux 
-
-Under Linux and `aptitude` write:
-
-	sudo apt install libarmadillo-dev
-
-[Armadillo]: http://arma.sourceforge.net/
-
-### Threading Building Blocks
-
-#### Windows
-
-Under Windows, unpack [Threading Building Blocks][Tbb] to some directory.
-
-#### Linux 
-
-Under Linux and `aptitude` write:
-
-	sudo apt install libtbb-dev
-
-[Tbb]: https://www.threadingbuildingblocks.org/
-
-### LAPACK and BLAS
-
-#### Windows
-
-We provide prebuilt libraries for LAPACK and BLAS under Windows; these are the same as provided with Armadillo.
-
-#### Linux 
-
-Under Linux and `aptitude` write:
-
-	sudo apt install liblapack-dev
-
-### CMake
-
-#### Windows
-
-Under Windows, install [CMake][DownloadCMake] using an installer.
-
-#### Linux
-
-Under Linux and `aptitude` write:
-
-	sudo apt install cmake
-
-### Paths to external dependencies
-
-Modify [[Link: Paths.cmake]] to refer to the locations you installed the external libraries at. You may also need to modify paths in [[Link: FindTbb_.cmake]] and other files named like `FindXXX_.cmake`.
-
-Generate tool-specific build-files
-----------------------------------
-
-Generate the tool-specific build-files.
-
-### Generation
-
-* In the Pastel root directory, create the `build/` directory.
-* In the Pastel `build/` directory, type `cmake-gui ..`
-* Press the `Configure` button.
-* Select the tool-set to generate build-scripts for from the menu.
-* Make sure the `Advanced` button is not checked.
-* Select the desired build options.
-* Press the `Configure` button again.
-* Press the `Generate` button.
+[DownloadCMake]: http://www.cmake.org/cmake/resources/software.html
 
 ### Build options
 
@@ -143,9 +71,8 @@ Pastel comes with the standard CMake build-configurations, which are
 
  * Debug 
  * Release
- * RelWithDebInfo --- release with debug info
- * MinSizeRel --- release with minimum size
-
+ * RelWithDebInfo
+ 
 The `Debug` configuration enables debugging information and [ASSERTs and PENSUREs][InvariantChecking]. The `RelWithDebInfo` configuration disables ASSERTs and PENSUREs, but enables debug information. The `Release` configuration disables both.
 
 Property / Config  | Debug |Release | RelWithDebInfo
@@ -156,22 +83,6 @@ Debug information  | x     |        | x
 
 [InvariantChecking]: [[Ref]]: ensure.txt
 
-#### Makefiles
-
-For a single-configuration tool-set, such as makefiles, the build-configuration can be chosen in `cmake-gui` by selecting the proper value for `CMAKE_BUILD_TYPE` . 
-
-#### Visual Studio
-
-The build-configuration is chosen inside the Visual Studio IDE after opening the generated solution.
-
-#### XCode
-
-The build-configuration is chosen inside the XCode IDE after opening the generated solution.
-
-### Tool-set
-
-If you want to change the tool-set later, you need to remove the `CMakeCache.txt` file, and run these instructions again. The purpose of this file is to remember options so that they need not specified repeatedly.
-
 Building
 --------
 
@@ -179,35 +90,22 @@ Compile and link the toolset-specific build files.
 
 ### Makefiles
 
-In the `build/` directory, run
-
+    cd build
 	make -j 4
 
 The `j` option specifies the number of threads to use in the building process. On multi-core machines this shortens the build-times dramatically.
 
 ### Visual Studio
 
-To build Pastel using Visual Studio:
+To build Pastel in Visual Studio:
 
- * Open the solution file `Pastel.sln`. 
- * Right click on the solution in Solution Explorer, and choose Configuration Manager. 
- * Select the desired Active Solution Configuration as Release (or something else).
+ * Open the solution file `build/Pastel.sln`. 
  * Build the solution (F7).
 
 ### XCode
 
-To build Pastel in XCode 4:
+To build Pastel in XCode:
 
- * Open the solution file `Pastel.xcodeproj`.
- * In the menu at the top of the screen, choose `Product` --> `Scheme` --> `Edit scheme...`.
- * Select the Build Configuration as Release (or something else).
+ * Open the solution file `build/Pastel.xcodeproj`.
  * Build the solution (Shift + Command + R, or the play button).
 
-Output files
-------------
-
-The libraries will be placed in the `lib/toolset/config` directory, and the executables will be placed in the `bin/toolset/config` directory, where the `toolset` is the used tool-set, and `config` is the used configuration.
-
-[CMake]: http://www.cmake.org/
-
-[DownloadCMake]: http://www.cmake.org/cmake/resources/software.html
