@@ -27,7 +27,7 @@ if ((CMAKE_CXX_COMPILER_ID STREQUAL "GNU") OR
 	if (NOT CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC")
 		add_definitions (
 			# Enables C++20 compiler support.
-			-std=c++20
+			-std=c++2a
 			# Enables position-independent code.
 			# This is needed to build the Matlab 
 			# libraries.

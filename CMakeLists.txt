@@ -1,10 +1,13 @@
 # Description: Main CMake build file for the Pastel library
 # Documentation: building.txt
 
-cmake_minimum_required (VERSION 3.18)
+cmake_minimum_required (VERSION 3.16)
 
 # Set up VCPKG
 # ------------
+
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake
+  CACHE STRING "Vcpkg toolchain file")
 
 if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
   set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
