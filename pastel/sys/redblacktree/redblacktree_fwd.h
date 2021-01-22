@@ -73,7 +73,6 @@ namespace Pastel
 		{
 		public:
 			PASTEL_FWD(Key);
-			using Key = Key_;
 			using Propagation = Propagation_;
 			using Data = Data_;
 			using SentinelData = SentinelData_;
