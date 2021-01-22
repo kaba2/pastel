@@ -64,7 +64,7 @@ if ((CMAKE_CXX_COMPILER_ID STREQUAL "GNU") OR
 		# Conversion between an unsigned and a signed integer.
 		-Wno-sign-conversion
 		# Unused variables.
-		#-Wno-unused-variable
+		-Wno-unused-variable
 		# Unused values.
 		-Wno-unused-value
 		# Unused functions.
