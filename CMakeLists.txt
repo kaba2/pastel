@@ -83,9 +83,29 @@ find_package(TBB CONFIG REQUIRED)
 link_libraries(TBB::tbb)
 
 get_target_property(TbbIncludeDirectory TBB::tbb INTERFACE_INCLUDE_DIRECTORIES)
-get_target_property(TbbLibraryPath TBB::tbb IMPORTED_LOCATION_RELEASE)
+get_target_property(TbbMallocIncludeDirectory TBB::tbbmalloc INTERFACE_INCLUDE_DIRECTORIES)
+
+if (CMAKE_BUILD_TYPE MATCHES "Debug")
+	get_target_property(TbbLibraryPath TBB::tbb IMPORTED_LOCATION_DEBUG)
+	get_target_property(TbbMallocLibraryPath TBB::tbbmalloc IMPORTED_LOCATION_DEBUG)
+else()
+	get_target_property(TbbLibraryPath TBB::tbb IMPORTED_LOCATION_RELEASE)
+	get_target_property(TbbMallocLibraryPath TBB::tbbmalloc IMPORTED_LOCATION_RELEASE)
+endif()
+
 get_filename_component(TbbLibraryDirectory ${TbbLibraryPath} DIRECTORY)
 get_filename_component(TbbLibraryName ${TbbLibraryPath} NAME)
+get_filename_component(TbbMallocLibraryDirectory ${TbbMallocLibraryPath} DIRECTORY)
+get_filename_component(TbbMallocLibraryName ${TbbMallocLibraryPath} NAME)
+
+if (UNIX)
+	# FIX: This is a hack to get the library name correct under Linux.
+	string (REPLACE lib "" TbbLibraryName ${TbbLibraryName})
+	string (REPLACE .a "" TbbLibraryName ${TbbLibraryName})
+
+	string (REPLACE lib "" TbbMallocLibraryName ${TbbMallocLibraryName})
+	string (REPLACE .a "" TbbMallocLibraryName ${TbbMallocLibraryName})
+endif()
 
 if (BuildMatlab)
 	set (MatlabDirectoryWindows "C:/Program Files/Polyspace/R2020b")
@@ -112,7 +132,8 @@ endif()
 message(STATUS "Range-v3: ${RangesIncludeDirectory}")
 message(STATUS "Boost: ${Boost_INCLUDE_DIRS} ${Boost_LIBRARIES}")
 message(STATUS "Eigen: ${EIGEN3_INCLUDE_DIRS}")
-message(STATUS "TBB: ${TbbIncludeDirectory} ${TbbLibraryPath}")
+message(STATUS "Tbb: ${TbbIncludeDirectory} ${TbbLibraryPath}")
+message(STATUS "Tbbmalloc: ${TbbMallocIncludeDirectory} ${TbbMallocLibraryPath}")
 
 # Copy files
 # ----------
