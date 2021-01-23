@@ -85,17 +85,17 @@ TEST_CASE("Euclidean (sphere_volume)")
 		dreal correct = correctSet[n];
 
 		{
-			dreal maxError = 8e-15;
+			dreal maxError = 2e-14;
 			dreal measured = lnVolumeUnitSphere<dreal>(n);
 			dreal error = relativeError<dreal>(measured, correct);
-			REQUIRE(error < maxError);
+			REQUIRE(error <= maxError);
 		}
 
 		{
 			dreal maxError = 2e-14;
 			dreal measured = std::log(volumeUnitSphere<dreal>(n));
 			dreal error = relativeError<dreal>(measured, correct);
-			REQUIRE(error < maxError);
+			REQUIRE(error <= maxError);
 		}
 	}
 }

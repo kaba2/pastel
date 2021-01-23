@@ -112,14 +112,14 @@ TEST_CASE("sphere_area (sphere_area)")
 			dreal maxError = 4e-14;
 			dreal measured = lnAreaUnitSphere<dreal>(n);
 			dreal error = relativeError<dreal>(measured, correct);
-			REQUIRE(error < maxError);
+			REQUIRE(error <= maxError);
 		}
 
 		{
 			dreal maxError = 4e-14;
 			dreal measured = std::log(areaUnitSphere<dreal>(n));
 			dreal error = relativeError<dreal>(measured, correct);
-			REQUIRE(error < maxError);
+			REQUIRE(error <= maxError);
 		}
 	}
 }
