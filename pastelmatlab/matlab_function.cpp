@@ -8,8 +8,6 @@
 #include <ostream>
 #include <map>
 
-#include <tbb/task_scheduler_init.h>
-
 namespace Pastel
 {
 
@@ -131,10 +129,6 @@ namespace Pastel
 
 		void matlabInitialize()
 		{
-			// Initialize Threading Building Blocks.
-			static tbb::task_scheduler_init theTbbInit(
-				tbb::task_scheduler_init::automatic);
-
 			matlabAddFunction(
 				"list_functions",
 				matlabListFunctions);
