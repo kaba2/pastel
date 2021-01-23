@@ -3,15 +3,15 @@
 
 #include "pastel_example.h"
 
-#include "pastel/sys/string_algorithms.h"
-#include "pastel/sys/arrayview.h"
-#include "pastel/sys/view_tools.h"
+#include "pastel/sys/string/string_algorithms.h"
+#include "pastel/sys/view/arrayview.h"
+#include "pastel/sys/view/view_tools.h"
 
-#include "pastel/gfx/pcx.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/image_file/pcx.h"
+#include "pastel/gfx/color/color_tools.h"
 #include "pastel/gfx/drawing.h"
 
-#include "pastel/gfx/ripmap_tools.h"
+#include "pastel/gfx/ripmap/ripmap_tools.h"
 
 using namespace Pastel;
 

@@ -3,17 +3,17 @@
 
 #include "pastel_example.h"
 
-#include "pastel/gfx/loadpcx.h"
-#include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/coloradapter.h"
-#include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/packrange.h"
+#include "pastel/gfx/image_file/pcx/loadpcx.h"
+#include "pastel/gfx/image_file/pcx/savepcx.h"
+#include "pastel/gfx/color/coloradapter.h"
+#include "pastel/gfx/color/color_tools.h"
+#include "pastel/gfx/image_processing/packrange.h"
 
-#include "pastel/gfx/signal_transforms.h"
+#include "pastel/gfx/transform/signal_transforms.h"
 
-#include "pastel/sys/arrayview.h"
-#include "pastel/sys/view_tools.h"
-#include "pastel/sys/adaptedview.h"
+#include "pastel/sys/view/arrayview.h"
+#include "pastel/sys/view/view_tools.h"
+#include "pastel/sys/view/adaptedview.h"
 #include "pastel/sys/subarray_for_each.h"
 
 #include <iostream>

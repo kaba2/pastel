@@ -3,18 +3,18 @@
 
 #include "pastel_example.h"
 
-#include "pastel/math/uniform_distortion.h"
+#include "pastel/math/sampling/uniform_distortion.h"
 
 #include "pastel/geometry/poisson_disk_pattern.h"
 
-#include "pastel/gfx/savepcx.h"
+#include "pastel/gfx/image_file/pcx/savepcx.h"
 #include "pastel/gfx/drawing.h"
-#include "pastel/gfx/color_space.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/color/color_space.h"
+#include "pastel/gfx/color/color_tools.h"
 
 #include "pastel/sys/random.h"
-#include "pastel/sys/views.h"
-#include "pastel/sys/string_algorithms.h"
+#include "pastel/sys/view/concrete_views.h"
+#include "pastel/sys/string/string_algorithms.h"
 
 using namespace Pastel;
 

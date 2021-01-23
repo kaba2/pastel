@@ -3,16 +3,13 @@
 
 #include "pastel_example.h"
 
-#include "pastel/sys/random_anderson_darling.h"
-#include "pastel/sys/random_gaussian.h"
-#include "pastel/sys/keyvalue.h"
+#include "pastel/sys/random/random_anderson_darling.h"
+#include "pastel/sys/random/random_gaussian.h"
 #include "pastel/sys/array.h"
 
 #include "pastel/math/distance.h"
 
-#include "pastel/geometry/distance_point_point.h"
-
-#include "pastel/gfx/pcx.h"
+#include "pastel/gfx/image_file/pcx.h"
 
 #include <iostream>
 #include <set>
@@ -92,8 +89,8 @@ namespace
 				integer negatives = 0;
 				dreal mean = 0;
 				dreal deviation = 1;
-				//dreal populationMean = nan<dreal>();
-				dreal populationDeviation = nan<dreal>();
+				//dreal populationMean = Nan();
+				dreal populationDeviation = Nan();
 				dreal populationMean = 0;
 				//dreal populationDeviation = 1;
 				for (integer j = 0;j < m;++j)
@@ -156,7 +153,7 @@ namespace
 				dataSet.push_back(randomGaussian<dreal>());
 			}
 
-			typedef std::set<KeyValue<dreal, integer> > NearestSet;
+			typedef std::set<std::pair<dreal, integer> > NearestSet;
 
 			NearestSet aNearestSet;
 			NearestSet bNearestSet;
@@ -175,7 +172,7 @@ namespace
 					0, 1);
 
 				aNearestSet.insert(
-					keyValue(ad, i));
+					std::make_pair(ad, i));
 				if (aNearestSet.size() > k)
 				{
 					NearestSet::iterator aLast = aNearestSet.end();
@@ -188,7 +185,7 @@ namespace
 					w, Euclidean_Distance<dreal>());
 
 				bNearestSet.insert(
-					keyValue(distance, i));
+					std::make_pair(distance, i));
 				if (bNearestSet.size() > k)
 				{
 					NearestSet::iterator bLast = bNearestSet.end();
@@ -208,8 +205,8 @@ namespace
 
 			for (integer i = 0;i < k;++i)
 			{
-				const integer x = aIter->value();
-				const integer y = bIter->value();
+				const integer x = aIter->second;
+				const integer y = bIter->second;
 				ENSURE_OP(x, >=, 0);
 				ENSURE_OP(y, >=, 0);
 				ENSURE_OP(x, <, k);

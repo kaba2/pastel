@@ -15,7 +15,7 @@
 
 #include "pastel/math/matrix/matrix.h"
 #include "pastel/math/matrix/matrix_inverse.h"
-#include "pastel/math/matrix/solve_linear.h"
+#include "pastel/math/matrix/lu_decomposition.h"
 
 namespace Pastel
 {

@@ -3,22 +3,22 @@
 
 #include "pastel_example.h"
 
-#include <pastel/gfx/pcx.h>
-#include <pastel/gfx/color_space.h>
-#include <pastel/gfx/color_tools.h>
+#include <pastel/gfx/image_file/pcx.h>
+#include <pastel/gfx/color/color_space.h>
+#include <pastel/gfx/color/color_tools.h>
 #include <pastel/gfx/drawing.h>
 #include <pastel/gfx/noise.h>
-#include <pastel/gfx/colormixers.h>
+#include <pastel/gfx/color/colormixer/colormixers.h>
 
 #include <pastel/gfx/resampling.h>
-#include <pastel/gfx/filters.h>
-#include <pastel/gfx/table_filter.h>
+#include <pastel/gfx/filter/filters.h>
+#include <pastel/gfx/filter/table_filter.h>
 
-#include <pastel/sys/views.h>
+#include <pastel/sys/view/concrete_views.h>
 #include <pastel/sys/array.h>
-#include <pastel/sys/string_algorithms.h>
+#include <pastel/sys/string/string_algorithms.h>
 
-#include <pastel/sys/vector_tools.h>
+#include <pastel/sys/vector/vector_tools.h>
 
 using namespace Pastel;
 

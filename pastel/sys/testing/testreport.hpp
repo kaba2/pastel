@@ -38,7 +38,7 @@ namespace Pastel
 		std::string title = 
 			testReport.name() + " test report";
 
-		output << title << std::endl;
+		output << title << logNewLine;
 
 		std::string underline;
 		for (integer i = 0;i < title.size();++i)
@@ -46,7 +46,7 @@ namespace Pastel
 			underline += '=';
 		}
 
-		output << underline << std::endl << std::endl;
+		output << underline << logNewLine << logNewLine;
 
 		output << "There were ";
 		if (testReport.totalErrors() > 0)
@@ -58,7 +58,7 @@ namespace Pastel
 			output << "no errors.";
 		}
 
-		output << std::endl;
+		output << logNewLine;
 
 		integer errors = testReport.errors();
 
@@ -85,11 +85,11 @@ namespace Pastel
 			{
 				if (errorInfo.fileName() != prevFileName)
 				{
-					output << errorInfo.fileName() << std::endl;
+					output << errorInfo.fileName() << logNewLine;
 					prevFileName = errorInfo.fileName();
 				}
 
-				output << std::endl;
+				output << logNewLine;
 			}
 
 			output << "--";
@@ -97,29 +97,29 @@ namespace Pastel
 			{
 				output << " " << errorInfo.lineNumber() << " --";
 			}
-			output << std::endl;
+			output << logNewLine;
 
 			if (errorInfo.hitCount() > 1)
 			{
-				output << errorInfo.hitCount() << " hits, showing a few." << std::endl;
+				output << errorInfo.hitCount() << " hits, showing a few." << logNewLine;
 			}
 
 			if (!errorInfo.testText().empty())
 			{
 				output << errorInfo.testText();
-				output << std::endl;
+				output << logNewLine;
 			}
 
 			if (errorInfo.parameters() > 0)
 			{
-				output << "where" << std::endl;
+				output << "where" << logNewLine;
 				for (integer j = 0;j < errorInfo.parameters();++j)
 				{
 					const TestReport::ParameterInfo& parameterInfo =
 						errorInfo.parameter(j);
 
 					output << parameterInfo.name() << " == "
-						<< parameterInfo.value() << std::endl;
+						<< parameterInfo.value() << logNewLine;
 				}
 			}
 		}	

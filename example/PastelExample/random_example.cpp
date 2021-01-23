@@ -4,14 +4,14 @@
 #include "pastel_example.h"
 
 #include "pastel/gfx/drawing.h"
-#include "pastel/gfx/pcx.h"
-#include "pastel/gfx/color_space.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/image_file/pcx.h"
+#include "pastel/gfx/color/color_space.h"
+#include "pastel/gfx/color/color_tools.h"
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 
 #include "pastel/sys/random.h"
-#include "pastel/sys/views.h"
+#include "pastel/sys/view/concrete_views.h"
 #include "pastel/sys/histogram.h"
 
 #include <boost/bind.hpp>

@@ -3,14 +3,14 @@
 
 #include "pastel_example.h"
 
-#include "pastel/math/smoothstep.h"
+#include "pastel/math/interpolation/smoothstep.h"
 
-#include "pastel/gfx/savepcx.h"
+#include "pastel/gfx/image_file/pcx/savepcx.h"
 #include "pastel/gfx/drawing.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/color/color_tools.h"
 
 #include "pastel/sys/random.h"
-#include "pastel/sys/views.h"
+#include "pastel/sys/view/concrete_views.h"
 
 using namespace Pastel;
 

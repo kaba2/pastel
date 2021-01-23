@@ -3,27 +3,28 @@
 
 #include "pastel_example.h"
 
-#include "pastel/geometry/pointkdtree_tools.h"
-#include "pastel/geometry/point_pattern_matching_vw.h"
-#include "pastel/geometry/point_pattern_matching_kr.h"
-#include "pastel/geometry/bounding_alignedbox.h"
+#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pattern_matching/match_points_vw.h"
+#include "pastel/geometry/pattern_matching/match_points_kr.h"
+#include "pastel/geometry/bounding/bounding_alignedbox.h"
+#include "pastel/geometry/bounding/bounding_sphere.h"
 
-#include "pastel/gfx/savepcx.h"
+#include "pastel/gfx/image_file/pcx/savepcx.h"
 #include "pastel/gfx/drawing.h"
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/color/color_tools.h"
 
-#include "pastel/math/uniform_sampling.h"
-#include "pastel/math/conformalaffine2d_tools.h"
+#include "pastel/math/sampling/uniform_sampling.h"
+#include "pastel/math/conformalaffine2d/conformalaffine2d_tools.h"
 
-#include "pastel/sys/array_pointpolicy.h"
+#include "pastel/sys/locator/array_locator.h"
 #include "pastel/sys/random.h"
-#include "pastel/sys/arrayview.h"
-#include "pastel/sys/view_tools.h"
-#include "pastel/sys/views.h"
+#include "pastel/sys/view/arrayview.h"
+#include "pastel/sys/view/view_tools.h"
+#include "pastel/sys/view/concrete_views.h"
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 using namespace Pastel;
 
@@ -34,7 +35,7 @@ namespace
 		const std::vector<Vector2>& modelSet,
 		const std::vector<Vector2>& sceneSet,
 		const std::vector<Vector2>& correctSet,
-		const AffineTransformation<dreal> transform,
+		const AffineTransformation<dreal, 2, 2> transform,
 		const std::string& fileName)
 	{
 		//const dreal ratio = (dreal)4 / 3;
@@ -48,9 +49,7 @@ namespace
 		Array<Color, 2> image(Vector2i(width, height));
 
 		const Sphere2 sceneSphere =
-			boundingSphere(
-			range(sceneSet.begin(), sceneSet.end()),
-			Vector_PointPolicy2());
+			boundingSphere(pointSetRange(sceneSet));
 
 		const AlignedBox2 viewWindow = 
 			boundingAlignedBox(sceneSphere) * 1.5;
@@ -207,7 +206,7 @@ namespace
 			for (integer i = 0;i < modelPoints;++i)
 			{
 				const integer j = 
-					randomInteger() % modelPoints;
+					randomInteger(modelPoints);
 				std::swap(modelSet[i],
 					modelSet[j]);
 				std::swap(correctSet[i],
@@ -225,7 +224,7 @@ namespace
 
 			// Compute the kd-tree for the scene set.
 
-			typedef PointKdTree<dreal, 2> SceneTree;
+			typedef PointKdTree<dreal> SceneTree;
 			typedef SceneTree::Point_ConstIterator SceneIterator;
 
 			SceneTree sceneTree;
@@ -235,7 +234,7 @@ namespace
 
 			// Compute the kd-tree for the model set.
 
-			typedef PointKdTree<dreal, 2> ModelTree;
+			typedef PointKdTree<dreal> ModelTree;
 			typedef ModelTree::Point_ConstIterator ModelIterator;
 
 			ModelTree modelTree;

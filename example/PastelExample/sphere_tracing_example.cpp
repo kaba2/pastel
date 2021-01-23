@@ -3,21 +3,20 @@
 
 #include "pastel_example.h"
 
-#include "pastel/geometry/kdtree.h"
-#include "pastel/geometry/kdtree_tools.h"
-#include "pastel/geometry/intersect_line_sphere.h"
-#include "pastel/geometry/intersect_line_alignedbox.h"
+#include "pastel/geometry/kdtree/kdtree.h"
+#include "pastel/geometry/intersect/intersect_line_sphere.h"
+#include "pastel/geometry/intersect/intersect_line_alignedbox.h"
 
-#include "pastel/math/uniform_sampling.h"
-#include "pastel/math/smoothstep.h"
+#include "pastel/math/sampling/uniform_sampling.h"
+#include "pastel/math/interpolation/smoothstep.h"
 
-#include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/color_palette.h"
+#include "pastel/gfx/color/color_tools.h"
+#include "pastel/gfx/image_file/pcx/savepcx.h"
+#include "pastel/gfx/color/color_palette.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/tristate.h"
-#include "pastel/sys/pool_allocator.h"
+#include "pastel/sys/allocator/pool_allocator.h"
 
 #include <iostream>
 #include <string>
