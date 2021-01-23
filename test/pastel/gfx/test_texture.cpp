@@ -562,7 +562,7 @@ TEST_CASE("Mix (Texture)")
 	loadPcx("lena.pcx", aTexture);
 
 	Array<Color, 2> bTexture;
-	loadPcx("kodak_test_images/kodim19.pcx", bTexture);
+	loadPcx("lena.pcx", bTexture);
 
 	Array<Color, 2> image(Vector2i(750, 750), Color(0));
 
