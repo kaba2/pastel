@@ -4,12 +4,34 @@
 #include "pastel/sys/callfunction.h"
 #include "pastel/sys/ensure.h"
 
+#include <streambuf>
+#include <ostream>
 #include <map>
 
 #include <tbb/task_scheduler_init.h>
 
 namespace Pastel
 {
+
+	class MatlabStreamBuffer 
+	: public std::streambuf 
+	{
+	public:
+		MatlabStreamBuffer() {}
+	
+	protected:
+		virtual int_type overflow(int_type ch) {
+			if(ch != traits_type::eof()) {
+				mexPrintf("%c", static_cast<char>(ch));
+			}
+			return ch;
+		}
+
+		virtual std::streamsize xsputn(const char* s, std::streamsize num) {
+			mexPrintf("%.*s", static_cast<int>(num), s);
+			return num;
+		}
+	};
 
 	namespace
 	{
@@ -134,8 +156,8 @@ extern "C" void mexFunction(
 	// an invariant failure occurs, or a file can't 
 	// be found, etc.
 	std::streambuf* cout_sbuf = std::cout.rdbuf();
-    std::stringbuf sbuf;
-    std::cout.rdbuf(&sbuf);
+   	Pastel::MatlabStreamBuffer mex_sbuf;
+    std::cout.rdbuf(&mex_sbuf);
 
 	try
 	{
@@ -150,8 +172,8 @@ extern "C" void mexFunction(
 		// We simply absorb the exception here.
 	};
 
-	// Print any output to Matlab.
-    mexPrintf(sbuf.str().c_str());
+	// Print any remaining output to matlab.
+	std::cout << std::flush;
 
     // Restore std::cout.
     std::cout.rdbuf(cout_sbuf);
