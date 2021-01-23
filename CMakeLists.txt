@@ -90,7 +90,7 @@ get_filename_component(TbbLibraryName ${TbbLibraryPath} NAME)
 if (BuildMatlab)
 	set (MatlabDirectoryWindows "C:/Program Files/Polyspace/R2020b")
 	set (MatlabDirectoryMac "/Applications/MATLAB_R2020b.app")
-	set (MatlabDirectoryLinux "/mnt/c/Program Files/Polyspace/R2020b")
+	set (MatlabDirectoryLinux "/usr/local/Polyspace/R2020b")
 
 	if (WIN32)
 		set (MatlabDirectory ${MatlabDirectoryWindows})
