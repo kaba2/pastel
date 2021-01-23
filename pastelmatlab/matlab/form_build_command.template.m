@@ -156,6 +156,15 @@ end
 
 % Other flags.
 if strcmp(mode, 'debug')
+    if strcmp('${CompilerId}', 'msvc')
+        % Use debug-mode C++ standard library.
+        commandSet{end + 1} = ' -g COMPFLAGS="$COMPFLAGS /MDd"';
+    else
+        commandSet{end + 1} = ' -g';
+    end
+end
+
+if strcmp(mode, 'relwithdebinfo') 
     commandSet{end + 1} = ' -g';
 end
 
