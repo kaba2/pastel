@@ -45,7 +45,7 @@ namespace Pastel
 		template <typename Type>
 		friend bool operator==(const Type& that, const Infinity_& inf)
 		{
-			return inf == that;
+			return (Type)inf == that;
 		}
 
 		template <Arithmetic_Concept Type>
