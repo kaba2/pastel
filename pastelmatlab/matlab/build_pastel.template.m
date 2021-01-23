@@ -67,8 +67,8 @@ end
 % Libraries
 
 % Note that g++ is sensitive to the order of
-% the libraries; they must occur in from the 
-% referring library to referred library.
+% the libraries; they must occur so that the 
+% referring library becomes before referred library.
 % Otherwise g++ will remove the library, since
 % at that point there are no references to it.
 % In contrast, Visual Studio is insensitive

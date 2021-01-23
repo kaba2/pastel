@@ -1,3 +1,5 @@
+#include <tbb/scalable_allocator.h>
+
 // Source file for mex building
 
 #define FORCE_LINKING(name) \
@@ -6,6 +8,11 @@
 	{ \
 		force_linking_##name(); \
 	}
+
+void call_force_linking_scalable_free() {
+	void* ptr = 0;
+	scalable_free(ptr);
+}
 
 FORCE_LINKING(maximum_bipartite_matching);
 FORCE_LINKING(random_generalized_normal);
