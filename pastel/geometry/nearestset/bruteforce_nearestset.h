@@ -19,6 +19,10 @@ namespace Pastel
 		{
 		}
 
+		integer points() const {
+			return pointSet_.size();
+		}
+
 		auto pointSet() const
 		{
 			return intervalRange(pointSet_);

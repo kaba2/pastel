@@ -27,8 +27,14 @@ namespace Pastel
 		return ranges::empty(set);
 	}
 
-	template <Range_Concept Range>
+	template <ranges::sized_range Range>
 	integer rangeSize(Range&& set)
+	{
+		return ranges::size(std::forward<Range>(set));
+	}
+
+	template <Range_Concept Range>
+	integer rangeDistance(Range&& set)
 	{
 		return ranges::distance(std::forward<Range>(set));
 	}

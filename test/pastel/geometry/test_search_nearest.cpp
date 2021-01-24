@@ -62,7 +62,7 @@ namespace
 		const std::vector<integer>& permutationSet = result.second;
 		
 		auto nearestSet = create.createNearestSet(dataSet);
-		REQUIRE(rangeSize(nearestSet) == distanceSet.size());
+		REQUIRE(nearestSet.points() == distanceSet.size());
 
 		std::vector<dreal> reorderedDistanceSet;
 		for (integer i = 0;i < permutationSet.size();++i)
@@ -108,7 +108,7 @@ namespace
 		const std::vector<integer>& permutationSet = result.second;
 		
 		auto nearestSet = create.createNearestSet(dataSet);
-		REQUIRE(rangeSize(nearestSet) == countSet.size());
+		REQUIRE(nearestSet.points() == countSet.size());
 
 		std::vector<integer> reorderedCountSet;
 		for (integer i = 0;i < permutationSet.size();++i)

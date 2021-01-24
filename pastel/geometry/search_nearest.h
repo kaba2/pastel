@@ -134,7 +134,7 @@ namespace Pastel
 		};
 
 		// The number of points in the point-set.
-		const integer n = rangeSize(nearestSet);
+		const integer n = nearestSet.points();
 
 		// There cannot be more than n neighbors; 
 		// avoid allocating storage in case kNearest

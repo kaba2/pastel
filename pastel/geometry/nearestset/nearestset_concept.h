@@ -16,6 +16,7 @@ namespace Pastel
 	template <typename T>
 	concept NearestSet_Concept_ = requires(T t) {
 		addConst(t).asPoint(std::declval<PointSet_Point<T>>());
+		{ addConst(t).points() } -> std::convertible_to<integer>;
 		addConst(t).findNearbyPointsets(
 			// Search-point
 			Point_Archetype(),

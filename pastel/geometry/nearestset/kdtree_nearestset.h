@@ -60,6 +60,10 @@ namespace Pastel
 		{
 		}
 
+		integer points() const {
+			return kdTree.points();
+		}
+
 		auto pointSet() const
 		{
 			return intervalRange(kdTree.begin(), kdTree.end());
