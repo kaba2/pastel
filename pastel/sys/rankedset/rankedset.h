@@ -33,6 +33,7 @@ namespace Pastel
 			integer capacity = 0,
 			Less less = Less())
 			: dataSet_()
+			, capacity_(0)
 			, less_(std::move(less))
 		{
 			ENSURE_OP(capacity, >= , 0);
@@ -85,7 +86,11 @@ namespace Pastel
 					std::pop_heap(begin(), i, less_);
 				}
 			}
-			return std::move(dataSet_);
+
+			RankedSet self(0);
+			swap(self);
+
+			return std::move(self.dataSet_);
 		}
 
 		//! Removes the maximum element.
@@ -99,13 +104,12 @@ namespace Pastel
 		//! Removes all elements.
 		void clear()
 		{
-			integer k = capacity();
 			dataSet_.clear();
 			// The implementation of std::vector 
 			// may or may not change the capacity 
 			// of the vector. Restore capacity to 
 			// be sure.
-			dataSet_.reserve(k);
+			dataSet_.reserve(capacity_);
 		}
 
 		//! Returns an iterator to the first element.
@@ -133,6 +137,7 @@ namespace Pastel
 
 			dataSet_.swap(that.dataSet_);
 			swap(less_, that.less_);
+			swap(capacity_, that.capacity_);
 		}
 
 		//! Returns the maximum element.
@@ -170,17 +175,22 @@ namespace Pastel
 			}
 
 			dataSet_.reserve(capacity);
+			capacity_ = capacity;
 		}
 
 		//! Returns the capacity of the set.
 		integer capacity() const
 		{
-			return dataSet_.capacity();
+			return capacity_;
 		}
 
 	private:
 		DataSet dataSet_;
 		Less less_;
+		// Note that std::vector's capacity
+		// may be greater than the capacity
+		// stored here.
+		integer capacity_;
 	};
 
 }
