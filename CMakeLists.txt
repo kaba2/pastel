@@ -47,9 +47,11 @@ include ("SetupCompilers")
 message(STATUS 
 	"Current compiler is ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
-add_definitions(
-	-DPASTEL_ENABLE_ASSERTS
-)
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+	add_definitions(
+		-DPASTEL_ENABLE_ASSERTS
+	)
+endif()
 
 # Dependencies
 # ------------
