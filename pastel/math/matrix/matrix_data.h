@@ -213,7 +213,7 @@ namespace Pastel {
         requires std::is_convertible_v<Real_, Real>
         MatrixData& assign(const MatrixView<Real_, M_, N_>& that) {
             if (rows() == that.rows() && cols() == that.cols()) {
-                view().assign(that.view());
+                view().assign(that);
             } else {
                 MatrixData(that).swap(*this);
             }
