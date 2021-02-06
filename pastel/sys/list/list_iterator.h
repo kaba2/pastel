@@ -204,34 +204,6 @@ namespace Pastel
 			}
 
 			template <typename That_Settings>
-			bool operator<(
-				const Iterator<That_Settings>& right) const
-			{
-				return this->base() < right.base();
-			}
-
-			template <typename That_Settings>
-			bool operator>(
-				const Iterator<That_Settings>& right) const
-			{
-				return this->base() > right.base();
-			}
-
-			template <typename That_Settings>
-			bool operator<=(
-				const Iterator<That_Settings>& right) const
-			{
-				return this->base() <= right.base();
-			}
-
-			template <typename That_Settings>
-			bool operator>=(
-				const Iterator<That_Settings>& right) const
-			{
-				return this->base() >= right.base();
-			}
-
-			template <typename That_Settings>
 			bool operator==(
 				const Iterator<That_Settings>& right) const
 			{

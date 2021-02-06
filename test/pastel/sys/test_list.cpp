@@ -38,16 +38,7 @@ TEST_CASE("Iterators (List)")
 		Iterator i = a.begin();
 		ConstIterator j = i;
 		REQUIRE(i == j);
-		REQUIRE(i <= j);
-		REQUIRE(i >= j);
-		i < j;
-		i > j;
-
 		REQUIRE(j == i);
-		REQUIRE(j <= i);
-		REQUIRE(j >= i);
-		j < i;
-		j > i;
 	}
 	{
 		REQUIRE(a.cend().isEnd());

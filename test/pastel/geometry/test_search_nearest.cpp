@@ -152,7 +152,7 @@ public:
 
 		PASTEL_CONCEPT_CHECK(typename Tree::Point, Point_Concept);
 
-		std::map<typename Tree::Point_ConstIterator, integer> iteratorSet;
+		std::map<typename Tree::Point_ConstIterator, integer, IteratorAddress_LessThan> iteratorSet;
 		integer n = 0;
 
 		Tree tree(Locator(), true);
