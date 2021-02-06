@@ -186,11 +186,12 @@ namespace Pastel
 
 	private:
 		DataSet dataSet_;
-		Less less_;
 		// Note that std::vector's capacity
 		// may be greater than the capacity
 		// stored here.
 		integer capacity_;
+		[[no_unique_address]]
+		Less less_;
 	};
 
 }
