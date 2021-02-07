@@ -32,6 +32,8 @@
 
 #include "pastel/sys/rankedset/rankedset.h"
 
+#include <optional>
+
 namespace Pastel
 {
 
@@ -180,7 +182,7 @@ namespace Pastel
 			searchAlgorithm.insertNode(
 				State(kdTree.root(), rootDistance2, indexSequence));
 
-			auto intervalDistance = [&](
+			auto intervalDistance = [](
 				const Real& x,
 				const Real& min, 
 				const Real& max)
@@ -218,16 +220,17 @@ namespace Pastel
 					sequence[i] = parent.cursor.cascade(parent.indexSequence[i], right);
 				}
 
+				std::optional<State> maybeState;
+
 				State state(node, newDistance2, sequence);
 
-				if (newDistance2 > nodeCullDistance2 ||
-					searchAlgorithm.skipNode(state))
+				if (newDistance2 <= nodeCullDistance2 &&
+					!searchAlgorithm.skipNode(state))
 				{
-					return;
+					maybeState = state;
 				}
 
-				searchAlgorithm.insertNode(
-					std::move(state));
+				return maybeState;
 			};
 
 			while (searchAlgorithm.nodesLeft())
@@ -299,8 +302,15 @@ namespace Pastel
 
 				// Queue non-culled child nodes for 
 				// future handling.
-				queueNode(state, searchPosition, false);
-				queueNode(state, searchPosition, true);
+				auto left = queueNode(state, searchPosition, false);
+				auto right = queueNode(state, searchPosition, true);
+
+				if (left && right) {
+					searchAlgorithm.insertNodes(*left, *right);
+				} else {
+					if (left) searchAlgorithm.insertNode(*left);
+					if (right) searchAlgorithm.insertNode(*right);
+				}
 			}
 
 		}
