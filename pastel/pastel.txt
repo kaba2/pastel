@@ -11,22 +11,19 @@ computer graphics.
 Source code
 -----------
 
-The source code for TIM is hosted on [BitBucket][] in a [Mercurial][] 
-repository. Assuming you have Mercurial installed, the repository can 
-be cloned from the command-line by
-
-	hg clone https://bitbucket.org/kaba2/pastel
+The source code for TIM is hosted on [GitHub][] in a [Git][] 
+repository. 
 
 The source code always reflects the current development; it is unstable. 
 To obtain the source code corresponding to this version, write
-
+	
 [[+Verbatim]]:
-	hg update -r 1.5.0
+	git checkout 1.6.0
 
 For previous versions, see the [release history][History]
 
-[BitBucket]: http://bitbucket.org/kaba2/pastel
-[Mercurial]: http://mercurial.selenic.com
+[BitBucket]: http://github.org/kaba2/pastel
+[Mercurial]: https://git-scm.com/
 [History]: [[Ref]]: release_history.txt
 
 License
@@ -41,13 +38,6 @@ consider it from an educational viewpoint containing implementations
 and documentations of useful data structures and algorithms.
 
 [MIT]: http://opensource.org/licenses/mit-license.php
-
-Issue tracker
--------------
-
-The issue tracker for Pastel is hosted on Bitbucket in [here][PastelBugs].
-
-[PastelBugs]: https://bitbucket.org/kaba2/pastel/issues
 
 Sub-libraries
 ------------
