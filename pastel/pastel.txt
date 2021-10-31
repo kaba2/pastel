@@ -22,8 +22,8 @@ To obtain the source code corresponding to this version, write
 
 For previous versions, see the [release history][History]
 
-[BitBucket]: http://github.org/kaba2/pastel
-[Mercurial]: https://git-scm.com/
+[Github]: http://github.org/kaba2/pastel
+[Git]: https://git-scm.com/
 [History]: [[Ref]]: release_history.txt
 
 License
