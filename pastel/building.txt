@@ -23,6 +23,7 @@ Clone Pastel from github
     mkdir code
     cd code
     git clone https://github.com/kaba2/pastel
+    git checkout 1.6.0
 
 Install vcpkg
 -------------
