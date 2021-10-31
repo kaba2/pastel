@@ -5,7 +5,7 @@ Pastel
 
 [Back]: http://kaba.hilvi.org
 
-_Pastel_ is a cross-platform C++ / Matlab library for geometry and 
+_Pastel_ is a cross-platform C++20 / Matlab library for geometry and 
 computer graphics.
 
 Source code
@@ -58,19 +58,3 @@ Pastel divides into a number of sub-libraries. These are:
 
 [[+set_outer DocChildren.exclude]]:
 	[[DocChildren.include]]
-
-[[Comment]]:
-	The following is a javascript for Google Analytics by which we can
-	monitor the visitor statistics of the Pastel homepage.
-
-[[Html]]:
-	<script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<script type="text/javascript">
-	try {
-	var pageTracker = _gat._getTracker("UA-15174506-5");
-	pageTracker._trackPageview();
-	} catch(err) {}</script>
-

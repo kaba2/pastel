@@ -8,41 +8,63 @@ Here are the steps to build Pastel in Linux. The same steps work in Windows with
 Compiler
 --------
 
-Since Pastel uses C++14, it requires a recent compiler to be built. The following work:
+Since Pastel uses C++20, it requires a recent compiler to be built. The following work:
 
 Operating system           | Compiler
 ---------------------------|------------------------
-Windows                    | Visual Studio 2019 or later
-Linux                      | Gcc 10 or later
+Windows                    | Visual Studio 2019 16.11.5 or later
+Linux                      | Gcc 11 or later
+Linux                      | Clang ? or later
 MacOsX                     | XCode ? or later
 
 Clone Pastel from github
 ------------------------
 
-    cd ~
-    mkdir code
-    cd code
     git clone https://github.com/kaba2/pastel
+    cd pastel
     git checkout 1.6.0
 
 Install vcpkg
 -------------
 
-    cd pastel
+In the directory Pastel was cloned to (e.g. `pastel`):
+
     git clone https://github.com/microsoft/vcpkg
-    ./vcpkg/bootstrap-vcpkg.sh
-    ./vcpkg/vcpkg integrate bash
+    cd vcpkg
+
+### Linux
+
+    ./bootstrap-vcpkg.sh
+    ./vcpkg integrate bash
+
+### Windows
+
+    bootstrap-vcpkg
+    vcpkg integrate install
 
 Install dependencies
 --------------------
 
-    ./vcpkg/vcpkg install boost
-    ./vcpkg/vcpkg install tbb
-    ./vcpkg/vcpkg install range-v3
-    ./vcpkg/vcpkg install eigen3
+In the directory vcpkg was cloned to (e.g. `pastel/vcpkg`):
+
+### Linux
+
+    ./vcpkg install boost
+    ./vcpkg install tbb
+    ./vcpkg install range-v3
+    ./vcpkg install eigen3
+
+### Windows
+
+    vcpkg install boost
+    vcpkg install tbb
+    vcpkg install range-v3
+    vcpkg install eigen3
 
 Generate build files
 --------------------
+
+In the directory Pastel was cloned to (e.g. `pastel`):
 
 The build files are generated using [CMake][]:
 
@@ -98,9 +120,8 @@ The `j` option specifies the number of threads to use in the building process. O
 
 ### Visual Studio
 
-To build Pastel in Visual Studio:
+    start build/Pastel.sln
 
- * Open the solution file `build/Pastel.sln`. 
  * Build the solution (F7).
 
 ### XCode
