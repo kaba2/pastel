@@ -11,8 +11,11 @@ computer graphics.
 Source code
 -----------
 
-The source code for TIM is hosted on [GitHub][] in a [Git][] 
-repository. 
+The source code for Pastel is hosted on [GitHub][] in a [Git][] 
+repository. Assuming you have Git installed, the repository can be cloned from the command-line by
+
+[[+Verbatim]]:
+	git clone https://github.com/kaba2/pastel
 
 The source code always reflects the current development; it is unstable. 
 To obtain the source code corresponding to this version, write
